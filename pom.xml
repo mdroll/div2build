@@ -19,13 +19,7 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
-        </dependency>
-        <dependency>
-        	<groupId>org.junit.jupiter</groupId>
-        	<artifactId>junit-jupiter-api</artifactId>
-        	<version>5.7.2</version>
-        	<type>pom.sha512</type>
-        </dependency>
+        </dependency>    
         <dependency>
         	<groupId>org.xerial</groupId>
         	<artifactId>sqlite-jdbc</artifactId>
