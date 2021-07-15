@@ -181,7 +181,6 @@ public class World implements Populateable {
 		try {
 			for (String name : Manufacturer.manufacturerList) {
 				Manufacturer manufacturer = new Manufacturer(name);
-				
 				World.Registry.set("manufacturer", name, manufacturer);
 			}			
 
@@ -231,7 +230,8 @@ public class World implements Populateable {
         				result.getString("requiredspecialization"),
         				result.getInt("exotic")
         			);
-        		} 
+        		}
+        		// TODO Instead of mod.getId() use result.getString("name"). addMod(44) instead of addMod("CRITICAL HIT CHANCE")?
         		World.Registry.set("mod", String.valueOf(mod.getId()), mod);
         	}        	
 	    	
