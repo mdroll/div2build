@@ -1,5 +1,7 @@
 package at.droll.div2builder.framework.inventory;
 
+import at.droll.div2builder.framework.statistic.Statistic;
+
 /**
  * Loadout class
  * @author Marco Droll

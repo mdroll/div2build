@@ -122,6 +122,10 @@ public enum Attribute {
 	MAGSIZE,	
 	
 	/**
+	 * OFFENSIVE
+	 */
+	
+	/**
 	 * Optimal range
 	 */
 	OPTIMALRANGE,

@@ -1,6 +1,5 @@
-package at.droll.div2builder.framework.inventory;
+package at.droll.div2builder.framework.statistic;
 
-import at.droll.div2builder.framework.attribute.*;
 import at.droll.div2builder.framework.item.Equipment;
 import at.droll.div2builder.framework.item.ItemAbstract;
 import at.droll.div2builder.framework.item.Weapon;
@@ -8,12 +7,12 @@ import at.droll.div2builder.framework.mod.Mod;
 import at.droll.div2builder.framework.mod.Modslot;
 import at.droll.div2builder.framework.Manufacturer;
 import at.droll.div2builder.framework.World;
-import at.droll.div2builder.framework.World.Registry;
 import at.droll.div2builder.framework.attribute.Attribute;
+import at.droll.div2builder.framework.inventory.Inventory;
+import at.droll.div2builder.framework.inventory.InventorySlot;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Statistic class
@@ -124,22 +123,22 @@ public class Statistic {
 	/**
 	 * Default value for Lightmachine Gun when the Player hits level 30 and he unlocks the talent in the tree
 	 */
-	public static final double LEVEL30_LMGDAMAGE = Statistic.LEVEL30_ASSAULTRIFLEDAMAGE;
+	public static final double LEVEL30_LMGDAMAGE = LEVEL30_ASSAULTRIFLEDAMAGE;
 	
 	/**
 	 * Default value for Marksmanrifle Damage when the Player hits level 30 and he unlocks the talent in the tree
 	 */
-	public static final double LEVEL30_MARKMANRIFLEDAMAGE = Statistic.LEVEL30_ASSAULTRIFLEDAMAGE;
+	public static final double LEVEL30_MARKMANRIFLEDAMAGE = LEVEL30_ASSAULTRIFLEDAMAGE;
 	
 	/**
 	 * Default value for Pistol Damage when the Player hits level 30 and he unlocks the talent in the tree
 	 */
-	public static final double LEVEL30_PISTOLDAMAGE = Statistic.LEVEL30_ASSAULTRIFLEDAMAGE;
+	public static final double LEVEL30_PISTOLDAMAGE = LEVEL30_ASSAULTRIFLEDAMAGE;
 	
 	/**
 	 * Default value for Rifle Damage when the Player hits level 30 and he unlocks the talent in the tree
 	 */
-	public static final double LEVEL30_RIFLEDAMAGE = Statistic.LEVEL30_ASSAULTRIFLEDAMAGE;
+	public static final double LEVEL30_RIFLEDAMAGE = LEVEL30_ASSAULTRIFLEDAMAGE;
 		
 	/**
 	 * Default value for Reload Speed when the Player hits level 30 and he unlocks the talent in the tree
@@ -149,12 +148,12 @@ public class Statistic {
 	/**
 	 * Default value for Shotgun Damage when the Player hits level 30 and he unlocks the talent in the tree
 	 */
-	public static final double LEVEL30_SHOTGUNDAMAGE = Statistic.LEVEL30_ASSAULTRIFLEDAMAGE;
+	public static final double LEVEL30_SHOTGUNDAMAGE = LEVEL30_ASSAULTRIFLEDAMAGE;
 	
 	/**
 	 * Default value for Submachien Gun Damage when the Player hits level 30 and he unlocks the talent in the tree
 	 */
-	public static final double LEVEL30_SMGDAMAGE = Statistic.LEVEL30_ASSAULTRIFLEDAMAGE;
+	public static final double LEVEL30_SMGDAMAGE = LEVEL30_ASSAULTRIFLEDAMAGE;
 	
 	/**
 	 * Default value for Assault Rifle when the Player hits level 30 and he unlocks the talent in the tree
@@ -218,49 +217,49 @@ public class Statistic {
 			
 			switch(attribute) {
 				case ACCURACY:
-					this.playerStats.put(attribute, Statistic.LEVEL30_ACCURARY);
+					this.playerStats.put(attribute, LEVEL30_ACCURARY);
 					break;				
 				case ASSAULTRIFLEDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_ASSAULTRIFLEDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_ASSAULTRIFLEDAMAGE);
 					break;
 				case CRITICALHITDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_CRITICALHITDAMAGE);					
+					this.playerStats.put(attribute, LEVEL30_CRITICALHITDAMAGE);					
 					break;
 				case HEADSHOTDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_HEADSHOTDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_HEADSHOTDAMAGE);
 					break;
 				case LMGDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_LMGDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_LMGDAMAGE);
 					break;
 				case MARKSMANRIFLEDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_MARKMANRIFLEDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_MARKMANRIFLEDAMAGE);
 					break;
 				case PISTOLDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_PISTOLDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_PISTOLDAMAGE);
 					break;
 				case RIFLEDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_RIFLEDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_RIFLEDAMAGE);
 					break;
 				case RELOADSPEED:
-					this.playerStats.put(attribute, Statistic.LEVEL30_RELOADSPEED);					
+					this.playerStats.put(attribute, LEVEL30_RELOADSPEED);					
 					break;
 				case SHOTGUNDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_SHOTGUNDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_SHOTGUNDAMAGE);
 					break;
 				case SMGDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_SMGDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_SMGDAMAGE);
 					break;
 				case STABILITY:
-					this.playerStats.put(attribute, Statistic.LEVEL30_STABILITY);
+					this.playerStats.put(attribute, LEVEL30_STABILITY);
 					break;
 				case SWAPSPEED:
-					this.playerStats.put(attribute, Statistic.LEVEL30_SWAPSPEED);
+					this.playerStats.put(attribute, LEVEL30_SWAPSPEED);
 					break;
 				case WEAPONDAMAGE:
-					this.playerStats.put(attribute, Statistic.LEVEL30_WEAPONDAMAGE);
+					this.playerStats.put(attribute, LEVEL30_WEAPONDAMAGE);
 					break;
 				case WEAPONHANDLING:
-					this.playerStats.put(attribute, Statistic.LEVEL30_WEAPONHANDLING);
+					this.playerStats.put(attribute, LEVEL30_WEAPONHANDLING);
 					break;
 				default:
 					this.playerStats.put(attribute, 0.0);
@@ -272,67 +271,67 @@ public class Statistic {
 			
 			this.playerStats.computeIfPresent(
 				Attribute.ACCURACY, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_ACCURACY
+				attributeValue + KEENER_WATCH_ACCURACY
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.AMMOCAPACITY, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_AMMOCAPACITY
+				attributeValue + KEENER_WATCH_AMMOCAPACITY
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.CRITICALHITCHANCE, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_CRITICALHITCHANCE
+				attributeValue + KEENER_WATCH_CRITICALHITCHANCE
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.CRITICALHITDAMAGE, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_CRITICALHITDAMAGE
+				attributeValue + KEENER_WATCH_CRITICALHITDAMAGE
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.EXPLOSIVERESISTANCE, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_EXPLOSIVERESISTANCE
+				attributeValue + KEENER_WATCH_EXPLOSIVERESISTANCE
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.HAZARDPROTECTION, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_HAZARDPROTECTION
+				attributeValue + KEENER_WATCH_HAZARDPROTECTION
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.HEALTH, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_HEALTH
+				attributeValue + KEENER_WATCH_HEALTH
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.HEADSHOTDAMAGE, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_HEADSHOTDAMAGE
+				attributeValue + KEENER_WATCH_HEADSHOTDAMAGE
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.RELOADSPEED, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_RELOADSPEED
+				attributeValue + KEENER_WATCH_RELOADSPEED
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.REPAIRSKILLS, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_REPAIRSKILLS
+				attributeValue + KEENER_WATCH_REPAIRSKILLS
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.SKILLDAMAGE, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_SKILLDAMAGE
+				attributeValue + KEENER_WATCH_SKILLDAMAGE
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.SKILLDURATION, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_SKILLDURATION
+				attributeValue + KEENER_WATCH_SKILLDURATION
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.SKILLHASTE, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_SKILLHASTE
+				attributeValue + KEENER_WATCH_SKILLHASTE
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.STABILITY, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_STABILITY
+				attributeValue + KEENER_WATCH_STABILITY
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.TOTALARMOR, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_TOTALARMOR
+				attributeValue + KEENER_WATCH_TOTALARMOR
 			);
 			this.playerStats.computeIfPresent(
 				Attribute.WEAPONDAMAGE, (attribute, attributeValue) ->
-				attributeValue + Statistic.KEENER_WATCH_WEAPONDAMAGE
+				attributeValue + KEENER_WATCH_WEAPONDAMAGE
 			);
 		}
 	}
@@ -611,8 +610,7 @@ public class Statistic {
 		}
 		
 		colors.put("core", coreAttributes);
-		colors.put("minor", minorAttributes);
-		
+		colors.put("minor", minorAttributes);		
 		return colors;
 	}
 	

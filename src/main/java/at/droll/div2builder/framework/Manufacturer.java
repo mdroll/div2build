@@ -713,11 +713,8 @@ public class Manufacturer extends AttributeAbstract implements Buildable {
 	 * Named Item equipment list
 	 */
 	public static final String[] manufacturerList = {
-		 Manufacturer.AIRALDI, Manufacturer.ALPS, Manufacturer.BADGER,  Manufacturer.BELSTONE, Manufacturer.CESKA,
-		 Manufacturer.CHINA, Manufacturer.DOUGLAS, Manufacturer.EMPRESS, Manufacturer.FENRIS, Manufacturer.FIVEELEVEN,
-		 Manufacturer.GILA, Manufacturer.GOLAN, Manufacturer.GRUPO, Manufacturer.HANA, Manufacturer.MURAKAMI,
-		 Manufacturer.OVERLORD, Manufacturer.PETROV, Manufacturer.PROVIDENCE, Manufacturer.RICHTER,
-		 Manufacturer.SOKOLOV, Manufacturer.WALKER, Manufacturer.WYVERN, Manufacturer.YAAHL
+		AIRALDI, ALPS, BADGER, BELSTONE, CESKA, CHINA, DOUGLAS, EMPRESS, FENRIS, FIVEELEVEN, GILA, GOLAN, GRUPO,
+		HANA, MURAKAMI, OVERLORD, PETROV, PROVIDENCE, RICHTER, SOKOLOV, WALKER, WYVERN, YAAHL
 	};
 	
 	/**
@@ -746,185 +743,185 @@ public class Manufacturer extends AttributeAbstract implements Buildable {
 	public Manufacturer(String name) throws AttributeException {	
 		switch(name) {
 			default:
-			case Manufacturer.AIRALDI:
-				this.setName(Manufacturer.AIRALDI_LONGNAME)
-					.setShortname(Manufacturer.AIRALDI)
+			case AIRALDI:
+				this.setName(AIRALDI_LONGNAME)
+					.setShortname(AIRALDI)
 					.setCore(Attribute.WEAPONDAMAGE, AIRALDI_CORE_VALUE)
 					.setFirst(Attribute.MARKSMANRIFLEDAMAGE, AIRALDI_FIRST_VALUE)
 					.setSecond(Attribute.HEADSHOTDAMAGE, AIRALDI_SECOND_VALUE)
 					.setThird(Attribute.DAMAGETOHEALTH, AIRALDI_THIRD_VALUE);
 				break;
-			case Manufacturer.ALPS:
-				this.setName(Manufacturer.ALPS_LONGNAME)
-					.setShortname(Manufacturer.ALPS)
+			case ALPS:
+				this.setName(ALPS_LONGNAME)
+					.setShortname(ALPS)
 					.setCore(Attribute.SKILLTIER, ALPS_CORE_VALUE)
 					.setFirst(Attribute.REPAIRSKILLS, ALPS_FIRST_VALUE)
 					.setSecond(Attribute.SKILLDURATION, ALPS_SECOND_VALUE)
 					.setThird(Attribute.SKILLHASTE, ALPS_THIRD_VALUE);
 				break;
-			case Manufacturer.BADGER:
-				this.setName(Manufacturer.BADGER_LONGNAME)
-					.setShortname(Manufacturer.BADGER)
+			case BADGER:
+				this.setName(BADGER_LONGNAME)
+					.setShortname(BADGER)
 					.setCore(Attribute.ARMOR, BADGER_CORE_VALUE)
 					.setFirst(Attribute.SHOTGUNDAMAGE, BADGER_FIRST_VALUE)
 					.setSecond(Attribute.TOTALARMOR, BADGER_SECOND_VALUE)
 					.setThird(Attribute.ARMORONKILL, BADGER_THIRD_VALUE);
 				break;
-			case Manufacturer.BELSTONE:
-				this.setName(Manufacturer.BELSTONE_LONGNAME)
-					.setShortname(Manufacturer.BELSTONE)
+			case BELSTONE:
+				this.setName(BELSTONE_LONGNAME)
+					.setShortname(BELSTONE)
 					.setCore(Attribute.ARMOR, BELSTONE_CORE_VALUE)
 					.setFirst(Attribute.ARMORREGEN, BELSTONE_FIRST_VALUE)
 					.setSecond(Attribute.ARMORONKILL, BELSTONE_SECOND_VALUE)
 					.setThird(Attribute.INCOMINGREPAIRS, BELSTONE_THIRD_VALUE);
 				break;
-			case Manufacturer.CESKA:
-				this.setName(Manufacturer.CESKA_LONGNAME)
-					.setShortname(Manufacturer.CESKA)
+			case CESKA:
+				this.setName(CESKA_LONGNAME)
+					.setShortname(CESKA)
 					.setCore(Attribute.WEAPONDAMAGE, CESKA_CORE_VALUE)
 					.setFirst(Attribute.CRITICALHITCHANCE, CESKA_FIRST_VALUE)
 					.setSecond(Attribute.HAZARDPROTECTION, CESKA_SECOND_VALUE)
 					.setThird(Attribute.HEALTH, CESKA_THIRD_VALUE);
 				break;
-			case Manufacturer.CHINA:
-				this.setName(Manufacturer.CHINA_LONGNAME)
-					.setShortname(Manufacturer.CHINA)
+			case CHINA:
+				this.setName(CHINA_LONGNAME)
+					.setShortname(CHINA)
 					.setCore(Attribute.SKILLTIER, CHINA_CORE_VALUE)
 					.setFirst(Attribute.EXPLOSIVESDAMAGE, CHINA_FIRST_VALUE)
 					.setSecond(Attribute.SKILLHASTE, CHINA_SECOND_VALUE)
 					.setThird(Attribute.STATUSEFFECTS, CHINA_THIRD_VALUE);
 				break;
-			case Manufacturer.DOUGLAS:
-				this.setName(Manufacturer.DOUGLAS_LONGNAME)
-					.setShortname(Manufacturer.DOUGLAS)
+			case DOUGLAS:
+				this.setName(DOUGLAS_LONGNAME)
+					.setShortname(DOUGLAS)
 					.setCore(Attribute.WEAPONDAMAGE, DOUGLAS_CORE_VALUE)
 					.setFirst(Attribute.PISTOLDAMAGE, DOUGLAS_FIRST_VALUE)
 					.setSecond(Attribute.STABILITY, DOUGLAS_SECOND_VALUE)
 					.setThird(Attribute.ACCURACY, DOUGLAS_THIRD_VALUE);
 				break;
-			case Manufacturer.EMPRESS:
-				this.setName(Manufacturer.EMPRESS_LONGNAME)
-					.setShortname(Manufacturer.EMPRESS)
+			case EMPRESS:
+				this.setName(EMPRESS_LONGNAME)
+					.setShortname(EMPRESS)
 					.setCore(Attribute.SKILLTIER, EMPRESS_CORE_VALUE)
 					.setFirst(Attribute.SKILLHEALTH, EMPRESS_FIRST_VALUE)
 					.setSecond(Attribute.SKILLDAMAGE, EMPRESS_SECOND_VALUE)
 					.setThird(Attribute.SKILLEFFICIENCY, EMPRESS_THIRD_VALUE);
 				break;
-			case Manufacturer.FENRIS:
-				this.setName(Manufacturer.FENRIS_LONGNAME)
-					.setShortname(Manufacturer.FENRIS)
+			case FENRIS:
+				this.setName(FENRIS_LONGNAME)
+					.setShortname(FENRIS)
 					.setCore(Attribute.WEAPONDAMAGE, FENRIS_CORE_VALUE)
 					.setFirst(Attribute.ASSAULTRIFLEDAMAGE, FENRIS_FIRST_VALUE)
 					.setSecond(Attribute.RELOADSPEED, FENRIS_SECOND_VALUE)
 					.setThird(Attribute.STABILITY, FENRIS_THIRD_VALUE);
 				break;
-			case Manufacturer.FIVEELEVEN:
-				this.setName(Manufacturer.FIVEELEVEN_LONGNAME)
-					.setShortname(Manufacturer.FIVEELEVEN)
+			case FIVEELEVEN:
+				this.setName(FIVEELEVEN_LONGNAME)
+					.setShortname(FIVEELEVEN)
 					.setCore(Attribute.ARMOR, FIVEELEVEN_CORE_VALUE)
 					.setFirst(Attribute.HEALTH,FIVEELEVEN_FIRST_VALUE)
 					.setSecond(Attribute.INCOMINGREPAIRS, FIVEELEVEN_SECOND_VALUE)
 					.setThird(Attribute.HAZARDPROTECTION, FIVEELEVEN_THIRD_VALUE);
 				break;
-			case Manufacturer.GILA:
-				this.setName(Manufacturer.GILA_LONGNAME)
-					.setShortname(Manufacturer.GILA)
+			case GILA:
+				this.setName(GILA_LONGNAME)
+					.setShortname(GILA)
 					.setCore(Attribute.ARMOR, GILA_CORE_VALUE)
 					.setFirst(Attribute.TOTALARMOR, GILA_FIRST_VALUE)
 					.setSecond(Attribute.HEALTH, GILA_SECOND_VALUE)
 					.setThird(Attribute.ARMORREGEN, GILA_THIRD_VALUE);
 				break;
-			case Manufacturer.GOLAN:
-				this.setName(Manufacturer.GOLAN_LONGNAME)
-					.setShortname(Manufacturer.GOLAN)
+			case GOLAN:
+				this.setName(GOLAN_LONGNAME)
+					.setShortname(GOLAN)
 					.setCore(Attribute.SKILLTIER, GOLAN_CORE_VALUE)
 					.setFirst(Attribute.STATUSEFFECTS, GOLAN_FIRST_VALUE)
 					.setSecond(Attribute.ARMORREGEN, GOLAN_SECOND_VALUE)
 					.setThird(Attribute.TOTALARMOR, GOLAN_THIRD_VALUE);
 				break;
-			case Manufacturer.GRUPO:
-				this.setName(Manufacturer.GRUPO_LONGNAME)
-					.setShortname(Manufacturer.GRUPO)
+			case GRUPO:
+				this.setName(GRUPO_LONGNAME)
+					.setShortname(GRUPO)
 					.setCore(Attribute.WEAPONDAMAGE, GRUPO_CORE_VALUE)
 					.setFirst(Attribute.CRITICALHITDAMAGE, GRUPO_FIRST_VALUE)
 					.setSecond(Attribute.EXPLOSIVESDAMAGE, GRUPO_SECOND_VALUE)
 					.setThird(Attribute.HEADSHOTDAMAGE, GRUPO_THIRD_VALUE);
 				break;				
-			case Manufacturer.HANA:
-				this.setName(Manufacturer.HANA_LONGNAME)
-					.setShortname(Manufacturer.HANA)
+			case HANA:
+				this.setName(HANA_LONGNAME)
+					.setShortname(HANA)
 					.setCore(Attribute.SKILLTIER, HANA_CORE_VALUE)
 					.setFirst(Attribute.SKILLHASTE, HANA_FIRST_VALUE)
 					.setSecond(Attribute.SKILLDAMAGE, HANA_SECOND_VALUE)
 					.setThird(Attribute.WEAPONDAMAGE, HANA_THIRD_VALUE);
 				break;
-			case Manufacturer.MURAKAMI:
-				this.setName(Manufacturer.MURAKAMI_LONGNAME)
-					.setShortname(Manufacturer.MURAKAMI)
+			case MURAKAMI:
+				this.setName(MURAKAMI_LONGNAME)
+					.setShortname(MURAKAMI)
 					.setCore(Attribute.SKILLTIER, MURAKAMI_CORE_VALUE)
 					.setFirst(Attribute.SKILLDURATION, MURAKAMI_FIRST_VALUE)
 					.setSecond(Attribute.REPAIRSKILLS, MURAKAMI_SECOND_VALUE)
 					.setThird(Attribute.SKILLDAMAGE, MURAKAMI_THIRD_VALUE);
 				break;
-			case Manufacturer.OVERLORD:
-				this.setName(Manufacturer.OVERLORD_LONGNAME)
-					.setShortname(Manufacturer.OVERLORD)
+			case OVERLORD:
+				this.setName(OVERLORD_LONGNAME)
+					.setShortname(OVERLORD)
 					.setCore(Attribute.WEAPONDAMAGE, OVERLORD_CORE_VALUE)
 					.setFirst(Attribute.RIFLEDAMAGE, OVERLORD_FIRST_VALUE)
 					.setSecond(Attribute.ACCURACY, OVERLORD_SECOND_VALUE)
 					.setThird(Attribute.WEAPONHANDLING, OVERLORD_THIRD_VALUE);
 				break;
-			case Manufacturer.PETROV:
-				this.setName(Manufacturer.PETROV_LONGNAME)
-					.setShortname(Manufacturer.PETROV)
+			case PETROV:
+				this.setName(PETROV_LONGNAME)
+					.setShortname(PETROV)
 					.setCore(Attribute.WEAPONDAMAGE, PETROV_CORE_VALUE)
 					.setFirst(Attribute.LMGDAMAGE, PETROV_FIRST_VALUE)
 					.setSecond(Attribute.WEAPONHANDLING, PETROV_SECOND_VALUE)
 					.setThird(Attribute.AMMOCAPACITY, PETROV_THIRD_VALUE);
 				break;
-			case Manufacturer.PROVIDENCE:
-				this.setName(Manufacturer.PROVIDENCE_LONGNAME)
-					.setShortname(Manufacturer.PROVIDENCE)
+			case PROVIDENCE:
+				this.setName(PROVIDENCE_LONGNAME)
+					.setShortname(PROVIDENCE)
 					.setCore(Attribute.WEAPONDAMAGE, PROVIDENCE_CORE_VALUE)
 					.setFirst(Attribute.HEADSHOTDAMAGE, PROVIDENCE_FIRST_VALUE)
 					.setSecond(Attribute.CRITICALHITCHANCE, PROVIDENCE_SECOND_VALUE)
 					.setThird(Attribute.CRITICALHITDAMAGE, PROVIDENCE_THIRD_VALUE);
 				break;			
-			case Manufacturer.RICHTER:
-				this.setName(Manufacturer.RICHTER_LONGNAME)
-					.setShortname(Manufacturer.RICHTER)
+			case RICHTER:
+				this.setName(RICHTER_LONGNAME)
+					.setShortname(RICHTER)
 					.setCore(Attribute.SKILLTIER, RICHTER_CORE_VALUE)
 					.setFirst(Attribute.INCOMINGREPAIRS, RICHTER_FIRST_VALUE)
 					.setSecond(Attribute.EXPLOSIVERESISTANCE, RICHTER_SECOND_VALUE)
 					.setThird(Attribute.REPAIRSKILLS, RICHTER_THIRD_VALUE);
 				break;				
-			case Manufacturer.SOKOLOV:
-				this.setName(Manufacturer.CESKA_LONGNAME)
-					.setShortname(Manufacturer.SOKOLOV)
+			case SOKOLOV:
+				this.setName(CESKA_LONGNAME)
+					.setShortname(SOKOLOV)
 					.setCore(Attribute.WEAPONDAMAGE, SOKOLOV_CORE_VALUE)
 					.setFirst(Attribute.SMGDAMAGE, SOKOLOV_FIRST_VALUE)
 					.setSecond(Attribute.CRITICALHITDAMAGE, SOKOLOV_SECOND_VALUE)
 					.setThird(Attribute.CRITICALHITCHANCE, SOKOLOV_THIRD_VALUE);
 				break;				
-			case Manufacturer.WALKER:
-				this.setName(Manufacturer.WALKER_LONGNAME)
-					.setShortname(Manufacturer.WALKER)
+			case WALKER:
+				this.setName(WALKER_LONGNAME)
+					.setShortname(WALKER)
 					.setCore(Attribute.WEAPONDAMAGE, WALKER_CORE_VALUE)
 					.setFirst(Attribute.WEAPONDAMAGE, WALKER_FIRST_VALUE)
 					.setSecond(Attribute.DAMAGETOARMOR, WALKER_SECOND_VALUE)
 					.setThird(Attribute.DAMAGETOHEALTH, WALKER_THIRD_VALUE);
 				break;				
-			case Manufacturer.WYVERN:
-				this.setName(Manufacturer.WYVERN_LONGNAME)
-					.setShortname(Manufacturer.WYVERN)
+			case WYVERN:
+				this.setName(WYVERN_LONGNAME)
+					.setShortname(WYVERN)
 					.setCore(Attribute.SKILLTIER, WYVERN_CORE_VALUE)
 					.setFirst(Attribute.SKILLDAMAGE, WYVERN_FIRST_VALUE)
 					.setSecond(Attribute.STATUSEFFECTS, WYVERN_SECOND_VALUE)
 					.setThird(Attribute.SKILLDURATION, WYVERN_THIRD_VALUE);
 				break;				
-			case Manufacturer.YAAHL:
-				this.setName(Manufacturer.YAAHL_LONGNAME)
-					.setShortname(Manufacturer.YAAHL)
+			case YAAHL:
+				this.setName(YAAHL_LONGNAME)
+					.setShortname(YAAHL)
 					.setCore(Attribute.ARMOR, YAAHL_CORE_VALUE)
 					.setFirst(Attribute.HAZARDPROTECTION, YAAHL_FIRST_VALUE)
 					.setSecond(Attribute.WEAPONDAMAGE, YAAHL_SECOND_VALUE)
@@ -958,7 +955,7 @@ public class Manufacturer extends AttributeAbstract implements Buildable {
 	}
 	
 	/**
-	 * Default method of returning attribute and values of a manufacturer. Values as key value pair collection of
+	 * Default method of returning attribute and values of a  Values as key value pair collection of
 	 * {link Attribute} as key and {link Double}
 	 * as value
 	 * 
