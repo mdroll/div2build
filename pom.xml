@@ -8,7 +8,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <!--  maven.test.skip>true</maven.test.skip>-->
     </properties>
     <dependencies>
         <dependency>
@@ -19,7 +18,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
+            <version>16</version>
         </dependency>    
         <dependency>
         	<groupId>org.xerial</groupId>
@@ -52,7 +51,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>at.droll.div2builder.App</mainClass>
+                            <mainClass>at.droll.div2builder.frontend.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>
