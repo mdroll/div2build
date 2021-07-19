@@ -19,6 +19,7 @@ import java.util.HashMap;
  * @see Equipment.Builder
  */
 public class Equipment extends ItemAbstract implements Equipmentable, Modable {
+			
 	
 	/**
 	 * Is the item an crafted improvised item (with additional mod slot)?

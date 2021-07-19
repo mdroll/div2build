@@ -18,22 +18,22 @@ public class App extends Application {
 
     private static Scene scene;
 
-    /**
-     * Overwritten initialize method for every scene 
-     */
-    @Override
-    public void init() throws Exception {
-    	
-    	// TODO Multi language support
-//    	Locale supportedLocales[] = { Locale.GERMAN, Locale.ENGLISH };
-//    	ResourceBundle labels = ResourceBundle.getBundle(
-//    			App.class.getResource("language/Translation").toExternalForm(),
-//    			Locale.getDefault(),
-//    			this.getClass().getClassLoader()
-//    	);
-    	
-    	super.init();
-    }
+//    /**
+//     * Overwritten initialize method for every scene 
+//     */
+//    @Override
+//    public void init() throws Exception {
+//    	
+//    	// TODO Multi language support
+////    	Locale supportedLocales[] = { Locale.GERMAN, Locale.ENGLISH };
+////    	ResourceBundle labels = ResourceBundle.getBundle(
+////    			App.class.getResource("language/Translation").toExternalForm(),
+////    			Locale.getDefault(),
+////    			this.getClass().getClassLoader()
+////    	);
+//    	
+//    	super.init();
+//    }
     
     
     /**
@@ -41,7 +41,7 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 1280, 720);
+        scene = new Scene(loadFXML("main"), 1280, 810);
         scene.getStylesheets().add(App.class.getResource("assets/div2builder.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("div2builder");

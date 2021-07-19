@@ -1,5 +1,6 @@
 package at.droll.div2builder.core;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 

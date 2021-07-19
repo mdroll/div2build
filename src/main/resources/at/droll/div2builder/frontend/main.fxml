@@ -2,82 +2,233 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="inventorypane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="803.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.droll.div2builder.frontend.MainController">
    <children>
-      <FlowPane prefHeight="592.0" prefWidth="884.0">
+      <FlowPane prefHeight="757.0" prefWidth="805.0">
          <children>
-            <TitledPane animated="false" text="Badger Tuff">
+            <TitledPane fx:id="titledpanemask" animated="false" text="Mask">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="130.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="142.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@assets/mask.png" />
                            </image>
                         </ImageView>
-                        <GridPane layoutX="30.0" layoutY="24.0" prefHeight="140.0" prefWidth="351.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="123.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="192.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="56.0" minHeight="7.0" prefHeight="27.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Skill Tier" />
-                           </children>
-                        </GridPane>
                      </children>
                   </AnchorPane>
               </content>
+               <graphic>
+                  <ImageView fx:id="maskbrandimage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/division.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </TitledPane>
-            <TitledPane animated="false" text="Backpack">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0" />
-              </content>
+            <TitledPane fx:id="titledpanebackpack" animated="false" layoutX="10.0" layoutY="10.0" text="Backpack">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="142.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/backpack.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+                <graphic>
+                  <ImageView fx:id="backpackbrandimage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/division.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </TitledPane>
-            <TitledPane animated="false" text="Chest">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0" />
-              </content>
+            <TitledPane fx:id="titledpanearmor" animated="false" layoutX="412.0" layoutY="10.0" text="Armor">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="142.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/vest.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+                <graphic>
+                  <ImageView fx:id="armorbrandimage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/division.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </TitledPane>
-            <TitledPane animated="false" text="Glove">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0" />
-              </content>
+            <TitledPane fx:id="titledpaneglove" animated="false" layoutX="10.0" layoutY="186.0" text="Glove">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="142.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/gloves.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+                <graphic>
+                  <ImageView fx:id="glovebrandimage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/division.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </TitledPane>
-            <TitledPane animated="false" text="Holster">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0" />
-              </content>
+            <TitledPane fx:id="titledpaneholster" animated="false" layoutX="412.0" layoutY="186.0" text="Holster">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="142.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/holster.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+                <graphic>
+                  <ImageView fx:id="holsterbrandimage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/division.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </TitledPane>
-            <TitledPane animated="false" text="Kneepad">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0" />
-              </content>
+            <TitledPane fx:id="titledpanekneepads" animated="false" layoutX="10.0" layoutY="362.0" text="Glove">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="142.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/kneepads.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+                <graphic>
+                  <ImageView fx:id="kneepadsbrandimage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Division.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </TitledPane>
+            <TitledPane fx:id="titledpaneprimary" animated="false" layoutX="10.0" layoutY="362.0" text="Primary Weapon">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="266.0" />
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="titledpanesecondary" animated="false" layoutX="10.0" layoutY="538.0" text="Secondary Weapon">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="266.0" />
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="titledpanepistol" animated="false" layoutX="278.0" layoutY="538.0" text="Pistol">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="266.0" />
+               </content>
             </TitledPane>
          </children>
       </FlowPane>
-      <TreeTableView layoutX="803.0" prefHeight="618.0" prefWidth="475.0">
-        <columns>
-          <TreeTableColumn prefWidth="75.0" text="C1" />
-          <TreeTableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TreeTableView>
+      <Pane layoutX="804.0" layoutY="1.0" prefHeight="775.0" prefWidth="476.0">
+         <children>
+            <Label fx:id="coreblue" layoutX="328.0" layoutY="585.0" text="0">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="354.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/utility.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="585.0" text="Core-Attributes:">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="coreyellow" layoutX="397.0" layoutY="586.0" text="0">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="corered" layoutX="256.0" layoutY="585.0" text="0">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="212.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/offence.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="288.0" layoutY="588.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/defence.png" />
+               </image>
+            </ImageView>
+            <TreeTableView fx:id="statistics" layoutX="4.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="470.0">
+               <columnResizePolicy>
+                  <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TreeTableView>
+            <Label layoutX="14.0" layoutY="630.0" text="Minor-Attributes:">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="212.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/offence.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="288.0" layoutY="633.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/defence.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="354.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/utility.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="minorred" layoutX="256.0" layoutY="630.0" text="0">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="minorblue" layoutX="328.0" layoutY="630.0" text="0">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="minoryellow" layoutX="397.0" layoutY="630.0" text="0">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </Pane>

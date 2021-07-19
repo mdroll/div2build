@@ -46,7 +46,7 @@ public class Mod extends AttributeAbstract implements Buildable {
 	 * @param requiredSpecialization Is a specialiaztion requierd
 	 * @param exotic Is a exotic item i.e. exotic weapon mod
 	 */
-	public Mod(
+	public Mod (
 			int id,
 			Modslot slot,
 			String name,

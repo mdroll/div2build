@@ -498,7 +498,7 @@ public class Statistic {
 	}
 	
 	/**
-	 * Determines the amount of core attributes and the amount of byside first, second, third attribtues 
+	 * Determines the amount of core attributes and the amount of minor first, second, third attribtues 
 	 * @param inventory We need here the inventory 
 	 * @return Returns a Map with a key value pair within a map with the determines core and minor colors
 	 */

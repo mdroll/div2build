@@ -1,5 +1,6 @@
 package at.droll.div2builder.core.item.weapon;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +18,8 @@ import at.droll.div2builder.core.mod.Modslot;
  * Concrete weapon class implementation
  * @author Marco Droll
  */
-public class Weapon extends ItemAbstract implements Weaponable  {
-
+public class Weapon extends ItemAbstract implements Weaponable {
+	
 	/**
 	 * Kind of weapon
 	 */

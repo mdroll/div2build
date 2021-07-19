@@ -1,11 +1,18 @@
 package at.droll.div2builder.core;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Map;
 
 import at.droll.div2builder.core.attribute.*;
 import at.droll.div2builder.core.item.equipment.Equipment;
@@ -55,7 +62,8 @@ public class World implements Populateable {
 	 * Initializing all the object registries
 	 * @see Registry
 	 */
-	private static void initializeRegistries() {	
+	private static void initializeRegistries() {		
+		
 		World.initializeManufacturerIntoRegistry();
 		World.initializeEquipmentIntoRegistry();
 		World.initializeModIntoRegistry();
@@ -147,7 +155,7 @@ public class World implements Populateable {
 		}  catch(SQLException e) {
 	    	System.err.println(e.getMessage());
 	    }
-	}
+	}	
 	
 	/**
 	 * Initialize the registry with equipment
@@ -162,7 +170,7 @@ public class World implements Populateable {
 													  .build();			
 			World.Registry.set("equipment", itemName, item);		
 		}
-	}	
+	}
 	
 	/**
 	 * Initialize the registry with manufacturer
@@ -179,7 +187,7 @@ public class World implements Populateable {
 		} catch(AttributeException e) {
 			System.err.println(e.getMessage());
 		}
-	}
+	}	
 	
 	/**
 	 * Initialize the registry with mods
@@ -264,8 +272,9 @@ public class World implements Populateable {
 	 * Registry (Registry pattern) of all kind of equipment, manufacturer, weapon and mods
 	 * @author Marco Droll
 	 */
-	public static class Registry {
-
+	public static class Registry {		
+		
+		
 		/**
 		 * Registry Pattern holds a lot of singleton instances of weapon, mods, manufacturer 
 		 */
@@ -305,6 +314,7 @@ public class World implements Populateable {
 				return false;
 			}
 		}
+
 		
 		/**
 		 * Get element from the registry
