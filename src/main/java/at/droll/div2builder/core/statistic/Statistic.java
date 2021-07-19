@@ -400,27 +400,7 @@ public class Statistic {
 		Map<String, Integer> manuBonus = new HashMap<>();
 		Map<Attribute, Double> brandsetBonus = new HashMap<>();
 		
-		// Initialize manufacturer bonus array
-		for (String manufacturer : Manufacturer.manufacturerList) {
-			manuBonus.put(manufacturer, 0);
-		}		
-		
-		for (String slot : Inventory.slotList) {
-			ItemAbstract tempItem = inventory.getEquipment(InventorySlot.valueOf(slot));
-			
-			// Just calculate brandset bonus for equipment not weapon
-			if (tempItem instanceof Equipment) {
-				Equipment item = (Equipment) tempItem;
-				
-				// Increase the type of manufacturer to calcuate the bonus for the parts 
-				if (item.isImprovisedItem() != true) {					
-					manuBonus.computeIfPresent(
-						item.getManufacturer().getShortname(),
-						(attribute, attributeValue) -> attributeValue + 1
-					);
-				}
-			}			
-		}
+		sumBrandset(inventory, manuBonus);
 		
 		// Loop over the brandset bonus and sum up all the specific values
 		manuBonus.forEach(
@@ -444,6 +424,58 @@ public class Statistic {
 		// {WEAPONDAMAGE=0.0, HEADSHOTDAMAGE=15.0, CRITICALHITCHANCE=20.0, RIFLEDAMAGE=10.0, CRITICALHITDAMAGE=15.0}		
 		return brandsetBonus;
 	}
+
+	/**
+	 * 
+	 * @param inventory Classic inventory
+	 * @param manuBonus Bonus collection where to store the sum for the brandsets
+	 */
+	private void sumBrandset(Inventory inventory, Map<String, Integer> manuBonus) {
+		// Initialize manufacturer bonus array
+		for (String manufacturer : Manufacturer.manufacturerList) {
+			manuBonus.put(manufacturer, 0);
+		}		
+		
+		for (String slot : Inventory.slotList) {
+			ItemAbstract tempItem = inventory.getEquipment(InventorySlot.valueOf(slot));
+			
+			// Just calculate brandset bonus for equipment not weapon
+			if (tempItem instanceof Equipment) {
+				Equipment item = (Equipment) tempItem;
+				
+				// Increase the type of manufacturer to calcuate the bonus for the parts 
+				if (item.isImprovisedItem() != true) {					
+					manuBonus.computeIfPresent(
+						item.getManufacturer().getShortname(),
+						(attribute, attributeValue) -> attributeValue + 1
+					);
+				}
+			}			
+		}
+	}	
+	
+	/**
+	 * Returns the bonus by brandset
+	 * @param inventory
+	 * @return
+	 */
+	public Map<String, Map<Attribute, Double>> getBonusByBrandset(Inventory inventory) {
+		
+		Map<String, Integer> manuBonus = new HashMap<>();		
+		Map<String, Map<Attribute, Double>> returnValue = new HashMap<>(); 
+		
+		sumBrandset(inventory, manuBonus);
+		
+		manuBonus.forEach((manufacturer, amount) -> {
+			if (amount > 0) {				
+				Manufacturer manu = (Manufacturer) World.Registry.get("manufacturer", manufacturer);
+				returnValue.put(manufacturer, manu.getAttributesAndValues(amount));
+			}
+		});
+		
+		return returnValue;
+	}
+	
 	
 	/**
 	 * Calculates the statistics, accumulates them and put in in the internal statistic map
@@ -459,12 +491,7 @@ public class Statistic {
 		brandsetStats 	= calculateBrandsetBonus(inventory);
 		weaponStats		= calculateWeaponBonus(inventory);
 		colors 			= determineRedYellowBlueColors(inventory);
-		
-//		System.out.println("Player " + playerStats);
-//		System.out.println("Weapon " + weaponStats.get("PRIMARY"));
-//		System.out.println("Brandset " + brandsetStats);
-//		System.out.println("Equipment " + equipmentStats);
-		
+				
 		// Calculate the bonus for primary weapon, secondary weapon and pistol and combination with the other stats
 		Map<Attribute, Double> attributesAndValues = null;
 		for (String slot : slotList) {

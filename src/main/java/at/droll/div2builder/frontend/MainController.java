@@ -1,14 +1,12 @@
 package at.droll.div2builder.frontend;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
@@ -17,12 +15,12 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import at.droll.div2builder.core.World;
 import at.droll.div2builder.core.attribute.Attribute;
 import at.droll.div2builder.core.inventory.Inventory;
 import at.droll.div2builder.core.inventory.InventorySlot;
 import at.droll.div2builder.core.item.equipment.Equipment;
+import at.droll.div2builder.core.statistic.Statistic;
 import at.droll.div2builder.core.statistic.StatsItem;
 import at.droll.div2builder.core.statistic.StatsItemComparator;
 
@@ -30,8 +28,18 @@ public class MainController {
 	
 	World world = new World();
 	
-	Map<String, TreeItem<StatsItem>> statisticReferences = new HashMap<>();	
-        
+// Maybe we remove them
+// Map<String, TreeItem<StatsItem>> statisticReferences = new HashMap<>();
+//	Map<String, Map<String, TreeItem<StatsItem>>> statisticReferences = new HashMap<>();
+//	
+//	// Initialisiator the for 
+//	{
+//		statisticReferences.put("PRIMARY", null);
+//		statisticReferences.put("SECONDARY", null);
+//		statisticReferences.put("PISTOL", null);
+//	}
+	
+	
     @FXML
     private TreeTableView<StatsItem> statistics = new TreeTableView<StatsItem>();
         
@@ -51,7 +59,7 @@ public class MainController {
     private TitledPane titledpaneholster;
     
     @FXML
-    private TitledPane titledpanekneepads;
+    private TitledPane titledpanekneepad;
     
     @FXML
     private TitledPane titledpaneprimary;
@@ -93,10 +101,13 @@ public class MainController {
     private ImageView backpackbrandimage;
     
     @FXML
-    private ImageView kneepadsbrandimage;
+    private ImageView kneepadbrandimage;
     
     @FXML
     private ImageView glovebrandimage;
+    
+    @FXML
+    private CheckBox keenerwatch;   
     
     
     /**
@@ -109,10 +120,14 @@ public class MainController {
 		
 		Inventory inventory = new Inventory();
 		inventory = inventory.createMockupInventory();
+		world.getPlayer().getLoadout("Default").setInventory(inventory);
 		
 		initializeStatisticsView(inventory);
 		initializeAttributesCount(inventory);		
 		initializeInventoryView(inventory);
+		
+		// Register the event handler
+		keenerwatch.setOnAction(e -> keenerwatchAction(e));
     }
 	
 	/**
@@ -139,16 +154,24 @@ public class MainController {
 	 * @param inventory The Inventory to do the statistics calculation
 	 */
 	private void initializeStatisticsView(Inventory inventory) {
-		
-		List<StatsItem> items = new ArrayList<>();
+				
+		List<StatsItem> primaryItems = new ArrayList<>();
+		List<StatsItem> secondaryItems = new ArrayList<>();
+		List<StatsItem> pistolItems = new ArrayList<>();
+		List<StatsItem> basestatsItems = new ArrayList<>();
 		
 		Map<String, Map<Attribute, Double>> values = world.getPlayer().getLoadout("Default")
 																	  .getStatistic()
 																	  .calculate(inventory);
 		
-		Map<Attribute, Double> brandsetValues = world.getPlayer().getLoadout("Default")
+		
+		Map<String, Map<Attribute, Double>> brandsetValues = world.getPlayer().getLoadout("Default")
 																 .getStatistic()
-																 .calculateBrandsetBonus(inventory);
+																 .getBonusByBrandset(inventory);
+		
+		Map<Attribute, Double> basestatValue = world.getPlayer().getLoadout("Default")
+				 								 .getStatistic()
+				 								 .getData();
 				
 		// Setting up main columns
 		TreeTableColumn<StatsItem, String> columnAttribute = new TreeTableColumn<>("Attribute");
@@ -161,50 +184,131 @@ public class MainController {
 		
 		// Setting up the main child nodes of root and expand them all
 		TreeItem<StatsItem> rootNode = new TreeItem<>(new StatsItem("Statistics", ""));
-							rootNode.setExpanded(true);		
+							rootNode.setExpanded(true);
+		TreeItem<StatsItem> primaryNode = new TreeItem<>(new StatsItem("Primary", ""));
+							primaryNode.setExpanded(true);
+		TreeItem<StatsItem> secondaryNode = new TreeItem<>(new StatsItem("Secondary", ""));
+							secondaryNode.setExpanded(true);
+		TreeItem<StatsItem> pistolNode = new TreeItem<>(new StatsItem("Pistol", ""));
+							pistolNode.setExpanded(true);
+							
+		TreeItem<StatsItem> detailNode = new TreeItem<>(new StatsItem("Other", ""));
+							detailNode.setExpanded(true);
+							
+		TreeItem<StatsItem> primaryOffensiveNode = new TreeItem<>(new StatsItem("Offensive", ""));		
+							primaryOffensiveNode.setExpanded(true);		
+		TreeItem<StatsItem> primaryDefensiveNode = new TreeItem<>(new StatsItem("Defensive", ""));
+							primaryDefensiveNode.setExpanded(true);
+		TreeItem<StatsItem> primarySkillNode = new TreeItem<>(new StatsItem("Skill", ""));
+							primarySkillNode.setExpanded(true);
+							
+		TreeItem<StatsItem> secondaryOffensiveNode = new TreeItem<>(new StatsItem("Offensive", ""));		
+							secondaryOffensiveNode.setExpanded(true);		
+		TreeItem<StatsItem> secondaryDefensiveNode = new TreeItem<>(new StatsItem("Defensive", ""));
+							secondaryDefensiveNode.setExpanded(true);
+		TreeItem<StatsItem> secondarySkillNode = new TreeItem<>(new StatsItem("Skill", ""));
+							primarySkillNode.setExpanded(true);
+							
+		TreeItem<StatsItem> pistolOffensiveNode = new TreeItem<>(new StatsItem("Offensive", ""));		
+							pistolOffensiveNode.setExpanded(true);		
+		TreeItem<StatsItem> pistolDefensiveNode = new TreeItem<>(new StatsItem("Defensive", ""));
+							pistolDefensiveNode.setExpanded(true);
+		TreeItem<StatsItem> pistolSkillNode = new TreeItem<>(new StatsItem("Skill", ""));
+							pistolSkillNode.setExpanded(true);
+							
 		TreeItem<StatsItem> brandsetNode = new TreeItem<>(new StatsItem("Brandset Bonus", ""));		
 							brandsetNode.setExpanded(true);
-		TreeItem<StatsItem> offensiveNode = new TreeItem<>(new StatsItem("Offensive", ""));		
-							offensiveNode.setExpanded(true);		
-		TreeItem<StatsItem> defensiveNode = new TreeItem<>(new StatsItem("Defensive", ""));
-							defensiveNode.setExpanded(true);
-		TreeItem<StatsItem> skillNode = new TreeItem<>(new StatsItem("Skill", ""));
-							skillNode.setExpanded(true);
+							
+		TreeItem<StatsItem> basestatNode = new TreeItem<>(new StatsItem("Base Stats", ""));		
+							basestatNode.setExpanded(true);
 				
-		// Creating StatsItems what are needed for the TableView
-		values.get("PRIMARY").forEach((attribute, value) -> {			
-			StatsItem item;
-			if (value != 0.0 || attribute != null) {
-				item = new StatsItem(attribute, value);
-				items.add(item);
-			}
-		});
-		
-		brandsetValues.forEach((attribute, value) -> {
-			StatsItem item;
-			if (value != 0.0 || attribute != null) {
-				item = new StatsItem(attribute, value);
-				brandsetNode.getChildren().add(new TreeItem<>(item));
-			}
-		});
-		
-		
-		Collections.sort(items, new StatsItemComparator());
-	
-		
-		items.forEach(item -> {
-			TreeItem<StatsItem> tempItem = new TreeItem<>(item);
-			statisticReferences.put(tempItem.getValue().getAttribute(), tempItem);
+		// Creating StatsItems for the returned statistics to sort them
+		values.forEach((weaponslot, stats) -> {
 			
-			// New way of case 
-			switch(item.getCategory()) {
-				case "offensive" -> offensiveNode.getChildren().add(tempItem);
-				case "defensive" -> defensiveNode.getChildren().add(tempItem);					
-				case "skill" 	 -> skillNode.getChildren().add(tempItem);
+			stats.forEach((attribute, value) -> {
+				StatsItem item;
+				if (value != 0.0 || attribute != null) {
+					item = new StatsItem(attribute, value);
+					
+					switch(weaponslot) {
+						case "PRIMARY" -> primaryItems.add(item);
+						case "SECONDARY" -> secondaryItems.add(item);
+						case "PISTOL" -> pistolItems.add(item);
+					}
+				}
+			});						
+		});
+		
+		brandsetValues.forEach((manufacturer, attributes) -> {			
+			TreeItem<StatsItem> manuNode = new TreeItem<>(new StatsItem(manufacturer, ""));
+			brandsetNode.getChildren().add(manuNode);
+			manuNode.setExpanded(true);
+			
+			attributes.forEach((attribute, value) -> {
+				StatsItem item;
+				
+				if (attribute.toString().equals(Attribute.WEAPONDAMAGE.toString()) != true) {
+					item = new StatsItem(attribute, value);
+					TreeItem<StatsItem> tempItem = new TreeItem<>(item);
+					manuNode.getChildren().add(tempItem);
+				}
+			});
+		});
+		
+		basestatValue.forEach((attribute, value) -> {
+			StatsItem item;
+			if (value != 0.0 || attribute != null) {
+				item = new StatsItem(attribute, value);
+				basestatsItems.add(item);
 			}
 		});
 		
-		rootNode.getChildren().addAll(List.of(brandsetNode, offensiveNode, defensiveNode, skillNode));
+		// Sorting the items
+		Collections.sort(primaryItems, new StatsItemComparator());
+		Collections.sort(secondaryItems, new StatsItemComparator());
+		Collections.sort(pistolItems, new StatsItemComparator());
+		Collections.sort(basestatsItems, new StatsItemComparator());
+		
+		
+		primaryItems.forEach(item -> {
+			TreeItem<StatsItem> tempItem = new TreeItem<>(item); 
+			switch(item.getCategory()) {
+				case "offensive" -> primaryOffensiveNode.getChildren().add(tempItem);
+				case "defensive" -> primaryDefensiveNode.getChildren().add(tempItem);					
+				case "skill" 	 -> primarySkillNode.getChildren().add(tempItem);
+			}
+		});
+		
+		secondaryItems.forEach(item -> {
+			TreeItem<StatsItem> tempItem = new TreeItem<>(item);
+			switch(item.getCategory()) {
+				case "offensive" -> secondaryOffensiveNode.getChildren().add(tempItem);
+				case "defensive" -> secondaryDefensiveNode.getChildren().add(tempItem);					
+				case "skill" 	 -> secondarySkillNode.getChildren().add(tempItem);
+			}
+		});
+		
+		pistolItems.forEach(item -> {
+			TreeItem<StatsItem> tempItem = new TreeItem<>(item);
+			switch(item.getCategory()) {
+				case "offensive" -> pistolOffensiveNode.getChildren().add(tempItem);
+				case "defensive" -> pistolDefensiveNode.getChildren().add(tempItem);					
+				case "skill" 	 -> pistolSkillNode.getChildren().add(tempItem);
+			}
+		});
+		
+		basestatsItems.forEach(item -> {
+			TreeItem<StatsItem> tempItem = new TreeItem<>(item);
+			basestatNode.getChildren().add(tempItem);
+		});	
+
+		rootNode.getChildren().addAll(List.of(primaryNode, secondaryNode, pistolNode, detailNode));
+		primaryNode.getChildren().addAll(List.of(primaryOffensiveNode, primaryDefensiveNode, primarySkillNode));
+		secondaryNode.getChildren().addAll(List.of(secondaryOffensiveNode, secondaryDefensiveNode, secondarySkillNode));
+		pistolNode.getChildren().addAll(List.of(pistolOffensiveNode, pistolDefensiveNode, pistolSkillNode));
+		detailNode.getChildren().addAll(List.of(brandsetNode, basestatNode));
+		
+		
         statistics.setRoot(rootNode);
         statistics.getColumns().add(columnAttribute);
         statistics.getColumns().add(columnValue);                
@@ -223,7 +327,7 @@ public class MainController {
 		titledpanearmor.setCollapsible(false);
 		titledpanebackpack.setCollapsible(false);
 		titledpaneglove.setCollapsible(false);
-		titledpanekneepads.setCollapsible(false);
+		titledpanekneepad.setCollapsible(false);
 		titledpaneholster.setCollapsible(false);
 		titledpaneprimary.setCollapsible(false);
 		titledpanesecondary.setCollapsible(false);
@@ -312,18 +416,39 @@ public class MainController {
 		// Kneepad
 		Equipment kneepad = (Equipment) inventory.getEquipment(InventorySlot.KNEEPAD);
 		if (kneepad.isImprovisedItem() == true) {
-			titledpanekneepads.setText("Improvised kneepad");
+			titledpanekneepad.setText("Improvised kneepad");
 		} else if (kneepad.isNamedItem()) {
-			titledpanekneepads.setText(kneepad.getName());
+			titledpanekneepad.setText(kneepad.getName());
 		} else {
-			titledpanekneepads.setText("Normal " + holster.getManufacturer().getName() + " kneepads");
+			titledpanekneepad.setText("Normal " + holster.getManufacturer().getName() + " kneepads");
 		}
 		
 		if (kneepad.isImprovisedItem() == false) {
-			kneepadsbrandimage.setImage(new Image(
+			kneepadbrandimage.setImage(new Image(
 				App.class.getResource("assets/brands/"+ kneepad.getManufacturer().getShortname() + ".png").toExternalForm(),
 				true
 			));
 		}
+	}
+	
+	/**
+	 * Action if the level40 Checkbox was clicked
+	 * @param event
+	 */
+	private void keenerwatchAction(Event event) {
+		
+		// Deactivating level 40
+		if (((CheckBox) event.getSource()).isSelected() == false) {
+			world.getPlayer().getLoadout("Default").setStatistic(new Statistic(false));
+		} else {
+			world.getPlayer().getLoadout("Default").setStatistic(new Statistic(true));
+		}
+		
+		// Updating the the TreeView
+		statistics.getRoot().getChildren().clear();
+		statistics.getColumns().clear();		
+		statistics.setRoot(null);
+		
+		initializeStatisticsView(world.getPlayer().getLoadout("Default").getInventory());
 	}
 }

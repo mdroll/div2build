@@ -1,6 +1,5 @@
 package at.droll.div2builder.core.item.weapon;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

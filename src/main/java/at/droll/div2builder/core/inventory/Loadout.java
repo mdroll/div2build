@@ -43,17 +43,17 @@ public class Loadout {
 	}
 
 	/**
-	 * Return the invventory
-	 * @return Returns the Inventory
+	 * Returns the inventory
+	 * @return Returns the tnventory
 	 */
-	public Inventory getInvetory() {
+	public Inventory getInventory() {
 		return this.inventory;
 	}	
 	
 	/**
 	 * Sets a complete inventory object
 	 * @param inventory Sets the specific inventory in the loadout
-	 * @return Loadout
+	 * @return Returns the loadout
 	 */
 	public Loadout setInventory(Inventory inventory) {
 		this.inventory = inventory;
@@ -62,9 +62,19 @@ public class Loadout {
 	
 	/**
 	 * Return the assoicated statistic object
-	 * @return Returns the staticis
+	 * @return Returns the statistic
 	 */
 	public Statistic getStatistic() {
 		return this.statistic;
+	}
+	
+	/**
+	 * Sets a statistic object
+	 * @param stats
+	 * @return Returns the Loadout
+	 */
+	public Loadout setStatistic(Statistic stats) {
+		this.statistic = stats;
+		return this;
 	}
 }

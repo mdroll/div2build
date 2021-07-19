@@ -255,4 +255,19 @@ class WorldTests {
 			&& String.valueOf(inventory.getEquipment(InventorySlot.PISTOL).getName()).equals("Orbit")	
 		);
 	}
+	
+	/**
+	 * Test Bonus by Brandset by mockup inventory
+	 */
+	@Test
+	void testDefaultGetBrandsetBonusbyBrandset() {
+		
+		Inventory inventory = createMockupInventory();
+		
+		Map<String, Map<Attribute, Double>> values = world.getPlayer().getLoadout("Default")
+																	  .getStatistic()
+																	  .getBonusByBrandset(inventory);		
+		
+		System.out.println(values);
+	}
 }
