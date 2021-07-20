@@ -2,14 +2,36 @@
 	-fx-background-image:url("background2.png");
 }
 
+/*
+.titled-pane .title {
+	-fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #fdb110, #31333f);
+}
+**/
+
 .titled-pane > .title {
-    -fx-pref-height: 50.0;
+    -fx-pref-height: 40.0;
 }
 
 .titled-pane > *.title {	
 	-fx-alignment:baseline-left;
 }
+ 
+.coreAttributeRed > *.title {
+	-fx-background-color:#dd5a57;	
+}
 
-#titledpanemask > *.title {
-	-fx-background-color:blue;
+.namedItem {
+	-fx-text-fill:yellow;
+}
+
+.coreAttributeBlue > *.title {
+	-fx-background-color:#67a1d7;
+}
+
+.coreAttributeYellow > *.title {
+	-fx-background-color:#f4b863;
+}
+
+.coreAttributeExotic > *.title {
+	-fx-background-color:#e69c21;
 }

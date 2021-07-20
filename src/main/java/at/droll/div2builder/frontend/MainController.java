@@ -1,14 +1,12 @@
 package at.droll.div2builder.frontend;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
-
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -109,6 +107,24 @@ public class MainController {
      */
     @FXML
     private TitledPane titledpanepistol;
+    
+    /**
+     * Holds the instance of the TitledPane specialization on the left side
+     */
+    @FXML
+    private TitledPane titledpanespecialization;
+    
+    /**
+     * Holds the instance of the TitledPane placeholder1 on the left side
+     */
+    @FXML
+    private TitledPane titledpaneplaceholder1;
+    
+    /**
+     * Holds the instance of the TitledPane placeholder2 on the left side
+     */
+    @FXML
+    private TitledPane titledpaneplaceholder2;
         
     /**
      * Holds the instance of the Label for the core red color 
@@ -422,12 +438,13 @@ public class MainController {
 		};
 		
 		TitledPane[] weaponPanes = {
-			titledpaneprimary, titledpanesecondary, titledpanepistol
-		};				
+			titledpaneprimary, titledpanesecondary, titledpanepistol, titledpanespecialization, titledpaneplaceholder1, titledpaneplaceholder2
+		};
 		
 		TitledPane[] panes = new TitledPane[equipmentPanes.length + weaponPanes.length];
-		System.arraycopy(equipmentPanes, 0, panes, 0, equipmentPanes.length);
-		System.arraycopy(weaponPanes, 0, panes, equipmentPanes.length, weaponPanes.length);
+		System.arraycopy(equipmentPanes, 0, panes, 0, equipmentPanes.length);		
+		System.arraycopy(weaponPanes,    0, panes, equipmentPanes.length, weaponPanes.length);
+		//System.arraycopy(sidePanes, 0, panes, equipmentPanes.length + weaponPanes.length, sidePanes.length);
 		
 		// Assignment of InventorySlot to corresponding ImageView
 		Map<InventorySlot, ImageView> images = Map.of(
@@ -453,6 +470,7 @@ public class MainController {
 				pane.setText("Improvised " + pane.getText());
 			} else if(equipment.isNamedItem()) {
 				pane.setText(equipment.getName());
+				pane.getStyleClass().add("namedItem");
 			} else {
 				pane.setText("Normal " + equipment.getManufacturer().getShortname() + " " + pane.getText());
 			}
@@ -463,6 +481,20 @@ public class MainController {
 					true
 				));
 			}
+			
+			// Dependly on the core Attribute colorize the background of the pane
+			switch(equipment.getCoreAttribute()) {
+				default -> { }
+				case WEAPONDAMAGE -> pane.getStyleClass().add("coreAttributeRed");
+				case ARMOR -> pane.getStyleClass().add("coreAttributeBlue");
+				case SKILLTIER -> pane.getStyleClass().add("coreAttributeYellow");
+			}
+			
+			
+			
+//			final Node node = pane.lookup(".root");
+//			System.out.println(node);
+			//node.setStyle("-fx-background-color:red;");
 		}
 	}
 	
