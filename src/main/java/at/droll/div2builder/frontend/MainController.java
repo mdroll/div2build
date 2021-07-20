@@ -237,8 +237,10 @@ public class MainController {
 		List<StatsItem> primaryItems = new ArrayList<>();
 		List<StatsItem> secondaryItems = new ArrayList<>();
 		List<StatsItem> pistolItems = new ArrayList<>();
-		List<StatsItem> basestatsItems = new ArrayList<>();
+		List<StatsItem> basestatItems = new ArrayList<>();
+		List<List<StatsItem>> items = List.of(primaryItems, secondaryItems, pistolItems, basestatItems);
 		
+		// Retrieve the statistic data from the world
 		Map<String, Map<Attribute, Double>> values = world.getPlayer().getLoadout("Default")
 																	  .getStatistic()
 																	  .calculate(inventory);
@@ -260,50 +262,67 @@ public class MainController {
 		TreeTableColumn<StatsItem, String> columnValue = new TreeTableColumn<>("Value");
 		columnValue.setPrefWidth(100);
 		columnValue.setCellValueFactory(new TreeItemPropertyValueFactory<>("value"));
+				
 		
-		// Setting up the main child nodes of root and expand them all
+		// Setting up all the treeItem nodes 
 		TreeItem<StatsItem> rootNode = new TreeItem<>(new StatsItem("Statistics", ""));
 							rootNode.setExpanded(true);
-		TreeItem<StatsItem> primaryNode = new TreeItem<>(new StatsItem("Primary", ""));
+	
+		TreeItem<StatsItem> primaryNode = new TreeItem<>(new StatsItem("Primary Weapon", ""));
 							primaryNode.setExpanded(true);
-		TreeItem<StatsItem> secondaryNode = new TreeItem<>(new StatsItem("Secondary", ""));
-							secondaryNode.setExpanded(true);
+		TreeItem<StatsItem> secondaryNode = new TreeItem<>(new StatsItem("Secondary Weapon", ""));
+//							secondaryNode.setExpanded(true);
 		TreeItem<StatsItem> pistolNode = new TreeItem<>(new StatsItem("Pistol", ""));
-							pistolNode.setExpanded(true);
+//							pistolNode.setExpanded(true);
 							
 		TreeItem<StatsItem> detailNode = new TreeItem<>(new StatsItem("Other", ""));
-							detailNode.setExpanded(true);
-							
-		TreeItem<StatsItem> primaryOffensiveNode = new TreeItem<>(new StatsItem("Offensive", ""));		
+		detailNode.setExpanded(true);
+					
+		StatsItem offensiveStatsItem = new StatsItem("Offensive", "");
+		StatsItem defensiveStatsItem = new StatsItem("Defensive", "");
+		StatsItem skillStatsItem = new StatsItem("Skill", "");		
+		
+		// Nodes for the primary weapon
+		TreeItem<StatsItem> primaryOffensiveNode = new TreeItem<>(offensiveStatsItem);		
 							primaryOffensiveNode.setExpanded(true);		
-		TreeItem<StatsItem> primaryDefensiveNode = new TreeItem<>(new StatsItem("Defensive", ""));
-							primaryDefensiveNode.setExpanded(true);
-		TreeItem<StatsItem> primarySkillNode = new TreeItem<>(new StatsItem("Skill", ""));
-							primarySkillNode.setExpanded(true);
-							
-		TreeItem<StatsItem> secondaryOffensiveNode = new TreeItem<>(new StatsItem("Offensive", ""));		
+		TreeItem<StatsItem> primaryDefensiveNode = new TreeItem<>(defensiveStatsItem);
+//							primaryDefensiveNode.setExpanded(true);
+		TreeItem<StatsItem> primarySkillNode = new TreeItem<>(skillStatsItem);
+//							primarySkillNode.setExpanded(true);
+			
+		// Nodes for the secondary weapon
+		TreeItem<StatsItem> secondaryOffensiveNode = new TreeItem<>(offensiveStatsItem);		
 							secondaryOffensiveNode.setExpanded(true);		
-		TreeItem<StatsItem> secondaryDefensiveNode = new TreeItem<>(new StatsItem("Defensive", ""));
+		TreeItem<StatsItem> secondaryDefensiveNode = new TreeItem<>(defensiveStatsItem);
 							secondaryDefensiveNode.setExpanded(true);
-		TreeItem<StatsItem> secondarySkillNode = new TreeItem<>(new StatsItem("Skill", ""));
-							primarySkillNode.setExpanded(true);
+		TreeItem<StatsItem> secondarySkillNode = new TreeItem<>(skillStatsItem);
+							secondarySkillNode.setExpanded(true);
 							
-		TreeItem<StatsItem> pistolOffensiveNode = new TreeItem<>(new StatsItem("Offensive", ""));		
+		// Nodes for the pistol weapon
+		TreeItem<StatsItem> pistolOffensiveNode = new TreeItem<>(offensiveStatsItem);		
 							pistolOffensiveNode.setExpanded(true);		
-		TreeItem<StatsItem> pistolDefensiveNode = new TreeItem<>(new StatsItem("Defensive", ""));
+		TreeItem<StatsItem> pistolDefensiveNode = new TreeItem<>(defensiveStatsItem);
 							pistolDefensiveNode.setExpanded(true);
-		TreeItem<StatsItem> pistolSkillNode = new TreeItem<>(new StatsItem("Skill", ""));
+		TreeItem<StatsItem> pistolSkillNode = new TreeItem<>(skillStatsItem);
 							pistolSkillNode.setExpanded(true);
+						
+		// Nodes for the basestat
+		TreeItem<StatsItem> basestatOffensiveNode = new TreeItem<>(offensiveStatsItem);		
+							basestatOffensiveNode.setExpanded(true);		
+		TreeItem<StatsItem> basestatDefensiveNode = new TreeItem<>(defensiveStatsItem);
+							basestatDefensiveNode.setExpanded(true);
+		TreeItem<StatsItem> basestatSkillNode = new TreeItem<>(skillStatsItem);
+							basestatSkillNode.setExpanded(true);
+			
+		// Nodes for the brandsetstat
+		TreeItem<StatsItem> brandsetNode = new TreeItem<>(new StatsItem("Brandset", ""));		
+//							brandsetNode.setExpanded(true);
 							
-		TreeItem<StatsItem> brandsetNode = new TreeItem<>(new StatsItem("Brandset Bonus", ""));		
-							brandsetNode.setExpanded(true);
-							
-		TreeItem<StatsItem> basestatNode = new TreeItem<>(new StatsItem("Base Stats", ""));		
+		TreeItem<StatsItem> basestatNode = new TreeItem<>(new StatsItem("Base", ""));		
 							basestatNode.setExpanded(true);
 				
 		// Creating StatsItems for the returned statistics to sort them
 		values.forEach((weaponslot, stats) -> {
-			
 			stats.forEach((attribute, value) -> {
 				StatsItem item;
 				if (value != 0.0 || attribute != null) {
@@ -338,62 +357,57 @@ public class MainController {
 			StatsItem item;
 			if (value != 0.0 || attribute != null) {
 				item = new StatsItem(attribute, value);
-				basestatsItems.add(item);
+				basestatItems.add(item);
 			}
-		});
+		});		
 		
 		// Sorting the items
-		Collections.sort(primaryItems, new StatsItemComparator());
-		Collections.sort(secondaryItems, new StatsItemComparator());
-		Collections.sort(pistolItems, new StatsItemComparator());
-		Collections.sort(basestatsItems, new StatsItemComparator());
+		items.forEach(item -> Collections.sort(item, new StatsItemComparator()));
 		
+		// Adding the offensive/primary/skill attributes 
+		addItemsToCorrectNode(primaryItems, primaryOffensiveNode, primaryDefensiveNode, primarySkillNode);
+		addItemsToCorrectNode(secondaryItems, secondaryOffensiveNode, secondaryDefensiveNode, secondarySkillNode);
+		addItemsToCorrectNode(pistolItems, pistolOffensiveNode, pistolDefensiveNode, pistolSkillNode);
+		addItemsToCorrectNode(basestatItems, basestatOffensiveNode, basestatDefensiveNode, basestatSkillNode);
 		
-		primaryItems.forEach(item -> {
-			TreeItem<StatsItem> tempItem = new TreeItem<>(item); 
-			switch(item.getCategory()) {
-				case "offensive" -> primaryOffensiveNode.getChildren().add(tempItem);
-				case "defensive" -> primaryDefensiveNode.getChildren().add(tempItem);					
-				case "skill" 	 -> primarySkillNode.getChildren().add(tempItem);
-			}
-		});
-		
-		secondaryItems.forEach(item -> {
-			TreeItem<StatsItem> tempItem = new TreeItem<>(item);
-			switch(item.getCategory()) {
-				case "offensive" -> secondaryOffensiveNode.getChildren().add(tempItem);
-				case "defensive" -> secondaryDefensiveNode.getChildren().add(tempItem);					
-				case "skill" 	 -> secondarySkillNode.getChildren().add(tempItem);
-			}
-		});
-		
-		pistolItems.forEach(item -> {
-			TreeItem<StatsItem> tempItem = new TreeItem<>(item);
-			switch(item.getCategory()) {
-				case "offensive" -> pistolOffensiveNode.getChildren().add(tempItem);
-				case "defensive" -> pistolDefensiveNode.getChildren().add(tempItem);					
-				case "skill" 	 -> pistolSkillNode.getChildren().add(tempItem);
-			}
-		});
-		
-		basestatsItems.forEach(item -> {
-			TreeItem<StatsItem> tempItem = new TreeItem<>(item);
-			basestatNode.getChildren().add(tempItem);
-		});	
-
 		rootNode.getChildren().addAll(List.of(primaryNode, secondaryNode, pistolNode, detailNode));
 		primaryNode.getChildren().addAll(List.of(primaryOffensiveNode, primaryDefensiveNode, primarySkillNode));
 		secondaryNode.getChildren().addAll(List.of(secondaryOffensiveNode, secondaryDefensiveNode, secondarySkillNode));
 		pistolNode.getChildren().addAll(List.of(pistolOffensiveNode, pistolDefensiveNode, pistolSkillNode));
+		basestatNode.getChildren().addAll(List.of(basestatOffensiveNode, basestatDefensiveNode, basestatSkillNode));
 		detailNode.getChildren().addAll(List.of(brandsetNode, basestatNode));
-		
-		
+				
         statistics.setRoot(rootNode);
         statistics.getColumns().add(columnAttribute);
         statistics.getColumns().add(columnValue);                
         
         // Updating the raw for critical hit chance 
         //statisticReferences.get("CRITICALHITCHANCE").setValue(new StatsItem("CRITICALHITCHANCE", "150.0"));
+	}
+	
+	/**
+	 * Adding items to the correct child nodes Offensive, Defensive, Skill
+	 * 
+	 * @param items List of StatsItem
+	 * @param offensiveNode TreeItem Offensive Node
+	 * @param defensiveNode TreeItem Defensive Node
+	 * @param skillNode TreeItem Skill Node
+	 */
+	private void addItemsToCorrectNode(
+			List<StatsItem> items,
+			TreeItem<StatsItem> offensiveNode,
+			TreeItem<StatsItem> defensiveNode,
+			TreeItem<StatsItem> skillNode
+	) {
+		
+		items.forEach(item -> {
+			TreeItem<StatsItem> tempItem = new TreeItem<>(item); 
+			switch(item.getCategory()) {
+				case "offensive" -> offensiveNode.getChildren().add(tempItem);
+				case "defensive" -> defensiveNode.getChildren().add(tempItem);					
+				case "skill" 	 -> skillNode.getChildren().add(tempItem);
+			}
+		});
 	}
 	
 	/**
@@ -453,7 +467,7 @@ public class MainController {
 	}
 	
 	/**
-	 * Action if the level40 Checkbox was clicked
+	 * Action if the Keener watch CheckBox was hitted
 	 * @param event Caused event of the action
 	 */
 	private void keenerwatchAction(Event event) {
