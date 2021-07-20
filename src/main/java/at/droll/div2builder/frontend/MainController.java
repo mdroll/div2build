@@ -1,9 +1,12 @@
 package at.droll.div2builder.frontend;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -394,116 +397,58 @@ public class MainController {
 	}
 	
 	/**
-	 * Initialize the inventory view
+	 * Initialize the inventory view (on the left side)
 	 * @param inventory Inventory to operate on
+	 * TODO Remove later weaponPanes or leave it if it's not longer used
 	 */
 	private void initializeInventoryView(Inventory inventory) {
 		
-		titledpanemask.setCollapsible(false);
-		titledpanearmor.setCollapsible(false);
-		titledpanebackpack.setCollapsible(false);
-		titledpaneglove.setCollapsible(false);
-		titledpanekneepad.setCollapsible(false);
-		titledpaneholster.setCollapsible(false);
-		titledpaneprimary.setCollapsible(false);
-		titledpanesecondary.setCollapsible(false);
-		titledpanepistol.setCollapsible(false);
+		TitledPane[] equipmentPanes = {
+			titledpanemask, titledpanearmor, titledpanebackpack, titledpaneglove, titledpanekneepad, titledpaneholster,
+		};
 		
-		titledpanemask.setStyle("-fx-background-color:blue;");
+		TitledPane[] weaponPanes = {
+			titledpaneprimary, titledpanesecondary, titledpanepistol
+		};				
 		
-		// Mask
-		Equipment mask = (Equipment) inventory.getEquipment(InventorySlot.MASK);				
+		TitledPane[] panes = new TitledPane[equipmentPanes.length + weaponPanes.length];
+		System.arraycopy(equipmentPanes, 0, panes, 0, equipmentPanes.length);
+		System.arraycopy(weaponPanes, 0, panes, equipmentPanes.length, weaponPanes.length);
+		
+		// Assignment of InventorySlot to corresponding ImageView
+		Map<InventorySlot, ImageView> images = Map.of(
+			InventorySlot.MASK, maskbrandimage,
+			InventorySlot.ARMOR, armorbrandimage,
+			InventorySlot.BACKPACK, backpackbrandimage,
+			InventorySlot.GLOVE, glovebrandimage,
+			InventorySlot.HOLSTER, holsterbrandimage,
+			InventorySlot.KNEEPAD, kneepadbrandimage
+		);
+		
+		// Collapse	
+		for (TitledPane pane : panes) {			
+			pane.setCollapsible(false);
+		}
 				
-		if (mask.isNamedItem()) {
-			titledpanemask.setText(mask.getName());
-		} else {
-			titledpanemask.setText("Normal " + mask.getManufacturer().getName() + " mask");
-		}
-		
-		maskbrandimage.setImage(new Image(
-			App.class.getResource("assets/brands/"+ mask.getManufacturer().getShortname() + ".png").toExternalForm(),
-			true
-		));
-		
-		// Backpack
-		Equipment backpack = (Equipment) inventory.getEquipment(InventorySlot.BACKPACK);				
-				
-		if (backpack.isNamedItem()) {
-			titledpanebackpack.setText(backpack.getName());
-		} else {
-			titledpanebackpack.setText("Normal " + mask.getManufacturer().getName() + " backpack");
-		}
-		
-		backpackbrandimage.setImage(new Image(
-			App.class.getResource("assets/brands/"+ backpack.getManufacturer().getShortname() + ".png").toExternalForm(),
-			true
-		));
-		
-		// Armor
-		Equipment armor = (Equipment) inventory.getEquipment(InventorySlot.ARMOR);
-		
-		if (armor.isNamedItem()) {
-			titledpanearmor.setText(armor.getName());
-		} else {
-			titledpanearmor.setText("Normal " + mask.getManufacturer().getName() + " armor chest");
-		}
-		
-		armorbrandimage.setImage(new Image(
-			App.class.getResource("assets/brands/"+ armor.getManufacturer().getShortname() + ".png").toExternalForm(),
-			true
-		));
-		
-		
-		// Glove
-		Equipment glove = (Equipment) inventory.getEquipment(InventorySlot.GLOVE);
-		
-		if (glove.isImprovisedItem() == true) {
-			titledpaneglove.setText("Improvised glove");
-		} else if (glove.isNamedItem()) {
-			titledpaneglove.setText(glove.getName());
-		} else {
-			titledpaneholster.setText("Normal " + glove.getManufacturer().getName() + " gloves");
-		}
-		
-		if (glove.isImprovisedItem() == false) {
-			glovebrandimage.setImage(new Image(
-				App.class.getResource("assets/brands/"+ glove.getManufacturer().getShortname() + ".png").toExternalForm(),
-				true
-			));
-		}
-		
-		// Holster
-		Equipment holster = (Equipment) inventory.getEquipment(InventorySlot.HOLSTER);
-		if (holster.isImprovisedItem() == true) {
-			titledpaneholster.setText("Improvised holster");
-		} else if (holster.isNamedItem()) {
-			titledpaneholster.setText(holster.getName());
-		} else {
-			titledpaneholster.setText("Normal " + holster.getManufacturer().getName() + " holster");
-		}
-		
-		if (holster.isImprovisedItem() == false) {
-			holsterbrandimage.setImage(new Image(
-				App.class.getResource("assets/brands/"+ holster.getManufacturer().getShortname() + ".png").toExternalForm(),
-				true
-			));
-		}
-		
-		// Kneepad
-		Equipment kneepad = (Equipment) inventory.getEquipment(InventorySlot.KNEEPAD);
-		if (kneepad.isImprovisedItem() == true) {
-			titledpanekneepad.setText("Improvised kneepad");
-		} else if (kneepad.isNamedItem()) {
-			titledpanekneepad.setText(kneepad.getName());
-		} else {
-			titledpanekneepad.setText("Normal " + holster.getManufacturer().getName() + " kneepads");
-		}
-		
-		if (kneepad.isImprovisedItem() == false) {
-			kneepadbrandimage.setImage(new Image(
-				App.class.getResource("assets/brands/"+ kneepad.getManufacturer().getShortname() + ".png").toExternalForm(),
-				true
-			));
+		for (TitledPane pane : equipmentPanes) {
+			String slotName = pane.getText().toUpperCase();			
+			InventorySlot slot = InventorySlot.valueOf(slotName);
+			Equipment equipment = (Equipment) inventory.getEquipment(slot);
+						
+			if (equipment.isImprovisedItem()) {
+				pane.setText("Improvised " + pane.getText());
+			} else if(equipment.isNamedItem()) {
+				pane.setText(equipment.getName());
+			} else {
+				pane.setText("Normal " + equipment.getManufacturer().getShortname() + " " + pane.getText());
+			}
+			
+			if (equipment.isImprovisedItem() == false) {
+				images.get(slot).setImage(new Image(
+					App.class.getResource("assets/brands/"+ equipment.getManufacturer().getShortname() + ".png").toExternalForm(),
+					true
+				));
+			}
 		}
 	}
 	
