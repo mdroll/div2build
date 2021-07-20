@@ -24,8 +24,16 @@ import at.droll.div2builder.core.statistic.Statistic;
 import at.droll.div2builder.core.statistic.StatsItem;
 import at.droll.div2builder.core.statistic.StatsItemComparator;
 
+/**
+ * Main controller / Business logic for the ui
+
+ * @author Marco Droll
+ */
 public class MainController {	
 	
+	/**
+	 * Holds the World with the data factories, player information and so on
+	 */
 	World world = new World();
 	
 // Maybe we remove them
@@ -39,73 +47,141 @@ public class MainController {
 //		statisticReferences.put("PISTOL", null);
 //	}
 	
-	
+	/**
+	 * Holds the instance of the ThreeTableView on the right side
+	 */
     @FXML
     private TreeTableView<StatsItem> statistics = new TreeTableView<StatsItem>();
         
+    /**
+     * Holds the instance of the TitledPane mask on the left side
+     */
     @FXML
     private TitledPane titledpanemask;
     
+    /**
+     * Holds the instance of the TitledPane backpack on the left side
+     */
     @FXML
     private TitledPane titledpanebackpack;
     
+    /**
+     * Holds the instance of the TitledPane armor on the left side
+     */
     @FXML
     private TitledPane titledpanearmor;
     
+    /**
+     * Holds the instance of the TitledPane glove on the left side
+     */
     @FXML
     private TitledPane titledpaneglove;
     
+    /**
+     * Holds the instance of the TitledPane holster on the left side
+     */
     @FXML
     private TitledPane titledpaneholster;
     
+    /**
+     * Holds the instance of the TitledPane kneepad on the left side
+     */
     @FXML
     private TitledPane titledpanekneepad;
     
+    /**
+     * Holds the instance of the TitledPane primary weapon on the left side
+     */
     @FXML
     private TitledPane titledpaneprimary;
     
+    /**
+     * Holds the instance of the TitledPane secondary weapon on the left side
+     */
     @FXML
     private TitledPane titledpanesecondary;
     
+    /**
+     * Holds the instance of the TitledPane pistol weapon on the left side
+     */
     @FXML
     private TitledPane titledpanepistol;
         
+    /**
+     * Holds the instance of the Label for the core red color 
+     */
     @FXML
     private Label corered;
     
+    /**
+     * Holds the instance of the Label for the core blue color 
+     */
     @FXML
     private Label coreblue;
     
+    /**
+     * Holds the instance of the Label for the core yellow color 
+     */
     @FXML
     private Label coreyellow;
     
+    /**
+     * Holds the instance of the Label for the minor red color 
+     */
     @FXML
     private Label minorred;
     
+    /**
+     * Holds the instance of the Label for the minor blue color 
+     */
     @FXML
     private Label minorblue;
     
+    /**
+     * Holds the instance of the Label for the minor yellow color 
+     */
     @FXML
     private Label minoryellow;
     
+    /**
+     * Holds the instance of the ImageView for the mask brand 
+     */
     @FXML
     private ImageView maskbrandimage;
     
+    /**
+     * Holds the instance of the ImageView for the holster brand 
+     */
     @FXML
     private ImageView holsterbrandimage;
     
+    /**
+     * Holds the instance of the ImageView for the armor brand 
+     */
     @FXML
     private ImageView armorbrandimage;
     
+    /**
+     * Holds the instance of the ImageView for the backpack brand 
+     */
     @FXML
     private ImageView backpackbrandimage;
     
+    /**
+     * Holds the instance of the ImageView for the kneepad brand 
+     */
     @FXML
     private ImageView kneepadbrandimage;
     
+    /**
+     * Holds the instance of the ImageView for the glvoe brand 
+     */
     @FXML
     private ImageView glovebrandimage;
     
+    /**
+     * Holds the instance of the CheckBox for the keener watch 
+     */
     @FXML
     private CheckBox keenerwatch;   
     
@@ -319,7 +395,7 @@ public class MainController {
 	
 	/**
 	 * Initialize the inventory view
-	 * @param inventory
+	 * @param inventory Inventory to operate on
 	 */
 	private void initializeInventoryView(Inventory inventory) {
 		
@@ -433,7 +509,7 @@ public class MainController {
 	
 	/**
 	 * Action if the level40 Checkbox was clicked
-	 * @param event
+	 * @param event Caused event of the action
 	 */
 	private void keenerwatchAction(Event event) {
 		

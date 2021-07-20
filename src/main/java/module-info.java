@@ -1,3 +1,7 @@
+/**
+ * module-info
+ * @author Marco Droll
+ */
 module at.droll.div2builder {
     requires javafx.controls;
     requires javafx.fxml;

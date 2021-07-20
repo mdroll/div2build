@@ -13,6 +13,9 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+	/**
+	 * Holds the scene
+	 */
     private static Scene scene;
 
 //    /**
@@ -49,8 +52,8 @@ public class App extends Application {
 
     /**
      * Sets the root of the scene
-     * @param fxml
-     * @throws IOException
+     * @param fxml Name of the fxml file to load
+     * @throws IOException Throws IOException if file was not found 
      */
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
@@ -58,9 +61,9 @@ public class App extends Application {
 
     /**
      * Load the passed fxml resource
-     * @param fxml
-     * @return
-     * @throws IOException
+     * @param fxml Name of the fxml file to pass to the FXMLLoader
+     * @return Parent
+     * @throws IOException Throws IOException if file was not found 
      */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
@@ -69,7 +72,7 @@ public class App extends Application {
 
     /**
      * Main method for the javafx appplication
-     * @param args
+     * @param args Command line arguments
      */
     public static void main(String[] args) {
         launch();

@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>at.droll</groupId>
     <artifactId>div2builder</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
     <dependencies>
@@ -83,36 +83,15 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- 
-            <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
-			
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>at.droll.div2builder.Start</mainClass>
-                        </manifest>
-                    </archive>
-				</configuration>
-			
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
- 			</plugin>
- 			 -->
+				<artifactId>maven-javadoc-plugin</artifactId>
+        		<version>3.3.0</version>
+        		<configuration>
+        			<show>private</show>
+        			<sourceFileExcludes>**/module-info.java</sourceFileExcludes>
+        		</configuration>
+			</plugin>
         </plugins>
     </build>
 </project>

@@ -456,8 +456,8 @@ public class Statistic {
 	
 	/**
 	 * Returns the bonus by brandset
-	 * @param inventory
-	 * @return
+	 * @param inventory Inventory to determine the Bonus on
+	 * @return Return a List of the manufacturer with their specific bonus attributes
 	 */
 	public Map<String, Map<Attribute, Double>> getBonusByBrandset(Inventory inventory) {
 		
@@ -480,7 +480,7 @@ public class Statistic {
 	/**
 	 * Calculates the statistics, accumulates them and put in in the internal statistic map
 	 * @param inventory Inventory with all the slots and equipment
-	 * @return Returns a Map<String, Map<Attribute, Double> Collection with all the calculated values
+	 * @return Returns a list of primary, secondary, pistol and all accumulated statistics
 	 */
 	public Map<String, Map<Attribute, Double>> calculate(Inventory inventory) {
 		

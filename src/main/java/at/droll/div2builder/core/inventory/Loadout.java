@@ -70,7 +70,7 @@ public class Loadout {
 	
 	/**
 	 * Sets a statistic object
-	 * @param stats
+	 * @param stats Statistic object to set in the loadout
 	 * @return Returns the Loadout
 	 */
 	public Loadout setStatistic(Statistic stats) {
