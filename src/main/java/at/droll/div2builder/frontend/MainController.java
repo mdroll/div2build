@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -52,158 +58,181 @@ public class MainController {
 	 * Holds the instance of the ThreeTableView on the right side
 	 */
     @FXML
-    private TreeTableView<StatsItem> statistics = new TreeTableView<StatsItem>();
+    private TreeTableView<StatsItem> statisticsTreeTableView = new TreeTableView<StatsItem>();
         
     /**
      * Holds the instance of the TitledPane mask on the left side
      */
     @FXML
-    private TitledPane titledpanemask;
+    private TitledPane maskTitledPane;
     
     /**
      * Holds the instance of the TitledPane backpack on the left side
      */
     @FXML
-    private TitledPane titledpanebackpack;
+    private TitledPane backpackTitledPane;
     
     /**
      * Holds the instance of the TitledPane armor on the left side
      */
     @FXML
-    private TitledPane titledpanearmor;
+    private TitledPane armorTitledPane;
     
     /**
      * Holds the instance of the TitledPane glove on the left side
      */
     @FXML
-    private TitledPane titledpaneglove;
+    private TitledPane gloveTitledPane;
     
     /**
      * Holds the instance of the TitledPane holster on the left side
      */
     @FXML
-    private TitledPane titledpaneholster;
+    private TitledPane holsterTitledPane;
     
     /**
      * Holds the instance of the TitledPane kneepad on the left side
      */
     @FXML
-    private TitledPane titledpanekneepad;
+    private TitledPane kneepadTitledPane;
     
     /**
      * Holds the instance of the TitledPane primary weapon on the left side
      */
     @FXML
-    private TitledPane titledpaneprimary;
+    private TitledPane primaryTitledPane;
     
     /**
      * Holds the instance of the TitledPane secondary weapon on the left side
      */
     @FXML
-    private TitledPane titledpanesecondary;
+    private TitledPane secondaryTitledPane;
     
     /**
      * Holds the instance of the TitledPane pistol weapon on the left side
      */
     @FXML
-    private TitledPane titledpanepistol;
+    private TitledPane pistolTitledPane;
     
     /**
      * Holds the instance of the TitledPane specialization on the left side
      */
     @FXML
-    private TitledPane titledpanespecialization;
+    private TitledPane specializationTitledPane;
     
     /**
      * Holds the instance of the TitledPane placeholder1 on the left side
      */
     @FXML
-    private TitledPane titledpaneplaceholder1;
+    private TitledPane placeholder1TitledPane;
     
     /**
      * Holds the instance of the TitledPane placeholder2 on the left side
      */
     @FXML
-    private TitledPane titledpaneplaceholder2;
+    private TitledPane placeholder2TitledPane;
         
     /**
      * Holds the instance of the Label for the core red color 
      */
     @FXML
-    private Label corered;
+    private Label coreredLabel;
     
     /**
      * Holds the instance of the Label for the core blue color 
      */
     @FXML
-    private Label coreblue;
+    private Label coreblueLabel;
     
     /**
      * Holds the instance of the Label for the core yellow color 
      */
     @FXML
-    private Label coreyellow;
+    private Label coreyellowLabel;
     
     /**
      * Holds the instance of the Label for the minor red color 
      */
     @FXML
-    private Label minorred;
+    private Label minorredLabel;
     
     /**
      * Holds the instance of the Label for the minor blue color 
      */
     @FXML
-    private Label minorblue;
+    private Label minorblueLabel;
     
     /**
      * Holds the instance of the Label for the minor yellow color 
      */
     @FXML
-    private Label minoryellow;
+    private Label minoryellowLabel;
     
     /**
      * Holds the instance of the ImageView for the mask brand 
      */
     @FXML
-    private ImageView maskbrandimage;
+    private ImageView maskImageView;
     
     /**
      * Holds the instance of the ImageView for the holster brand 
      */
     @FXML
-    private ImageView holsterbrandimage;
+    private ImageView holsterImageView;
     
     /**
      * Holds the instance of the ImageView for the armor brand 
      */
     @FXML
-    private ImageView armorbrandimage;
+    private ImageView armorImageView;
     
     /**
      * Holds the instance of the ImageView for the backpack brand 
      */
     @FXML
-    private ImageView backpackbrandimage;
+    private ImageView backpackImageView;
     
     /**
      * Holds the instance of the ImageView for the kneepad brand 
      */
     @FXML
-    private ImageView kneepadbrandimage;
+    private ImageView kneepadImageView;
     
     /**
      * Holds the instance of the ImageView for the glvoe brand 
      */
     @FXML
-    private ImageView glovebrandimage;
+    private ImageView gloveImageView;
     
     /**
      * Holds the instance of the CheckBox for the keener watch 
      */
     @FXML
-    private CheckBox keenerwatch;   
+    private CheckBox keenerwatchCheckBox;   
     
+    /**
+     * Holds the instance of the ComboBox for the mask's core attribute to select
+     */
+    @FXML
+    private ComboBox<Label> maskCoreAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the mask's core attribute value
+     */
+    @FXML
+    private Spinner<Number> maskCoreAttributeValueSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the mask's first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> maskFirstAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the mask's first attribute value
+     */
+    @FXML
+    private Spinner<Number> maskFirstAttributeValueSpinner;
     
     /**
      * Initializing of the controller
@@ -218,30 +247,32 @@ public class MainController {
 		world.getPlayer().getLoadout("Default").setInventory(inventory);
 		
 		initializeStatisticsView(inventory);
-		initializeAttributesCount(inventory);		
+		initializeAttributesColorCount(inventory);		
 		initializeInventoryView(inventory);
 		
 		// Register the event handler
-		keenerwatch.setOnAction(e -> keenerwatchAction(e));
+		keenerwatchCheckBox.setOnAction(e -> keenerwatchAction(e));
+		maskCoreAttributeComboBox.setOnAction(e -> inventoryComboBoxAction(e, maskCoreAttributeValueSpinner));
+		maskFirstAttributeComboBox.setOnAction(e -> inventoryComboBoxAction(e, maskFirstAttributeValueSpinner));
     }
 	
 	/**
-	 * Initializing of the attributes count view
+	 * Initializing of the attributes count view with the colors
 	 * @param inventory The inventory to count the core and minor attribute colors
 	 */
-	private void initializeAttributesCount(Inventory inventory) {
+	private void initializeAttributesColorCount(Inventory inventory) {
 		
 		Map<String, Map<String, Integer>> values = world.getPlayer().getLoadout("Default")
 							 										.getStatistic()
 							 										.determineRedYellowBlueColors(inventory);
 		
-		corered.setText(values.get("core").get("red").toString());
-		coreblue.setText(values.get("core").get("blue").toString());
-		coreyellow.setText(values.get("core").get("yellow").toString());
+		coreredLabel.setText(values.get("core").get("red").toString());
+		coreblueLabel.setText(values.get("core").get("blue").toString());
+		coreyellowLabel.setText(values.get("core").get("yellow").toString());
 		
-		minorred.setText(values.get("minor").get("red").toString());
-		minorblue.setText(values.get("minor").get("blue").toString());
-		minoryellow.setText(values.get("minor").get("yellow").toString());
+		minorredLabel.setText(values.get("minor").get("red").toString());
+		minorblueLabel.setText(values.get("minor").get("blue").toString());
+		minoryellowLabel.setText(values.get("minor").get("yellow").toString());
 	}
 	
 	/**
@@ -393,9 +424,9 @@ public class MainController {
 		basestatNode.getChildren().addAll(List.of(basestatOffensiveNode, basestatDefensiveNode, basestatSkillNode));
 		detailNode.getChildren().addAll(List.of(brandsetNode, basestatNode));
 				
-        statistics.setRoot(rootNode);
-        statistics.getColumns().add(columnAttribute);
-        statistics.getColumns().add(columnValue);                
+        statisticsTreeTableView.setRoot(rootNode);
+        statisticsTreeTableView.getColumns().add(columnAttribute);
+        statisticsTreeTableView.getColumns().add(columnValue);                
         
         // Updating the raw for critical hit chance 
         //statisticReferences.get("CRITICALHITCHANCE").setValue(new StatsItem("CRITICALHITCHANCE", "150.0"));
@@ -434,11 +465,11 @@ public class MainController {
 	private void initializeInventoryView(Inventory inventory) {
 		
 		TitledPane[] equipmentPanes = {
-			titledpanemask, titledpanearmor, titledpanebackpack, titledpaneglove, titledpanekneepad, titledpaneholster,
+			maskTitledPane, armorTitledPane, backpackTitledPane, gloveTitledPane, kneepadTitledPane, holsterTitledPane,
 		};
 		
 		TitledPane[] weaponPanes = {
-			titledpaneprimary, titledpanesecondary, titledpanepistol, titledpanespecialization, titledpaneplaceholder1, titledpaneplaceholder2
+			primaryTitledPane, secondaryTitledPane, pistolTitledPane, specializationTitledPane, placeholder1TitledPane, placeholder2TitledPane
 		};
 		
 		TitledPane[] panes = new TitledPane[equipmentPanes.length + weaponPanes.length];
@@ -448,12 +479,12 @@ public class MainController {
 		
 		// Assignment of InventorySlot to corresponding ImageView
 		Map<InventorySlot, ImageView> images = Map.of(
-			InventorySlot.MASK, maskbrandimage,
-			InventorySlot.ARMOR, armorbrandimage,
-			InventorySlot.BACKPACK, backpackbrandimage,
-			InventorySlot.GLOVE, glovebrandimage,
-			InventorySlot.HOLSTER, holsterbrandimage,
-			InventorySlot.KNEEPAD, kneepadbrandimage
+			InventorySlot.MASK, maskImageView,
+			InventorySlot.ARMOR, armorImageView,
+			InventorySlot.BACKPACK, backpackImageView,
+			InventorySlot.GLOVE, gloveImageView,
+			InventorySlot.HOLSTER, holsterImageView,
+			InventorySlot.KNEEPAD, kneepadImageView
 		);
 		
 		// Collapse	
@@ -489,14 +520,46 @@ public class MainController {
 				case ARMOR -> pane.getStyleClass().add("coreAttributeBlue");
 				case SKILLTIER -> pane.getStyleClass().add("coreAttributeYellow");
 			}
-			
-			
-			
-//			final Node node = pane.lookup(".root");
-//			System.out.println(node);
-			//node.setStyle("-fx-background-color:red;");
 		}
+		
+		initializeComboBox(maskCoreAttributeComboBox);
+		initializeComboBox(maskFirstAttributeComboBox);
 	}
+	
+	/**
+	 * Initialize the combobox
+	 */
+	private void initializeComboBox(ComboBox<Label> comboBox) {
+		ObservableList<Label> options = FXCollections.observableArrayList();
+		Map<Attribute, Number> attributes;
+		
+		switch(comboBox.getId()) {
+			case "maskCoreAttributeComboBox":
+				attributes = Attribute.getCoreAttributes();
+				attributes.forEach((attribute, value) -> {
+					createItemsForComboBox(comboBox, options, attribute, value);
+				});					
+				break;				
+			case "maskFirstAttributeComboBox":				
+				attributes = Attribute.getMinorAttributes();
+				attributes.forEach((attribute, value) -> {					
+					createItemsForComboBox(comboBox, options, attribute, value);
+				});
+				comboBox.setItems(options);
+				break;
+		}
+		
+		ListCell<Label> buttonCell = new ListCell<Label>() {
+			@Override
+			protected void updateItem(Label item, boolean isEmpty) {
+				super.updateItem(item, isEmpty);
+				setText(item == null ? "" : item.getText());        
+			}
+		};
+		
+		comboBox.setButtonCell(buttonCell);
+	}	
+	
 	
 	/**
 	 * Action if the Keener watch CheckBox was hitted
@@ -512,10 +575,173 @@ public class MainController {
 		}
 		
 		// Updating the the TreeView
-		statistics.getRoot().getChildren().clear();
-		statistics.getColumns().clear();		
-		statistics.setRoot(null);
+		statisticsTreeTableView.getRoot().getChildren().clear();
+		statisticsTreeTableView.getColumns().clear();		
+		statisticsTreeTableView.setRoot(null);
 		
 		initializeStatisticsView(world.getPlayer().getLoadout("Default").getInventory());
+	}
+	
+	/**
+	 * ComboBox Action for the inventory
+	 * 
+	 * @param attribtuebox
+	 * @param spinnerbox
+	 * @param event Caused event of the action
+	 */
+	@SuppressWarnings("unchecked")
+	private void inventoryComboBoxAction(Event event, Spinner<?> spinnerbox) {
+		
+		ComboBox<Label> comboBox = (ComboBox<Label>)event.getSource();
+		String fxId = comboBox.getId();
+
+		Object selectedItem = comboBox.getSelectionModel().getSelectedItem();
+		Label select = (Label)selectedItem;
+		String attribute = select.getText().substring(0, select.getText().indexOf(" "));
+		
+		Spinner<Double> doubleSpinner = (Spinner<Double>) spinnerbox;
+		Spinner<Integer> intSpinner	  = (Spinner<Integer>) spinnerbox;
+		
+		SpinnerValueFactory<Double> doubleFactory;
+		SpinnerValueFactory<Integer> integerFactory;
+		
+		switch(fxId) {	
+			case "maskCoreAttributeComboBox":
+				switch(attribute) {				
+					case "WEAPONDAMAGE":
+						doubleFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+							.0,
+							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
+							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
+							0.1
+						);
+						doubleSpinner.setValueFactory((SpinnerValueFactory<Double>) doubleFactory);
+						spinnerbox.setDisable(false);
+					break;
+					case "ARMOR":
+						
+						integerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+							0,
+							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).intValue(),
+							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).intValue(),
+							10000
+						);
+						
+						intSpinner.setValueFactory((SpinnerValueFactory<Integer>) integerFactory);
+						spinnerbox.setDisable(false);	
+					break;
+						
+					case "SKILLTIER":
+						 integerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+							1, 1
+						);
+						intSpinner.setValueFactory((SpinnerValueFactory<Integer>) integerFactory);
+						spinnerbox.setDisable(true);	
+					break;
+				}
+			break;
+			
+			case "maskFirstAttributeComboBox":
+				
+				switch(attribute) {
+					case "CRITICALHITCHANCE":
+					case "CRITICALHITDAMAGE":
+					case "HEADSHOTDAMAGE":
+					case "WEAPONHANDLING":
+					case "HAZARDPROTECTION":
+					case "EXPLOSIVERESISTANCE":
+					case "SKILLDAMAGE":
+					case "STATUSEFFECTS":
+					case "REPAIRSKILLS":
+					case "SKILLHASTE":
+						
+						doubleFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+							.0,
+							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
+							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
+							0.1
+						);
+						doubleSpinner.setValueFactory((SpinnerValueFactory<Double>) doubleFactory);
+						spinnerbox.setDisable(false);
+					
+					break;
+					
+					case "ARMOR":
+					case "HEALTH":
+					case "ARMORREGEN":
+						
+						integerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+							0,
+							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).intValue(),
+							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).intValue(),
+							1000
+						);
+						intSpinner.setValueFactory((SpinnerValueFactory<Integer>) integerFactory);
+						spinnerbox.setDisable(false);
+					break;
+				}
+				
+			break;
+			
+		} // closing fxId
+	}
+	
+	
+	/**
+	 * Create items for comboBoxes
+	 * 
+	 * @param options
+	 * @param attribute
+	 * @param value
+	 * @param image
+	 */
+	private void createItemsForComboBox(ComboBox<Label> comboBox, ObservableList<Label> options, Attribute attribute, Number value) {
+		ImageView imageView;
+		
+		switch(attribute) {
+			case WEAPONDAMAGE -> imageView = createAttributeImage("offensive");
+			case CRITICALHITCHANCE -> imageView = createAttributeImage("offensive");
+			case CRITICALHITDAMAGE -> imageView = createAttributeImage("offensive");
+			case HEADSHOTDAMAGE -> imageView = createAttributeImage("offensive");
+			case WEAPONHANDLING -> imageView = createAttributeImage("offensive");
+			case ARMOR -> imageView = createAttributeImage("defensive");
+			case ARMORREGEN -> imageView = createAttributeImage("defensive");
+			case HAZARDPROTECTION -> imageView = createAttributeImage("defensive");
+			case HEALTH -> imageView = createAttributeImage("defensive");
+			case EXPLOSIVERESISTANCE -> imageView = createAttributeImage("defensive");			
+			case SKILLTIER -> imageView = createAttributeImage("utility");
+			case SKILLDAMAGE -> imageView = createAttributeImage("utility");
+			case REPAIRSKILLS -> imageView = createAttributeImage("utility");
+			case SKILLHASTE -> imageView = createAttributeImage("utility");
+			case STATUSEFFECTS -> imageView = createAttributeImage("utility");
+			default -> imageView = createAttributeImage("utility");
+		}
+		
+		Label lbl = new Label(attribute.toString() + " +" + value.toString());
+		lbl.setGraphic(imageView);
+		lbl.setUserData(value);
+		options.add(lbl);
+		comboBox.setItems(options);			
+	}
+	
+	/**
+	 * Create an image with the appropriate symbol
+	 * @return Image
+	 */
+	private ImageView createAttributeImage(String type) {
+		ImageView imageView = new ImageView();
+		Image image;
+		
+		switch(type) {
+			case "offensive" -> image = new Image(App.class.getResource("assets/offence.png").toExternalForm());
+			case "defensive" -> image = new Image(App.class.getResource("assets/defence.png").toExternalForm());
+			default -> image = new Image(App.class.getResource("assets/utility.png").toExternalForm());
+		}
+		
+		imageView.setImage(image);
+		imageView.setFitHeight(16.0);
+		imageView.setFitWidth(16.0);
+
+		return imageView;
 	}
 }

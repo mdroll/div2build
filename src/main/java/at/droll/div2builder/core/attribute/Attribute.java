@@ -1,5 +1,9 @@
 package at.droll.div2builder.core.attribute;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+
 /**
  * Attribute
  * @author Marco Droll
@@ -283,5 +287,39 @@ public enum Attribute {
 	/**
 	 * Weapon handling
 	 */
-	WEAPONHANDLING,	
+	WEAPONHANDLING;
+		
+	/**
+	 * Return the core Attributes with their max values 
+	 * @return Returns a map of Attributes and their max values
+	 */
+	public static Map<Attribute, Number> getCoreAttributes() {
+		Map<Attribute, Number> value = new LinkedHashMap<>();
+		value.put(Attribute.WEAPONDAMAGE, 15.0);
+		value.put(Attribute.ARMOR, 170000);
+		value.put(Attribute.SKILLTIER, 1.0);
+		return value;
+	}
+	
+	/**
+	 * Return the minor attributes with their max values 
+	 * @return Returns a map of Attributes and their max values
+	 */
+	public static Map<Attribute, Number> getMinorAttributes() {
+		Map<Attribute, Number> value = new LinkedHashMap<>();
+		value.put(Attribute.CRITICALHITCHANCE, 6.0);
+		value.put(Attribute.CRITICALHITDAMAGE, 12.0);
+		value.put(Attribute.WEAPONHANDLING, 8.0);
+		value.put(Attribute.HEADSHOTDAMAGE, 10.0);
+		value.put(Attribute.ARMORREGEN, 4925);
+		value.put(Attribute.HAZARDPROTECTION, 10.0);
+		value.put(Attribute.HEALTH, 18935);
+		value.put(Attribute.EXPLOSIVERESISTANCE, 10.0);
+		value.put(Attribute.SKILLDAMAGE, 10.0);
+		value.put(Attribute.REPAIRSKILLS, 20.0);
+		value.put(Attribute.SKILLHASTE, 10.0);
+		value.put(Attribute.STATUSEFFECTS, 10.0);
+		return value;
+	}
+	
 }
