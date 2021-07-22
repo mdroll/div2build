@@ -1,7 +1,9 @@
 package at.droll.div2builder.core.attribute;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -180,6 +182,11 @@ public enum Attribute {
 	RESISTANCEBLEED,
 	
 	/**
+	 * Resistance burn
+	 */
+	RESISTANCEBURN,
+	
+	/**
 	 * Resistance blind
 	 */
 	RESISTANCEBLIND,
@@ -303,7 +310,7 @@ public enum Attribute {
 	
 	/**
 	 * Return the minor attributes with their max values 
-	 * @return Returns a map of Attributes and their max values
+	 * @return Returns a linked hashmap of attributes and their max values
 	 */
 	public static Map<Attribute, Number> getMinorAttributes() {
 		Map<Attribute, Number> value = new LinkedHashMap<>();
@@ -322,4 +329,40 @@ public enum Attribute {
 		return value;
 	}
 	
+	/**
+	 * Return the miniopr attributes and hide the passed hideAttribute
+	 * @param hideAttribute Attribute to hide
+	 * @return Returns a linked hashmap of attribtues and their max values
+	 * TODO Need to implement here
+	 */
+	public static Map<Attribute, Number> getMinorAttribute(Attribute hideAttribute) {
+				
+		Map<Attribute, Number> attributes = Attribute.getMinorAttribute(hideAttribute);
+		return attributes;
+	}
+	
+	/**
+	 * Return the mod attributes with their max values
+	 * @return Returns a linked hashmap of attributes and their max values
+	 */
+	public static Map<Attribute, Number> getModAttributes() {
+		Map<Attribute, Number> value = new LinkedHashMap<>();
+		value.put(Attribute.CRITICALHITCHANCE, 6.0);
+		value.put(Attribute.CRITICALHITDAMAGE, 12.0);		
+		value.put(Attribute.HEADSHOTDAMAGE, 10.0);
+		value.put(Attribute.ARMORONKILL, 18935);
+		value.put(Attribute.INCOMINGREPAIRS, 20.0);
+		value.put(Attribute.PROTECTIONFROMELITES, 13.0);
+		value.put(Attribute.RESISTANCEBLEED, 10.0);
+		value.put(Attribute.RESISTANCEBLIND, 10.0);
+		value.put(Attribute.RESISTANCEBURN, 10.0);
+		value.put(Attribute.RESISTANCEDISRUPT, 10.0);
+		value.put(Attribute.RESISTANCEESNARE, 10.0);
+		value.put(Attribute.RESISTANCEDESORIENT, 10.0);	
+		value.put(Attribute.RESISTANCESHOCK, 10.0);
+		value.put(Attribute.REPAIRSKILLS, 20.0);
+		value.put(Attribute.SKILLHASTE, 10.0);
+		value.put(Attribute.SKILLDURATION, 10.0);
+		return value;		
+	}
 }

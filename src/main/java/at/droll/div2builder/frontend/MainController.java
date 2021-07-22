@@ -22,6 +22,7 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import at.droll.div2builder.core.Talent;
 import at.droll.div2builder.core.World;
 import at.droll.div2builder.core.attribute.Attribute;
 import at.droll.div2builder.core.inventory.Inventory;
@@ -114,24 +115,6 @@ public class MainController {
     @FXML
     private TitledPane pistolTitledPane;
     
-    /**
-     * Holds the instance of the TitledPane specialization on the left side
-     */
-    @FXML
-    private TitledPane specializationTitledPane;
-    
-    /**
-     * Holds the instance of the TitledPane placeholder1 on the left side
-     */
-    @FXML
-    private TitledPane placeholder1TitledPane;
-    
-    /**
-     * Holds the instance of the TitledPane placeholder2 on the left side
-     */
-    @FXML
-    private TitledPane placeholder2TitledPane;
-        
     /**
      * Holds the instance of the Label for the core red color 
      */
@@ -235,6 +218,139 @@ public class MainController {
     private Spinner<Number> maskFirstAttributeValueSpinner;
     
     /**
+     * Holds the instance of the ComboBox for the mask's second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> maskSecondAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the mask's second attribute value
+     */
+    @FXML
+    private Spinner<Number> maskSecondAttributeValueSpinner;
+    
+    
+    /**
+     * Holds the instance of the ComboBox for the mask's mod attribute to select
+     */
+    @FXML
+    private ComboBox<Label> maskModComboBox;
+        
+    /**
+     * Holds the spinner for the mask's mod attribute value
+     */
+    @FXML
+    private Spinner<Number> maskModSpinner;    
+    
+    /**
+     * Holds the instance of the ComboBox for the backpack attribute to select
+     */
+    @FXML
+    private ComboBox<Label> backpackCoreAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the backpack core attribute value
+     */
+    @FXML
+    private Spinner<Number> backpackCoreAttributeValueSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the backpack first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> backpackFirstAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the backpack first attribute value
+     */
+    @FXML
+    private Spinner<Number> backpackFirstAttributeValueSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the backpack's second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> backpackSecondAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the backpack's second attribute value
+     */
+    @FXML
+    private Spinner<Number> backpackSecondAttributeValueSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the backpack's mod attribute to select
+     */
+    @FXML
+    private ComboBox<Label> backpackModComboBox;
+        
+    /**
+     * Holds the spinner for the backpacks's mod attribute value
+     */
+    @FXML
+    private Spinner<Number> backpackModSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the backpack's talent to select
+     */
+    @FXML
+    private ComboBox<Label> backpackTalentComboBox;
+    
+    /**
+     * Holds the instance of the ComboBox for the armor attribute to select
+     */
+    @FXML
+    private ComboBox<Label> armorCoreAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the armor core attribute value
+     */
+    @FXML
+    private Spinner<Number> armorCoreAttributeValueSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the armor first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> armorFirstAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the armor first attribute value
+     */
+    @FXML
+    private Spinner<Number> armorFirstAttributeValueSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the armor second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> armorSecondAttributeComboBox;
+        
+    /**
+     * Holds the spinner for the armor's second attribute value
+     */
+    @FXML
+    private Spinner<Number> armorSecondAttributeValueSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the armor mod attribute to select
+     */
+    @FXML
+    private ComboBox<Label> armorModComboBox;
+        
+    /**
+     * Holds the spinner for the armor's mod attribute value
+     */
+    @FXML
+    private Spinner<Number> armorModSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the armor's talent to select
+     */
+    @FXML
+    private ComboBox<Label> armorTalentComboBox;
+    
+    /**
      * Initializing of the controller
      */
 	public void initialize() {
@@ -252,8 +368,6 @@ public class MainController {
 		
 		// Register the event handler
 		keenerwatchCheckBox.setOnAction(e -> keenerwatchAction(e));
-		maskCoreAttributeComboBox.setOnAction(e -> inventoryComboBoxAction(e, maskCoreAttributeValueSpinner));
-		maskFirstAttributeComboBox.setOnAction(e -> inventoryComboBoxAction(e, maskFirstAttributeValueSpinner));
     }
 	
 	/**
@@ -304,6 +418,7 @@ public class MainController {
 		// Setting up main columns
 		TreeTableColumn<StatsItem, String> columnAttribute = new TreeTableColumn<>("Attribute");
 		columnAttribute.setPrefWidth(150);
+		//columnAttribute.setWi
 		columnAttribute.setCellValueFactory(new TreeItemPropertyValueFactory<>("attribute"));
 				
 		TreeTableColumn<StatsItem, String> columnValue = new TreeTableColumn<>("Value");
@@ -469,7 +584,7 @@ public class MainController {
 		};
 		
 		TitledPane[] weaponPanes = {
-			primaryTitledPane, secondaryTitledPane, pistolTitledPane, specializationTitledPane, placeholder1TitledPane, placeholder2TitledPane
+			primaryTitledPane, secondaryTitledPane, pistolTitledPane
 		};
 		
 		TitledPane[] panes = new TitledPane[equipmentPanes.length + weaponPanes.length];
@@ -487,11 +602,30 @@ public class MainController {
 			InventorySlot.KNEEPAD, kneepadImageView
 		);
 		
-		// Collapse	
+
 		for (TitledPane pane : panes) {			
 			pane.setCollapsible(false);
 		}
-				
+
+		// Register combobox / spinner pair für the Attribute : Value combinations
+		initializeComboBox(maskCoreAttributeComboBox, maskCoreAttributeValueSpinner);
+		initializeComboBox(maskFirstAttributeComboBox, maskFirstAttributeValueSpinner);
+		initializeComboBox(maskSecondAttributeComboBox, maskSecondAttributeValueSpinner);
+		initializeComboBox(maskModComboBox, maskModSpinner);
+		
+		initializeComboBox(backpackCoreAttributeComboBox, backpackCoreAttributeValueSpinner);
+		initializeComboBox(backpackFirstAttributeComboBox, backpackFirstAttributeValueSpinner);
+		initializeComboBox(backpackSecondAttributeComboBox, backpackSecondAttributeValueSpinner);
+		initializeComboBox(backpackModComboBox, backpackModSpinner);
+		initializeComboBox(backpackTalentComboBox);
+		
+		initializeComboBox(armorCoreAttributeComboBox, armorCoreAttributeValueSpinner);
+		initializeComboBox(armorFirstAttributeComboBox, armorFirstAttributeValueSpinner);
+		initializeComboBox(armorSecondAttributeComboBox, armorSecondAttributeValueSpinner);
+		initializeComboBox(armorModComboBox, armorModSpinner);
+		initializeComboBox(armorTalentComboBox);
+		
+		
 		for (TitledPane pane : equipmentPanes) {
 			String slotName = pane.getText().toUpperCase();			
 			InventorySlot slot = InventorySlot.valueOf(slotName);
@@ -519,35 +653,282 @@ public class MainController {
 				case WEAPONDAMAGE -> pane.getStyleClass().add("coreAttributeRed");
 				case ARMOR -> pane.getStyleClass().add("coreAttributeBlue");
 				case SKILLTIER -> pane.getStyleClass().add("coreAttributeYellow");
+			}			
+			
+			switch(slot) {
+				case MASK:
+					comboBoxSpinnerPreselection(maskCoreAttributeComboBox, maskCoreAttributeValueSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(maskFirstAttributeComboBox, maskFirstAttributeValueSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+					comboBoxSpinnerPreselection(maskSecondAttributeComboBox, maskSecondAttributeValueSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					comboBoxSpinnerPreselection(maskModComboBox, maskModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());	
+				
+				break;
+				
+				case BACKPACK:
+					comboBoxSpinnerPreselection(backpackCoreAttributeComboBox, backpackCoreAttributeValueSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(backpackFirstAttributeComboBox, backpackFirstAttributeValueSpinner, equipment.getFirstAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+					comboBoxSpinnerPreselection(backpackSecondAttributeComboBox, backpackSecondAttributeValueSpinner, equipment.getSecondAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					comboBoxSpinnerPreselection(backpackModComboBox, backpackModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
+					comboBoxPreselection(backpackTalentComboBox, equipment.getTalent().toString(), equipment.isNamedItem());
+										
+					if (equipment.isNamedItem()) {
+						backpackTalentComboBox.setDisable(true);
+					}
+				
+				break;
+				
+				case ARMOR:
+					comboBoxSpinnerPreselection(armorCoreAttributeComboBox, armorCoreAttributeValueSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(armorFirstAttributeComboBox, armorFirstAttributeValueSpinner, equipment.getFirstAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());
+					comboBoxSpinnerPreselection(armorSecondAttributeComboBox, armorSecondAttributeValueSpinner, equipment.getSecondAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					comboBoxSpinnerPreselection(armorModComboBox, armorModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
+					
+					comboBoxPreselection(armorTalentComboBox, equipment.getTalent().toString(),	equipment.isNamedItem());
+										
+					if (equipment.isNamedItem()) {
+						armorTalentComboBox.setDisable(true);
+					}
+				
+				break;
+				
+				default:
 			}
 		}
+	}
+	
+	
+	/**
+	 * Preselection of Item inside combobox, prefill of spinner with factory and values
+	 * 
+	 * @param comboBox The ComboBox to preselect
+	 * @param spinner The spinner to set the value
+	 * @param toSelect Select Identifier in ComboBox i.e. WEAPONDAMAGE, CRITICALHITCHANCE as String
+	 * @param min Minimum for the spinner
+	 * @param max Maximum for the spinner
+	 * @param step Step for the spinner
+	 * @param value The desired value to set
+	*/	
+	private void comboBoxSpinnerPreselection(
+		ComboBox<Label> comboBox,
+		Spinner<?> spinner,
+		String toSelect,
+		Number min,
+		Number max,
+		Number step,
+		Number value
+	) {
 		
-		initializeComboBox(maskCoreAttributeComboBox);
-		initializeComboBox(maskFirstAttributeComboBox);
+		ObservableList<Label> options = comboBox.getItems();
+		options.forEach(select -> {
+			String attribute = select.getText().substring(0, select.getText().indexOf(" "));
+			if (attribute.contains(toSelect)) {
+				comboBox.setValue(select);				
+				spinnerInitialize(
+					spinner,
+					min,
+					max,
+					value,
+					step
+				);
+			}			
+		});
 	}
 	
 	/**
-	 * Initialize the combobox
+	 * Preselect of normal comboboxes	 * 
+	 * @param comboBox The specific combobox where to preselect something
+	 * @param toSelect Selectable String to preselect
+	 * @param isperfectTalent
+	 */
+	private void comboBoxPreselection(
+			ComboBox<Label> comboBox,
+			String toSelect,
+			boolean isPerfectTalent
+	) {			
+		ObservableList<Label> options = comboBox.getItems();
+		options.forEach(select -> {
+			String attribute = select.getText();
+			
+			if (attribute.contains(toSelect)) {//
+				select.setText("PERFECT " + select.getText());
+				comboBox.setValue(select);
+			}			
+		});
+	}
+	
+	
+	/**
+	 * Initialize a spinner with the type given by arguments i.e. DoubleSpinnerValue or IntegerSpinnerValue
+	 * @param spinner The spinnerbox to initialize
+	 * @param min Minimum value as Number Wrapper
+	 * @param max Maximum value as Number Wrapper
+	 * @param initial value as Number Wrapper
+	 * @param step Step as Number Wrapper
+	 */
+	@SuppressWarnings({ "unused", "unchecked" })
+	private void spinnerInitialize(Spinner<?> spinner, Number min, Number max, Number initial, Number step) {
+		
+		if (initial instanceof Double) {
+			Spinner<Double> doubleSpinner = (Spinner<Double>) spinner;
+			SpinnerValueFactory<Double> doubleFactory;
+			
+			doubleFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+				min.doubleValue(),
+				max.doubleValue(),
+				initial.doubleValue(),
+				step.doubleValue()
+			);
+			
+			doubleSpinner.setValueFactory((SpinnerValueFactory<Double>) doubleFactory);
+			
+		} else if (initial instanceof Integer) {
+			
+			Spinner<Integer> intSpinner = (Spinner<Integer>) spinner;
+			SpinnerValueFactory<Integer> intFactory;
+			
+			if (initial.intValue() == 0 && step.intValue() == 0) {
+				
+				intFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+						min.intValue(),
+						max.intValue()
+				);
+				
+			} else {			
+			
+				intFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+					min.intValue(),
+					max.intValue(),
+					initial.intValue(),
+					step.intValue()
+				);
+			}
+			
+			intSpinner.setValueFactory((SpinnerValueFactory<Integer>) intFactory);
+			
+		} else {
+			throw new IllegalArgumentException("The spinner can't be initialize!");
+		}
+	}
+	
+	/**
+	 * Initialize the combobox, creating items for it and set the action handler
+	 *
+	 * @param comboBox ComboBox to initialize
+	 * @param spinnerbox Assoociated spinnerbox for the ComboBox
+	 */
+	private void initializeComboBox(ComboBox<Label> comboBox, Spinner<?> spinnerbox) {
+		ObservableList<Label> options = FXCollections.observableArrayList();
+		Map<Attribute, Number> attributes;		
+		
+		switch(comboBox.getId()) {
+			default:
+			case "maskCoreAttributeComboBox":
+			case "backpackCoreAttributeComboBox":
+			case "armorCoreAttributeComboBox":
+				attributes = Attribute.getCoreAttributes();
+				break;
+			case "maskFirstAttributeComboBox":
+			case "maskSecondAttributeComboBox":
+			case "backpackFirstAttributeComboBox":
+			case "backpackSecondAttributeComboBox":
+			case "armorFirstAttributeComboBox":
+			case "armorSecondAttributeComboBox":
+				attributes = Attribute.getMinorAttributes();
+				break;
+			case "maskModComboBox":
+			case "backpackModComboBox":
+			case "armorModComboBox":
+				attributes = Attribute.getModAttributes();
+				break;
+		}
+				
+		attributes.forEach((attribute, value) -> {
+			
+			ImageView imageView;
+			
+			switch(attribute) {
+				case WEAPONDAMAGE:
+				case CRITICALHITCHANCE: 
+				case CRITICALHITDAMAGE:
+				case HEADSHOTDAMAGE:
+				case WEAPONHANDLING:
+					imageView = createAttributeImage("offensive");
+					break;
+					
+				case ARMOR:
+				case ARMORREGEN:
+				case ARMORONKILL:
+				case PROTECTIONFROMELITES:				
+				case HAZARDPROTECTION:
+				case HEALTH:
+				case EXPLOSIVERESISTANCE:
+				case INCOMINGREPAIRS:
+				case RESISTANCEBLEED:
+				case RESISTANCEBLIND:
+				case RESISTANCEBURN:
+				case RESISTANCEDISRUPT:
+				case RESISTANCEESNARE:
+				case RESISTANCEDESORIENT:
+				case RESISTANCESHOCK:
+					imageView = createAttributeImage("defensive");
+					break;				
+				
+				default:
+				case SKILLTIER:
+				case SKILLDAMAGE:
+				case REPAIRSKILLS:
+				case SKILLHASTE:
+				case SKILLDURATION:
+				case STATUSEFFECTS:
+					imageView = createAttributeImage("utility");
+					break;
+			}
+			
+			Label lbl = new Label(attribute.toString() + " Max: " + value.toString());
+			lbl.setGraphic(imageView);
+			lbl.setUserData(value);
+			options.add(lbl);
+			comboBox.setItems(options);
+		});				
+		
+		ListCell<Label> buttonCell = new ListCell<Label>() {
+			@Override
+			protected void updateItem(Label item, boolean isEmpty) {
+				super.updateItem(item, isEmpty);
+				setText(item == null ? "" : item.getText());        
+			}
+		};
+		
+		comboBox.setButtonCell(buttonCell);
+		comboBox.setOnAction(e -> inventoryComboBoxActionHandler(e, spinnerbox));
+	}
+	
+	/**
+	 * Initialize the combobox, creating items for it and set the action handler
+	 *
+	 * @param comboBox ComboBox to initialize
+	 * @param spinnerbox Assoociated spinnerbox for the ComboBox
 	 */
 	private void initializeComboBox(ComboBox<Label> comboBox) {
 		ObservableList<Label> options = FXCollections.observableArrayList();
-		Map<Attribute, Number> attributes;
+		List<Talent> talents;		
 		
 		switch(comboBox.getId()) {
-			case "maskCoreAttributeComboBox":
-				attributes = Attribute.getCoreAttributes();
-				attributes.forEach((attribute, value) -> {
-					createItemsForComboBox(comboBox, options, attribute, value);
-				});					
-				break;				
-			case "maskFirstAttributeComboBox":				
-				attributes = Attribute.getMinorAttributes();
-				attributes.forEach((attribute, value) -> {					
-					createItemsForComboBox(comboBox, options, attribute, value);
-				});
-				comboBox.setItems(options);
+			default:
+			case "backpackTalentComboBox":			
+				talents = Talent.getBackpackTalents();
+				break;
+			case "armorTalentComboBox":
+				talents = Talent.getArmorTalents();
 				break;
 		}
+				
+		talents.forEach(talent -> {
+			Label lbl = new Label(talent.toString());
+//			lbl.setUserData(value);
+			options.add(lbl);
+			comboBox.setItems(options);
+		});				
 		
 		ListCell<Label> buttonCell = new ListCell<Label>() {
 			@Override
@@ -583,14 +964,14 @@ public class MainController {
 	}
 	
 	/**
-	 * ComboBox Action for the inventory
+	 * ComboBox actionhandler target for the inventory
 	 * 
-	 * @param attribtuebox
-	 * @param spinnerbox
-	 * @param event Caused event of the action
+	 * @param event The caused event
+	 * @param spinner The associated spinnerbox to the event
+	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	private void inventoryComboBoxAction(Event event, Spinner<?> spinnerbox) {
+	private void inventoryComboBoxActionHandler(Event event, Spinner<?> spinnerbox) {
 		
 		ComboBox<Label> comboBox = (ComboBox<Label>)event.getSource();
 		String fxId = comboBox.getId();
@@ -599,49 +980,55 @@ public class MainController {
 		Label select = (Label)selectedItem;
 		String attribute = select.getText().substring(0, select.getText().indexOf(" "));
 		
-		Spinner<Double> doubleSpinner = (Spinner<Double>) spinnerbox;
-		Spinner<Integer> intSpinner	  = (Spinner<Integer>) spinnerbox;
-		
-		SpinnerValueFactory<Double> doubleFactory;
-		SpinnerValueFactory<Integer> integerFactory;
-		
 		switch(fxId) {	
 			case "maskCoreAttributeComboBox":
+			case "backpackCoreAttributeComboBox":
+			case "armorCoreAttributeComboBox":
 				switch(attribute) {				
 					case "WEAPONDAMAGE":
-						doubleFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+						spinnerInitialize(
+							spinnerbox, 
 							.0,
 							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
 							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
 							0.1
 						);
-						doubleSpinner.setValueFactory((SpinnerValueFactory<Double>) doubleFactory);
+						
 						spinnerbox.setDisable(false);
 					break;
 					case "ARMOR":
 						
-						integerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+						spinnerInitialize(
+							spinnerbox,
 							0,
 							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).intValue(),
 							Attribute.getCoreAttributes().get(Attribute.valueOf(attribute)).intValue(),
 							10000
 						);
 						
-						intSpinner.setValueFactory((SpinnerValueFactory<Integer>) integerFactory);
 						spinnerbox.setDisable(false);	
 					break;
 						
 					case "SKILLTIER":
-						 integerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
-							1, 1
+						spinnerInitialize(
+							spinnerbox,
+							1,
+							1,
+							0,
+							0
 						);
-						intSpinner.setValueFactory((SpinnerValueFactory<Integer>) integerFactory);
+						 
 						spinnerbox.setDisable(true);	
 					break;
 				}
 			break;
 			
 			case "maskFirstAttributeComboBox":
+			case "maskSecondAttributeComboBox":
+			case "backpackFirstAttributeComboBox":
+			case "backpackSecondAttribtueComboBox":
+			case "armorFirstAttributeComboBox":
+			case "armorSecondAttributeComboBox":
 				
 				switch(attribute) {
 					case "CRITICALHITCHANCE":
@@ -655,13 +1042,13 @@ public class MainController {
 					case "REPAIRSKILLS":
 					case "SKILLHASTE":
 						
-						doubleFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+						spinnerInitialize(
+							spinnerbox,
 							.0,
 							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
 							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
 							0.1
 						);
-						doubleSpinner.setValueFactory((SpinnerValueFactory<Double>) doubleFactory);
 						spinnerbox.setDisable(false);
 					
 					break;
@@ -670,58 +1057,65 @@ public class MainController {
 					case "HEALTH":
 					case "ARMORREGEN":
 						
-						integerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+						spinnerInitialize(
+							spinnerbox,
 							0,
 							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).intValue(),
 							Attribute.getMinorAttributes().get(Attribute.valueOf(attribute)).intValue(),
 							1000
-						);
-						intSpinner.setValueFactory((SpinnerValueFactory<Integer>) integerFactory);
+						);						
 						spinnerbox.setDisable(false);
 					break;
 				}
-				
-			break;
 			
+				break;
+				
+			case "maskModComboBox":
+			case "backpackModComboBox":
+			case "armorModComboBox":
+				
+				switch(attribute) {
+					case "CRITICALHITCHANCE":
+					case "CRITICALHITDAMAGE":
+					case "HEADSHOTDAMAGE":
+					case "INCOMINGREPAIRS":
+					case "PROTECTIONFROMELITES":
+					case "RESISTANCEBLEED":
+					case "RESISTANCEBLIND":
+					case "RESISTANCEBURN":
+					case "RESISTANCEDISRUPT":
+					case "RESISTANCEESNARE":
+					case "RESISTANCEDESORIENT":
+					case "RESISTANCESHOCK":				
+					case "REPAIRSKILLS":
+					case "SKILLHASTE":
+					case "SKILLDURATION":
+						
+						spinnerInitialize(
+							spinnerbox,
+							.0,
+							Attribute.getModAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
+							Attribute.getModAttributes().get(Attribute.valueOf(attribute)).doubleValue(),
+							0.1
+						);						
+						spinnerbox.setDisable(false);
+					break;
+					
+					case "ARMORONKILL":
+						spinnerInitialize(
+							spinnerbox,
+							0,
+							Attribute.getModAttributes().get(Attribute.valueOf(attribute)).intValue(),
+							Attribute.getModAttributes().get(Attribute.valueOf(attribute)).intValue(),
+							1000
+						);						
+						spinnerbox.setDisable(false);
+					break;
+				}
+					
+			break;
+						
 		} // closing fxId
-	}
-	
-	
-	/**
-	 * Create items for comboBoxes
-	 * 
-	 * @param options
-	 * @param attribute
-	 * @param value
-	 * @param image
-	 */
-	private void createItemsForComboBox(ComboBox<Label> comboBox, ObservableList<Label> options, Attribute attribute, Number value) {
-		ImageView imageView;
-		
-		switch(attribute) {
-			case WEAPONDAMAGE -> imageView = createAttributeImage("offensive");
-			case CRITICALHITCHANCE -> imageView = createAttributeImage("offensive");
-			case CRITICALHITDAMAGE -> imageView = createAttributeImage("offensive");
-			case HEADSHOTDAMAGE -> imageView = createAttributeImage("offensive");
-			case WEAPONHANDLING -> imageView = createAttributeImage("offensive");
-			case ARMOR -> imageView = createAttributeImage("defensive");
-			case ARMORREGEN -> imageView = createAttributeImage("defensive");
-			case HAZARDPROTECTION -> imageView = createAttributeImage("defensive");
-			case HEALTH -> imageView = createAttributeImage("defensive");
-			case EXPLOSIVERESISTANCE -> imageView = createAttributeImage("defensive");			
-			case SKILLTIER -> imageView = createAttributeImage("utility");
-			case SKILLDAMAGE -> imageView = createAttributeImage("utility");
-			case REPAIRSKILLS -> imageView = createAttributeImage("utility");
-			case SKILLHASTE -> imageView = createAttributeImage("utility");
-			case STATUSEFFECTS -> imageView = createAttributeImage("utility");
-			default -> imageView = createAttributeImage("utility");
-		}
-		
-		Label lbl = new Label(attribute.toString() + " +" + value.toString());
-		lbl.setGraphic(imageView);
-		lbl.setUserData(value);
-		options.add(lbl);
-		comboBox.setItems(options);			
 	}
 	
 	/**

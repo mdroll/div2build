@@ -1,5 +1,8 @@
 package at.droll.div2builder.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Enum a lot of talents 
  * @author Marco Droll
@@ -170,7 +173,7 @@ public enum Talent {
 	/**
 	 * Compusre Rush Backpack Talent
 	 */
-	COMPUSRE,
+	COMPOSURE,
 	
 	/**
 	 * Energize Rush Backpack Talent
@@ -240,5 +243,73 @@ public enum Talent {
 	/**
 	 * Wicked Backpack Talent
 	 */
-	WICKED,		
+	WICKED;
+	
+	/**
+	 * Return all the available armor talents 
+	 * @return Returns a linked list with all available backpack talents
+	 */
+	public static List<Talent> getArmorTalents() {
+				
+		List<Talent> value = new LinkedList<>();
+		value.add(EXPLOSIVEDILVERY);
+		value.add(EMPATHICRESOLVE);
+		value.add(BRACED);
+		value.add(EFFICIENT);
+		value.add(ENERGIZE);
+		value.add(FOCUS);
+		value.add(GLASSCANNON);
+		value.add(GUNSLINGER);
+		value.add(HEADHUNTER);
+		value.add(INITMIDATE);
+		value.add(KINETICMOMENTUM);
+		value.add(MADBOMBER);
+		value.add(OVERWATCH);
+		value.add(PROTECTEDRELOAD);
+		value.add(REASSIGNED);
+		value.add(SKILLED);
+		value.add(SPOTTER);
+		value.add(SPARK);
+		value.add(OBLITERATE);
+		value.add(TAGTEAM);
+		value.add(TAMPERPROOF);
+		value.add(TRAUMA);
+		value.add(UNBREAKABLE);
+		value.add(VANGUARD);
+		
+		return value;
+	}
+	
+	/**
+	 * Return all the available backpack talents 
+	 * @return Returns a linked list with all available backpack talents
+	 */
+	public static List<Talent> getBackpackTalents() {
+				
+		List<Talent> value = new LinkedList<>();
+		value.add(ADRENALINRUSH);
+		value.add(BLOODSUCKER);		
+		value.add(CALCULATED);
+		value.add(CLUTCH);
+		value.add(CREEPINGDEATH);
+		value.add(COMBINEDARMS);
+		value.add(COMPOSURE);
+		value.add(CONCUSSION);
+		value.add(ENERGIZE);
+		value.add(GALVANIZED);
+		value.add(LEADERSHIP);
+		value.add(OPPORTUNISTIC);
+		value.add(OVERCLOCKED);
+		value.add(PROTECTOR);
+		value.add(UNSTOPPABLEFORCE);
+		value.add(TECHSUPPORT);
+		value.add(CALCULATED);		
+		value.add(SHOCKANDAWE);
+		value.add(SAFEGUARD);
+		value.add(VIGILIANCE);
+		value.add(VERSATILE);
+		value.add(WICKED);
+		
+		return value;
+	}
 }

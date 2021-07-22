@@ -208,7 +208,7 @@ public class Inventory implements Equipmentable {
 												                .setSlot(InventorySlot.MASK)
 												                .setCore(Attribute.WEAPONDAMAGE, 15.0)
 												                .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
-												                .setThird(Attribute.CRITICALHITDAMAGE, 12.0)
+												                .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
 												                .addMod((Mod)World.Registry.get("mod", "44"))
 												                .build()
 		    ;			

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -12,34 +11,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="inventoryPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1050.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.droll.div2builder.frontend.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.droll.div2builder.frontend.MainController">
    <children>
-      <FlowPane hgap="10.0" layoutX="14.0" layoutY="14.0" prefHeight="809.0" prefWidth="905.0" vgap="10.0">
+      <FlowPane hgap="10.0" layoutX="14.0" layoutY="14.0" prefHeight="818.0" prefWidth="1063.0" vgap="10.0">
          <children>
             <TitledPane fx:id="maskTitledPane" animated="false" text="Mask">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="310.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="380.0">
                      <children>
-                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="91.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="126.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@assets/mask.png" />
                            </image>
                         </ImageView>
-                        <ComboBox fx:id="maskCoreAttributeComboBox" layoutX="7.0" layoutY="9.0" opacity="0.75" prefWidth="200.0" promptText="Core Attribute">
+                        <ComboBox fx:id="maskCoreAttributeComboBox" layoutX="48.0" layoutY="16.0" opacity="0.6" prefWidth="240.0" promptText="Core Attribute">
 						</ComboBox>
-                        <Spinner fx:id="maskCoreAttributeValueSpinner" editable="true" layoutX="213.0" layoutY="9.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
-                        <ComboBox fx:id="maskFirstAttributeComboBox" layoutX="7.0" layoutY="39.0" opacity="0.75" prefWidth="200.0" promptText="First Attribute">
+                        <Spinner fx:id="maskCoreAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="16.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />                        
+                        <ComboBox fx:id="maskFirstAttributeComboBox" layoutX="48.0" layoutY="43.0" opacity="0.6" prefWidth="240.0" promptText="First Attribute">
                         </ComboBox>
-                        <Spinner fx:id="maskFirstAttributeValueSpinner" editable="true" layoutX="213.0" layoutY="39.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
-                        <ComboBox fx:id="maskSecondAttributeComboBox" layoutX="7.0" layoutY="70.0" opacity="0.75" prefWidth="200.0" promptText="Second Attribute">
+                        <Spinner fx:id="maskFirstAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="44.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+                        <ComboBox fx:id="maskSecondAttributeComboBox" layoutX="48.0" layoutY="70.0" opacity="0.6" prefWidth="240.0" promptText="Second Attribute">
                         </ComboBox>
-                         <Spinner fx:id="maskSecondAttributeValueSpinner" editable="true" layoutX="213.0" layoutY="70.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
-						<ComboBox fx:id="maskModSlotomboBox" layoutX="7.0" layoutY="102.0" opacity="0.75" prefWidth="200.0" promptText="Modslot">
+                         <Spinner fx:id="maskSecondAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="71.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+						<ComboBox fx:id="maskModComboBox" layoutX="48.0" layoutY="97.0" opacity="0.6" prefWidth="240.0" promptText="Modslot">
                         </ComboBox>
-                        <Spinner fx:id="maskModSlotSpinner" editable="true" layoutX="213.0" layoutY="102.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />                        
+                        <Spinner fx:id="maskModSpinner" editable="true" layoutX="290.0" layoutY="98.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+                        <Label layoutX="18.0" layoutY="20.0" text="Core:" />
+                        <Label layoutX="20.0" layoutY="47.0" text="First:" />
+                        <Label layoutX="3.0" layoutY="75.0" text="Second:" />
+                        <Label layoutX="17.0" layoutY="100.0" text="Mod:" />                        
                      </children>
                   </AnchorPane>
               </content>
@@ -53,13 +55,31 @@
             </TitledPane>
             <TitledPane fx:id="backpackTitledPane" animated="false" layoutX="10.0" layoutY="10.0" text="Backpack">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="310.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="380.0">
                      <children>
                         <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="106.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@assets/backpack.png" />
                            </image>
                         </ImageView>
+                        <ComboBox fx:id="backpackCoreAttributeComboBox" layoutX="48.0" layoutY="16.0" opacity="0.6" prefWidth="240.0" promptText="Core Attribute">
+						</ComboBox>
+                        <Spinner fx:id="backpackCoreAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="16.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />                        
+                        <ComboBox fx:id="backpackFirstAttributeComboBox" layoutX="48.0" layoutY="43.0" opacity="0.6" prefWidth="240.0" promptText="First Attribute">
+                        </ComboBox>
+                        <Spinner fx:id="backpackFirstAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="44.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+                        <ComboBox fx:id="backpackSecondAttributeComboBox" layoutX="48.0" layoutY="70.0" opacity="0.6" prefWidth="240.0" promptText="Second Attribute">
+                        </ComboBox>
+                         <Spinner fx:id="backpackSecondAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="71.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+						<ComboBox fx:id="backpackModComboBox" layoutX="48.0" layoutY="97.0" opacity="0.6" prefWidth="240.0" promptText="Modslot">
+                        </ComboBox>
+                        <Spinner fx:id="backpackModSpinner" editable="true" layoutX="290.0" layoutY="98.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+                        <Label layoutX="18.0" layoutY="20.0" text="Core:" />
+                        <Label layoutX="20.0" layoutY="48.0" text="First:" />
+                        <Label layoutX="3.0" layoutY="74.0" text="Second:" />
+                        <Label layoutX="17.0" layoutY="101.0" text="Mod:" />
+                        <ComboBox fx:id="backpackTalentComboBox" layoutX="48.0" layoutY="125.0" opacity="0.6" prefHeight="25.0" prefWidth="326.0" promptText="Talent" />
+                        <Label layoutX="11.0" layoutY="128.0" text="Talent:" />         
                      </children>
                   </AnchorPane>
                </content>
@@ -71,20 +91,38 @@
                   </ImageView>
                </graphic>
             </TitledPane>
-            <TitledPane fx:id="specializationTitledPane" animated="false" layoutX="830.0" layoutY="595.0" text="Specialization">
+            <TitledPane fx:id="primaryTitledPane" animated="false" layoutX="830.0" layoutY="595.0" text="Primary">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="250.0" />
                </content>
             </TitledPane>
             <TitledPane fx:id="armorTitledPane" animated="false" layoutX="412.0" layoutY="10.0" text="Armor">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="310.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="380.0">
                      <children>
                         <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="106.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@assets/vest.png" />
                            </image>
                         </ImageView>
+                        <ComboBox fx:id="armorCoreAttributeComboBox" layoutX="48.0" layoutY="16.0" opacity="0.6" prefWidth="240.0" promptText="Core Attribute">
+						</ComboBox>
+                        <Spinner fx:id="armorCoreAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="16.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />                        
+                        <ComboBox fx:id="armorFirstAttributeComboBox" layoutX="48.0" layoutY="43.0" opacity="0.6" prefWidth="240.0" promptText="First Attribute">
+                        </ComboBox>
+                        <Spinner fx:id="armorFirstAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="44.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+                        <ComboBox fx:id="armorSecondAttributeComboBox" layoutX="48.0" layoutY="70.0" opacity="0.6" prefWidth="240.0" promptText="Second Attribute">
+                        </ComboBox>
+                         <Spinner fx:id="armorSecondAttributeValueSpinner" editable="true" layoutX="290.0" layoutY="71.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+						<ComboBox fx:id="armorModComboBox" layoutX="48.0" layoutY="97.0" opacity="0.6" prefWidth="240.0" promptText="Modslot">
+                        </ComboBox>
+                        <Spinner fx:id="armorModSpinner" editable="true" layoutX="290.0" layoutY="98.0" opacity="0.75" prefHeight="25.0" prefWidth="85.0" />
+                        <Label layoutX="18.0" layoutY="20.0" text="Core:" />
+                        <Label layoutX="20.0" layoutY="48.0" text="First:" />
+                        <Label layoutX="3.0" layoutY="74.0" text="Second:" />
+                        <Label layoutX="17.0" layoutY="101.0" text="Mod:" />
+                        <ComboBox fx:id="armorTalentComboBox" layoutX="48.0" layoutY="125.0" opacity="0.6" prefHeight="25.0" prefWidth="326.0" promptText="Talent" />
+                        <Label layoutX="11.0" layoutY="128.0" text="Talent:" />         
                      </children>
                   </AnchorPane>
                </content>
@@ -98,7 +136,7 @@
             </TitledPane>
             <TitledPane fx:id="gloveTitledPane" animated="false" layoutX="10.0" layoutY="186.0" text="Glove">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="310.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="380.0">
                      <children>
                         <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="106.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -116,14 +154,14 @@
                   </ImageView>
                </graphic>
             </TitledPane>
-            <TitledPane fx:id="placeholder1TitledPane" animated="false" layoutX="830.0" layoutY="595.0">
+            <TitledPane fx:id="secondaryTitledPane" animated="false" layoutX="830.0" layoutY="595.0" text="Secondary">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="250.0" />
                </content>
             </TitledPane>
             <TitledPane fx:id="holsterTitledPane" animated="false" layoutX="412.0" layoutY="186.0" text="Holster">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="310.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="380.0">
                      <children>
                         <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="106.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -143,7 +181,7 @@
             </TitledPane>
             <TitledPane fx:id="kneepadTitledPane" animated="false" layoutX="10.0" layoutY="362.0" text="Kneepad">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="310.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="380.0">
                      <children>
                         <ImageView fitHeight="124.0" fitWidth="99.0" layoutX="106.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -161,108 +199,93 @@
                   </ImageView>
                </graphic>
             </TitledPane>
-            <TitledPane fx:id="placeholder2TitledPane" animated="false" layoutX="830.0" layoutY="595.0">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="250.0" />
-               </content>
-            </TitledPane>
-            <TitledPane fx:id="primaryTitledPane" animated="false" layoutX="10.0" layoutY="362.0" prefWidth="310.0" text="Primary Weapon">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="207.0" />
-               </content>
-            </TitledPane>
-            <TitledPane fx:id="secondaryTitledPane" animated="false" layoutX="10.0" layoutY="538.0" prefWidth="314.0" text="Secondary Weapon">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="207.0" />
-               </content>
-            </TitledPane>
             <TitledPane fx:id="pistolTitledPane" animated="false" layoutX="830.0" layoutY="595.0" text="Pistol">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="250.0" />
                </content>
-            </TitledPane>
+            </TitledPane>            
          </children>
       </FlowPane>
-      <Pane layoutX="912.0" layoutY="14.0" prefHeight="761.0" prefWidth="754.0">
+      <Pane layoutX="1061.0" layoutY="14.0" prefHeight="608.0" prefWidth="332.0">
          <children>
-            <Label fx:id="coreblueLabel" layoutX="334.0" layoutY="629.0" text="0">
+            <Label fx:id="coreblueLabel" layoutX="212.0" layoutY="525.0" prefHeight="20.0" prefWidth="16.0" text="0">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="360.0" layoutY="630.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="228.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/utility.png" />
                </image>
             </ImageView>
-            <Label layoutX="20.0" layoutY="629.0" text="Core-Attributes:">
+            <Label layoutX="23.0" layoutY="526.0" text="Core-Attributes:">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="coreyellowLabel" layoutX="425.0" layoutY="625.0" text="0">
+            <Label fx:id="coreyellowLabel" layoutX="251.0" layoutY="526.0" text="0">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="coreredLabel" layoutX="262.0" layoutY="629.0" text="0">
+            <Label fx:id="coreredLabel" layoutX="168.0" layoutY="526.0" text="0">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="218.0" layoutY="630.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="140.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/offence.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="294.0" layoutY="632.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="188.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/defence.png" />
                </image>
             </ImageView>
-            <TreeTableView fx:id="statisticsTreeTableView" layoutX="15.0" layoutY="5.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="534.0">
+            <TreeTableView fx:id="statisticsTreeTableView" layoutX="14.0" layoutY="7.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="309.0">
                <columnResizePolicy>
                   <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TreeTableView>
-            <Label layoutX="20.0" layoutY="674.0" text="Minor-Attributes:">
+            <Label layoutX="19.0" layoutY="551.0" text="Minor-Attributes:">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="218.0" layoutY="675.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="140.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/offence.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="294.0" layoutY="677.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="188.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/defence.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="360.0" layoutY="675.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="228.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/utility.png" />
                </image>
             </ImageView>
-            <Label fx:id="minorredLabel" layoutX="262.0" layoutY="674.0" text="0">
+            <Label fx:id="minorredLabel" layoutX="168.0" layoutY="551.0" text="0">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="minorblueLabel" layoutX="334.0" layoutY="674.0" text="0">
+            <Label fx:id="minorblueLabel" layoutX="212.0" layoutY="552.0" text="0">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="minoryellowLabel" layoutX="425.0" layoutY="669.0" text="0">
+            <Label fx:id="minoryellowLabel" layoutX="251.0" layoutY="552.0" text="0">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </Label>           
-            <CheckBox fx:id="keenerwatchCheckBox" layoutX="20.0" layoutY="590.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="268.0" selected="true" text="Max Keener Watch?">
+            <CheckBox fx:id="keenerwatchCheckBox" layoutX="14.0" layoutY="485.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="268.0" selected="true" text="Max Keener Watch?">
                <font>
-                  <Font size="23.0" />
+                  <Font size="14.0" />
                </font>
             </CheckBox>
          </children>
