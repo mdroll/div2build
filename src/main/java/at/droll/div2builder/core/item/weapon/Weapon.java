@@ -121,40 +121,36 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	public Buildable setType(WeaponType type) {
 		this.type = type;
 		
-		try {
-			switch(type) {		
-				case ASSAULTRIFLE:
-					this.setFirstAttribute(Attribute.ASSAULTRIFLEDAMAGE);
-					this.setSecond(Attribute.DAMAGETOHEALTH, 21.0);			
-					break;
-				case LIGHTMACHINEGUN:
-					this.setFirstAttribute(Attribute.LMGDAMAGE);
-					this.setSecondAttribute(Attribute.DAMAGETOTARGETOUTOFCOVER);				
-					break;
-				case MARKSMANRIFLE:
-					this.setFirstAttribute(Attribute.MARKSMANRIFLEDAMAGE);
-					this.setSecondAttribute(Attribute.HEADSHOTDAMAGE);
-					break;
-				case PISTOL:
-					this.setFirstAttribute(Attribute.PISTOLDAMAGE);
-					break;
-				case RIFLE:
-					this.setFirstAttribute(Attribute.RIFLEDAMAGE);
-					this.setSecondAttribute(Attribute.CRITICALHITDAMAGE);
-					break;
-				case SHOTGUN:
-					this.setFirstAttribute(Attribute.SHOTGUNDAMAGE);
-					this.setSecondAttribute(Attribute.DAMAGETOARMOR);
-					break;
-				case SUBMACHINEGUN:
-					this.setFirstAttribute(Attribute.SMGDAMAGE);
-					this.setSecondAttribute(Attribute.CRITICALHITCHANCE);
-					break;
-			}
-		
-		} catch(AttributeException e) {
+		switch(type) {		
+			case ASSAULTRIFLE:
+				this.setCoreAttribute(Attribute.ASSAULTRIFLEDAMAGE);
+				this.setFirstAttribute(Attribute.DAMAGETOHEALTH);			
+				break;
+			case LIGHTMACHINEGUN:
+				this.setCoreAttribute(Attribute.LMGDAMAGE);
+				this.setFirstAttribute(Attribute.DAMAGETOTARGETOUTOFCOVER);				
+				break;
+			case MARKSMANRIFLE:
+				this.setCoreAttribute(Attribute.MARKSMANRIFLEDAMAGE);
+				this.setFirstAttribute(Attribute.HEADSHOTDAMAGE);
+				break;
+			case PISTOL:
+				this.setCoreAttribute(Attribute.PISTOLDAMAGE);
+				break;
+			case RIFLE:
+				this.setCoreAttribute(Attribute.RIFLEDAMAGE);
+				this.setFirstAttribute(Attribute.CRITICALHITDAMAGE);
+				break;
+			case SHOTGUN:
+				this.setCoreAttribute(Attribute.SHOTGUNDAMAGE);
+				this.setFirstAttribute(Attribute.DAMAGETOARMOR);
+				break;
+			case SUBMACHINEGUN:
+				this.setCoreAttribute(Attribute.SMGDAMAGE);
+				this.setFirstAttribute(Attribute.CRITICALHITCHANCE);
+				break;
 		}
-		
+
 		return (Buildable)this;
 	}
 

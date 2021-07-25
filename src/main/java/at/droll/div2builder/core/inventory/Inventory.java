@@ -248,9 +248,9 @@ public class Inventory implements Equipmentable {
 													               .build();
 			
 			Weapon primary = (Weapon) World.Registry.get("weapon", "Classic M1A")
-													 .setFirst(Attribute.RIFLEDAMAGE, 15.0)
-													 .setSecond(Attribute.CRITICALHITDAMAGE, 17.0)
-													 .setThird(Attribute.DAMAGETOTARGETOUTOFCOVER, 10.0)
+													 .setCore(Attribute.RIFLEDAMAGE, 15.0)
+													 .setFirst(Attribute.CRITICALHITDAMAGE, 17.0)
+													 .setSecond(Attribute.DAMAGETOTARGETOUTOFCOVER, 10.0)
 													 .setTalent(TalentWeapon.RIFLEMEN)
 													 .setModGrip((Mod) World.Registry.get("mod", "20"))
 													 .setModMag((Mod) World.Registry.get("mod", "42"))
@@ -258,8 +258,9 @@ public class Inventory implements Equipmentable {
 			;		
 			
 			Weapon secondary = (Weapon) World.Registry.get("weapon", "Police M4")
-													  .setFirst(Attribute.ASSAULTRIFLEDAMAGE, 15.0)													  
-													  .setThird(Attribute.DAMAGETOTARGETOUTOFCOVER, 10)
+													  .setCore(Attribute.ASSAULTRIFLEDAMAGE, 15.0)
+													  .setFirst(Attribute.DAMAGETOHEALTH, 21.0)
+													  .setSecond(Attribute.DAMAGETOTARGETOUTOFCOVER, 10)
 													  .setTalent(TalentWeapon.FASTHANDS)
 													  .setModMag((Mod) World.Registry.get("mod", "28"))
 													  .setModGrip((Mod) World.Registry.get("mod", "20"))

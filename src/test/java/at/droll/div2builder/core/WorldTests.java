@@ -31,12 +31,26 @@ class WorldTests {
 		world.bootstrap("Test", true);		
 	}
 		
-	
+	/**
+	 * Initialze the inventory with a mockup inventory
+	 * @return
+	 */
 	public Inventory createMockupInventory() {
 		Inventory inventory = new Inventory();
 		return inventory.createMockupInventory();
 	}
 	
+	/**
+	 * Test calculate Weapon Damange
+	 */
+	@Test
+	public void testCalcWeaponDamage() {
+		Inventory inventory = createMockupInventory();
+		Map<String, Double> values = world.getPlayer().getLoadout("Default").getStatistic()
+											   						.calculateWeaponDamage(inventory, 1d);
+		
+		System.out.println(values);
+	}
 	
 	/**
 	 *Should be around: 493.061 Weapon Damage
@@ -96,11 +110,11 @@ class WorldTests {
 		
 		assertTrue(
 			values.get(Attribute.SWAPSPEED) == 30.0
-			&& values.get(Attribute.SMGDAMAGE) == 40.0
-			&& values.get(Attribute.RIFLEDAMAGE) == 40.0
-			&& values.get(Attribute.ASSAULTRIFLEDAMAGE) == 40.0
-			&& values.get(Attribute.SHOTGUNDAMAGE) == 40.0
-			&& values.get(Attribute.MARKSMANRIFLEDAMAGE) == 40.0
+			&& values.get(Attribute.SMGDAMAGE) == 15.0
+			&& values.get(Attribute.RIFLEDAMAGE) == 15.0
+			&& values.get(Attribute.ASSAULTRIFLEDAMAGE) == 15.0
+			&& values.get(Attribute.SHOTGUNDAMAGE) == 15.0
+			&& values.get(Attribute.MARKSMANRIFLEDAMAGE) == 15.0
 			&& values.get(Attribute.CRITICALHITCHANCE) == 10.0
 			&& values.get(Attribute.HAZARDPROTECTION) == 10.0
 		);
@@ -149,6 +163,7 @@ class WorldTests {
 	
 	/**
 	 * Testing the weapon bonus for the mockup inventory
+	 * 
 	 */
 	@Test
 	void testMockupStatisticWeaponBonus() {
@@ -163,6 +178,7 @@ class WorldTests {
 			&& values.get("PRIMARY").get(Attribute.CRITICALHITDAMAGE) == 27.0
 			&& values.get("PRIMARY").get(Attribute.ROUNDS) == 5.0
 			&& values.get("PRIMARY").get(Attribute.DAMAGETOTARGETOUTOFCOVER) == 10.0
+			
 			&& values.get("SECONDARY").get(Attribute.ASSAULTRIFLEDAMAGE) == 15.0
 			&& values.get("SECONDARY").get(Attribute.DAMAGETOHEALTH) == 21.0
 			&& values.get("SECONDARY").get(Attribute.ROUNDS) == 20.0
@@ -266,8 +282,6 @@ class WorldTests {
 		
 		Map<String, Map<Attribute, Double>> values = world.getPlayer().getLoadout("Default")
 																	  .getStatistic()
-																	  .getBonusByBrandset(inventory);		
-		
-		System.out.println(values);
+																	  .getBonusByBrandset(inventory);
 	}
 }

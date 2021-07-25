@@ -1,6 +1,7 @@
 package at.droll.div2builder.core.statistic;
 
 import at.droll.div2builder.core.Manufacturer;
+import at.droll.div2builder.core.Talent;
 import at.droll.div2builder.core.World;
 import at.droll.div2builder.core.attribute.Attribute;
 import at.droll.div2builder.core.inventory.Inventory;
@@ -8,11 +9,19 @@ import at.droll.div2builder.core.inventory.InventorySlot;
 import at.droll.div2builder.core.item.ItemAbstract;
 import at.droll.div2builder.core.item.equipment.Equipment;
 import at.droll.div2builder.core.item.weapon.Weapon;
+import at.droll.div2builder.core.item.weapon.WeaponType;
 import at.droll.div2builder.core.mod.Mod;
 import at.droll.div2builder.core.mod.Modslot;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 /**
  * Statistic class
@@ -108,7 +117,7 @@ public class Statistic {
 	/**
 	 * Default value for Assault Rifle when the Player hits level 30 and he unlocks the talent in the tree
 	 */
-	public static final double LEVEL30_ASSAULTRIFLEDAMAGE = 40.0;
+	public static final double LEVEL30_ASSAULTRIFLEDAMAGE = 15.0;
 		
 	/**
 	 * Default value for Critical Hit Damage when the Player hits level 30
@@ -229,8 +238,7 @@ public class Statistic {
 				case SHOTGUNDAMAGE			-> this.playerStats.put(attribute, LEVEL30_SHOTGUNDAMAGE);					
 				case SMGDAMAGE 				-> this.playerStats.put(attribute, LEVEL30_SMGDAMAGE);
 				case STABILITY 				-> this.playerStats.put(attribute, LEVEL30_STABILITY);
-				case SWAPSPEED 				-> this.playerStats.put(attribute, LEVEL30_SWAPSPEED);					
-				case WEAPONDAMAGE 			-> this.playerStats.put(attribute, LEVEL30_WEAPONDAMAGE);
+				case SWAPSPEED 				-> this.playerStats.put(attribute, LEVEL30_SWAPSPEED);
 				case WEAPONHANDLING 		-> this.playerStats.put(attribute, LEVEL30_WEAPONHANDLING);
 				default 					-> this.playerStats.put(attribute, 0.0);
 			}			
@@ -609,6 +617,202 @@ public class Statistic {
 		colors.put("core", coreAttributes);
 		colors.put("minor", minorAttributes);		
 		return colors;
+	}
+	
+	/**
+	 * Returns the damage by bullet for PRIMARY, SECONDARY und PISTOL inventory slot
+	 * 
+	 * <pre>
+ 	 * {@code
+	 * See https://www.reddit.com/r/thedivision/comments/gi0uel/weapon_damage_101_bullet_damage/?utm_medium=android_app&utm_source=share
+	 * D = base damage
+	 *   x (1 + WD + weapon type damage + sum of ("weapon damage" talents x talent uptime)) // Factor 1
+	 *   x (1 + sum of ("total weapon damage" talents * talent uptime))						// Factor 2
+	 *   x (1 + "amplify" talent1 x uptime)													// Factor 3
+	 *   x (1 + "amplify" talent2 x uptime)													// Factor 4
+	 *   x (1 + "amplify" talent3 x uptime)													// Factor 5
+	 *   x (1 + CHC x CHD + HsD x headshot chance)											// Factor 6
+	 *   x (1 + DtA x %Armor + DtH x (1 - %Armor))											// Factor 7
+	 *   x (1 + OoCD x %OutOfCover)   														// Factor 8
+	 * }
+	 * </pre>
+	 * 
+	 * @param inventory The inventory to calculcate the weapon damage
+	 * @param headshotChance The probably percentage of headshot chance
+	 * @return Returns a map of String and Double i.e. PRIMARY -> 100.000,0 SECONDARY -> 200.000,0
+	 * @TODO Taking talent uptime into calculation. Right now it's a guessed value. See
+	 */
+	public Map<String, Double> calculateWeaponDamage(Inventory inventory, Double headshotChance) {
+		
+		// Pre calculate the combinedStats for primary, secondary and pistol
+		this.calculate(inventory);
+		
+		String[] slotList = {
+			InventorySlot.PRIMARY.toString(), InventorySlot.SECONDARY.toString(), InventorySlot.PISTOL.toString()
+		};		
+	
+		Double baseDamage;
+		
+		Double factors[] = {1d, 1d, 1d, 1d, 1d, 1d, 1d, 1d};
+		
+		Double term1, term2;
+		
+		Double enemyArmorPercentage = 0.72;
+		
+		Double enemyOutOfCover = 0.66;
+		
+		Weapon weapon;
+        
+        Equipment armor, backpack;
+        
+        // Guessed and firstly not considered directly
+        // TODO Guess or calculate the correct factor
+        Double weaponTalentUptime = 0.9;
+        
+        Map<String, Double> result = new HashMap<>();
+        
+                        
+		for(String slot : slotList) {			
+			
+			Arrays.fill(factors, 1d);
+			
+			weapon = (Weapon) inventory.getEquipment(InventorySlot.valueOf(slot));
+			baseDamage = Double.valueOf(weapon.getBaseDamage());
+			
+			// Factor1 calculation
+			factors[0] +=
+//			factor1 += 
+					(inventory.getEquipment(InventorySlot.ARMOR).getCoreAttributeValue() +
+					inventory.getEquipment(InventorySlot.BACKPACK).getCoreAttributeValue() +
+					inventory.getEquipment(InventorySlot.MASK).getCoreAttributeValue() +
+					inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttributeValue() +
+					inventory.getEquipment(InventorySlot.GLOVE).getCoreAttributeValue() +
+					inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttributeValue() +
+					getData().get(Attribute.WEAPONDAMAGE)				
+			) / 100;
+			
+			// Get the Weapon Damage of the specialization (After level 30) usually 15%
+			switch(weapon.getType()) {
+				case ASSAULTRIFLE -> factors[0] += getData().get(Attribute.ASSAULTRIFLEDAMAGE) / 100;
+				case LIGHTMACHINEGUN -> factors[0] += getData().get(Attribute.LMGDAMAGE) / 100;
+				case MARKSMANRIFLE -> factors[0] += getData().get(Attribute.MARKSMANRIFLEDAMAGE) / 100;
+				case PISTOL -> factors[0] += getData().get(Attribute.PISTOLDAMAGE) / 100;
+				case RIFLE -> factors[0] += getData().get(Attribute.RIFLEDAMAGE) / 100;					
+				case SUBMACHINEGUN -> factors[0] += getData().get(Attribute.SMGDAMAGE) / 100;
+				case SHOTGUN -> factors[0] += getData().get(Attribute.SHOTGUNDAMAGE) / 100;
+			}		
+			
+			// Accumulate brandset bonus i.e. Fenris, Walker to weaponTypeDamage
+			for(Attribute attribute : brandsetStats.keySet()) {
+				if (
+					(attribute == Attribute.WEAPONDAMAGE && brandsetStats.get(attribute) > 0.0) ||
+					(attribute == Attribute.ASSAULTRIFLEDAMAGE && weapon.getType() == WeaponType.ASSAULTRIFLE) ||
+					(attribute == Attribute.LMGDAMAGE && weapon.getType() == WeaponType.LIGHTMACHINEGUN) ||
+					(attribute == Attribute.MARKSMANRIFLEDAMAGE && weapon.getType() == WeaponType.MARKSMANRIFLE) ||
+					(attribute == Attribute.PISTOLDAMAGE && weapon.getType() == WeaponType.PISTOL) ||
+					(attribute == Attribute.RIFLEDAMAGE && weapon.getType() == WeaponType.RIFLE) ||
+					(attribute == Attribute.SMGDAMAGE && weapon.getType() == WeaponType.SUBMACHINEGUN) ||
+					(attribute == Attribute.SHOTGUNDAMAGE && weapon.getType() == WeaponType.SHOTGUN)
+				) {
+					factors[0] += brandsetStats.get(attribute) / 100;
+				} 
+			}
+		
+			switch(weapon.getTalent()) {
+				case BOOMERANG, KILLER -> {
+					factors[1] += 0.4 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				case RIFLEMEN -> {					
+					factors[1] += 0.5 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				case CLOSEANDPERSONAL -> {
+					factors[1] += 0.3 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				case OPTIMIST -> {
+					factors[1] += 0.31 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				case VINDICTIVE -> {					
+					factors[1] += 0.18 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				case RANGER -> {
+					factors[1] += 0.8 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				case SADIST, EYELESS, IGNITED -> {					
+					factors[1] += 0.2 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				case INSYNC -> {
+					factors[1] += 0.15 * weaponTalentUptime;
+					factors[0] += factors[1] - 1;
+				}
+				default -> {}
+			}
+			
+			// Factor3 calculation
+			armor = (Equipment) inventory.getEquipment(InventorySlot.ARMOR);
+			
+			switch(armor.getTalent()) {
+				case FOCUS -> factors[2] += armor.isNamedItem() == true ? 0.6 : 0.5;				
+				case GLASSCANNON -> factors[2] += armor.isNamedItem() == true ? 0.3 : 0.25;				
+				case GUNSLINGER -> factors[2] += 0.2;
+				case OBLITERATE -> factors[2] += 0.25;
+				case SPARK -> factors[2] += 0.20;
+				case SPOTTER -> factors[2] += 0.15;				
+				case INITMIDATE -> factors[2] += 0.35;				
+				default -> {}
+			}
+			
+			// Factor 4 calculation 
+			backpack = (Equipment) inventory.getEquipment(InventorySlot.BACKPACK);
+			
+			switch(backpack.getTalent()) {
+				case COMPANION, COMPOSURE -> factors[3] += 0.15;
+				case CONCUSSION, VERSATILE -> factors[3] += 0.1;
+				case UNSTOPPABLEFORCE, VIGILIANCE -> factors[3] += 0.25;				
+				case WICKED -> factors[3] += 0.18;
+				default -> {}
+			}
+			
+			// Factor5 calculation
+			// No need to calculate anymore, because there are just two maximum amplify talents
+			
+			// factor6 calculation (shot factor)
+			term1 = (combinedStats.get(slot).get(Attribute.CRITICALHITCHANCE) / 100) *  
+					(combinedStats.get(slot).get(Attribute.CRITICALHITDAMAGE) / 100);
+			
+			term2 = (combinedStats.get(slot).get(Attribute.HEADSHOTDAMAGE) / 100) * headshotChance;
+			factors[5] += term1 + term2;
+		
+			// Factor 7 calculation (armor factor)
+			term1 = combinedStats.get(slot).get(Attribute.DAMAGETOARMOR) / 100 * enemyArmorPercentage;
+			term2 = (combinedStats.get(slot).get(Attribute.DAMAGETOHEALTH) / 100) * (1 - enemyArmorPercentage);
+			factors[6] += term1 + term2;
+			
+			// Factor 8 calculation (out of cover factor)
+			factors[7] += (combinedStats.get(slot).get(Attribute.DAMAGETOTARGETOUTOFCOVER) / 100) * enemyOutOfCover;
+			
+//			System.out.println("fac1 " + df.format(factors[0]));			
+//			System.out.println("fac2 " + df.format(factors[1]));
+//			System.out.println("fac3 " + df.format(factors[2]));
+//			System.out.println("fac4 " + df.format(factors[3]));
+//			System.out.println("fac5 " + df.format(factors[4]));
+//			System.out.println("fac6 " + df.format(factors[5]));
+//			System.out.println("fac7 " + df.format(factors[6]));
+//			System.out.println("fac8 " + df.format(factors[7]));
+					
+			result.put(
+				slot, baseDamage * factors[0] * factors[1] * factors[2] * factors[3] * factors[4] * factors[5] *
+				factors[6] * factors[7]
+			);
+		}
+		
+		return result;
 	}
 	
 	/**
