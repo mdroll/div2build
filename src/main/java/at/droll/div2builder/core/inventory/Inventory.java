@@ -80,8 +80,6 @@ public class Inventory implements Equipmentable {
 	 */
 	private ItemAbstract holster;
 
-	private Label newValue;
-
 	/**
 	 * Return the appropirates equipment to the specific slot
 	 * @param slot Give the enum InventorySlot to return the specific equipment
@@ -303,9 +301,11 @@ public class Inventory implements Equipmentable {
 	 * Update inventory
 	 * 
 	 * @param spinner Spinner object
-	 * @param attribute Attribute to update 
+	 * @param attribute Attribute to update
+	 * @param value Observable Bean value 
 	 * @param oldValue Old value
 	 * @param newValue New Value
+	 * @return If success it returns true otherwise false
 	 */
 	public boolean update(Spinner<Number> spinner, String attribute, ObservableValue<?> value, Number oldValue, Number newValue) {
 		

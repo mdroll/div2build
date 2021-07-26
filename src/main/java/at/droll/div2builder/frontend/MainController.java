@@ -1129,7 +1129,7 @@ public class MainController {
 	 * Preselect of normal comboboxes	 * 
 	 * @param comboBox The specific combobox where to preselect something
 	 * @param toSelect Selectable String to preselect
-	 * @param isperfectTalent
+	 * @param isPerfectTalent Is perfect talent
 	 */
 	private void comboBoxPreselection(
 			ComboBox<Label> comboBox,
@@ -1311,7 +1311,6 @@ public class MainController {
 	 * Initialize the combobox, creating items for it and set the action handler
 	 *
 	 * @param comboBox ComboBox to initialize
-	 * @param spinnerbox Assoociated spinnerbox for the ComboBox
 	 */
 	private void initializeComboBox(ComboBox<Label> comboBox) {
 		ObservableList<Label> options = FXCollections.observableArrayList();
@@ -1375,8 +1374,7 @@ public class MainController {
 	 * ComboBox actionhandler target for the inventory
 	 * 
 	 * @param event The caused event
-	 * @param spinner The associated spinnerbox to the event
-	 * 
+	 * @param spinnerbox The associated spinnerbox to the event
 	 */
 	@SuppressWarnings("unchecked")
 	private void inventoryComboBoxActionHandler(Event event, Spinner<?> spinnerbox) {
@@ -1543,6 +1541,7 @@ public class MainController {
 	
 	/**
 	 * Create an image with the appropriate symbol
+	 * @param type Offensive, defensive or skill image to create
 	 * @return Image
 	 */
 	private ImageView createAttributeImage(String type) {
@@ -1564,7 +1563,7 @@ public class MainController {
 	
 	/**
 	 * Initialize the weapon damage statistics
-	 * @param headshotChance As String (Depends on spinner because it's a String)
+	 * @param headshotChanceString As String (Depends on spinner because it's a String)
 	 * @param inventory The inventory to make the calculations on
 	 */   
 	

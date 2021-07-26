@@ -640,7 +640,7 @@ public class Statistic {
 	 * @param inventory The inventory to calculcate the weapon damage
 	 * @param headshotChance The probably percentage of headshot chance
 	 * @return Returns a map of String and Double i.e. PRIMARY -> 100.000,0 SECONDARY -> 200.000,0
-	 * @TODO Taking talent uptime into calculation. Right now it's a guessed value. See
+	 * TODO Taking talent uptime into calculation. Right now it's a guessed value. See
 	 */
 	public Map<String, Double> calculateWeaponDamage(Inventory inventory, Double headshotChance) {
 		
