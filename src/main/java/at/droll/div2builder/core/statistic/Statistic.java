@@ -681,14 +681,20 @@ public class Statistic {
 			
 			// Factor1 calculation
 			factors[0] +=
-//			factor1 += 
-					(inventory.getEquipment(InventorySlot.ARMOR).getCoreAttributeValue() +
-					inventory.getEquipment(InventorySlot.BACKPACK).getCoreAttributeValue() +
-					inventory.getEquipment(InventorySlot.MASK).getCoreAttributeValue() +
-					inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttributeValue() +
-					inventory.getEquipment(InventorySlot.GLOVE).getCoreAttributeValue() +
-					inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttributeValue() +
+			(
+					(inventory.getEquipment(InventorySlot.MASK).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.MASK).getCoreAttributeValue() : 0) +
+					(inventory.getEquipment(InventorySlot.BACKPACK).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.BACKPACK).getCoreAttributeValue() : 0) +
+					(inventory.getEquipment(InventorySlot.ARMOR).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.ARMOR).getCoreAttributeValue() : 0) +
+					(inventory.getEquipment(InventorySlot.GLOVE).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.GLOVE).getCoreAttributeValue() : 0) +
+					(inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttributeValue() : 0) +
+					(inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttributeValue() : 0) + 
 					getData().get(Attribute.WEAPONDAMAGE)				
+					
+//					inventory.getEquipment(InventorySlot.BACKPACK).getCoreAttributeValue() +
+//					inventory.getEquipment(InventorySlot.MASK).getCoreAttributeValue() +
+//					inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttributeValue() +
+//					inventory.getEquipment(InventorySlot.GLOVE).getCoreAttributeValue() +
+//					inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttributeValue() +
 			) / 100;
 			
 			// Get the Weapon Damage of the specialization (After level 30) usually 15%

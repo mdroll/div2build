@@ -10,6 +10,11 @@ import at.droll.div2builder.core.item.equipment.Equipment;
 import at.droll.div2builder.core.item.weapon.Weapon;
 import at.droll.div2builder.core.mod.Mod;
 import at.droll.div2builder.core.mod.ModException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 
 /**
  * Represents the inventory
@@ -74,6 +79,8 @@ public class Inventory implements Equipmentable {
 	 * Holds the holser equipemnt
 	 */
 	private ItemAbstract holster;
+
+	private Label newValue;
 
 	/**
 	 * Return the appropirates equipment to the specific slot
@@ -236,7 +243,7 @@ public class Inventory implements Equipmentable {
 										               .setSlot(InventorySlot.GLOVE)
 										               .setCore(Attribute.WEAPONDAMAGE, 15.0)
 										               .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
-										               .setThird(Attribute.CRITICALHITDAMAGE, 12.0)
+										               .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
 										               .addMod((Mod)World.Registry.get("mod", "44"))										               
 										               .build();		
 						
@@ -244,7 +251,7 @@ public class Inventory implements Equipmentable {
 													               .setSlot(InventorySlot.HOLSTER)
 													               .setCore(Attribute.WEAPONDAMAGE, 15.0)
 													               .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
-													               .setThird(Attribute.CRITICALHITDAMAGE, 12.0)
+													               .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
 													               .build();
 			
 			Weapon primary = (Weapon) World.Registry.get("weapon", "Classic M1A")
@@ -290,5 +297,60 @@ public class Inventory implements Equipmentable {
 		} catch(InventoryException | AttributeException | ModException e) {
 			e.printStackTrace();	
 		} return null;
+	}
+	
+	/**
+	 * Update inventory
+	 * 
+	 * @param spinner Spinner object
+	 * @param attribute Attribute to update 
+	 * @param oldValue Old value
+	 * @param newValue New Value
+	 */
+	public boolean update(Spinner<Number> spinner, String attribute, ObservableValue<?> value, Number oldValue, Number newValue) {
+		
+		ItemAbstract item;
+		String field = "";
+		
+		if (spinner.getId().contains("mask")) {
+			item = mask;
+		} else if(spinner.getId().contains("backpack")) {
+			item = backpack;
+		} else if (spinner.getId().contains("armor")) {
+			item = armor;
+		} else if (spinner.getId().contains("glove")) {
+			item = glove;
+		} else if (spinner.getId().contains("holster")) {
+			item = holster;
+		} else  {
+			item = kneepad;
+		}
+		
+		try {
+			if (spinner.getId().contains("Core")) {
+				field = "core";
+				item.setCore(Attribute.valueOf(attribute), newValue.doubleValue());
+			} else if(spinner.getId().contains("First")) {
+				field = "first";
+				item.setFirst(Attribute.valueOf(attribute), newValue.doubleValue());
+			} else if(spinner.getId().contains("Second")) {
+				field = "second";
+				item.setSecond(Attribute.valueOf(attribute), newValue.doubleValue());
+			} else if(spinner.getId().contains("Third")) {
+				field = "third";
+				item.setThird(Attribute.valueOf(attribute), newValue.doubleValue());
+			} else {
+				// TODO mod implementation
+			}
+			
+//			System.out.println("Updating " + item.getSlot().toString() + " with attribute " + attribute + " with field " + field + " with new value " + newValue);
+			return true;
+			
+		} catch(AttributeException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 }

@@ -1,14 +1,23 @@
 package at.droll.div2builder.frontend;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,12 +31,15 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import at.droll.div2builder.core.Talent;
 import at.droll.div2builder.core.World;
 import at.droll.div2builder.core.attribute.Attribute;
 import at.droll.div2builder.core.inventory.Inventory;
 import at.droll.div2builder.core.inventory.InventorySlot;
 import at.droll.div2builder.core.item.equipment.Equipment;
+import at.droll.div2builder.core.item.weapon.Weapon;
 import at.droll.div2builder.core.statistic.Statistic;
 import at.droll.div2builder.core.statistic.StatsItem;
 import at.droll.div2builder.core.statistic.StatsItemComparator;
@@ -56,6 +68,12 @@ public class MainController {
 //	}
 	
 	/**
+	 * The Godpane
+	 */
+	@FXML
+	private Pane godPane;
+	
+	/**
 	 * Holds the instance of the ThreeTableView on the right side
 	 */
     @FXML
@@ -65,7 +83,7 @@ public class MainController {
      * Holds the instance of the TitledPane mask on the left side
      */
     @FXML
-    private TitledPane maskTitledPane;
+    private TitledPane maskTitledPane; 
     
     /**
      * Holds the instance of the TitledPane backpack on the left side
@@ -97,6 +115,7 @@ public class MainController {
     @FXML
     private TitledPane kneepadTitledPane;
     
+    
     /**
      * Holds the instance of the TitledPane primary weapon on the left side
      */
@@ -114,6 +133,46 @@ public class MainController {
      */
     @FXML
     private TitledPane pistolTitledPane;
+    
+    
+    /**
+     * Hols the instance of the mask AnchorPane
+     */
+    @FXML
+    private AnchorPane maskAnchorPane;
+    
+    
+    /**
+     * Hols the instance of the backpack AnchorPane
+     */
+    @FXML
+    private AnchorPane backpackAnchorPane;
+    
+    
+    /**
+     * Hols the instance of the armor AnchorPane
+     */
+    @FXML
+    private AnchorPane armorAnchorPane;
+    
+    /**
+     * Hols the instance of the glove AnchorPane
+     */
+    @FXML
+    private AnchorPane gloveAnchorPane;
+    
+    /**
+     * Hols the instance of the holster AnchorPane
+     */
+    @FXML
+    private AnchorPane holsterAnchorPane;
+        
+    /**
+     * Hols the instance of the kneepad AnchorPane
+     */
+    @FXML
+    private AnchorPane kneepadAnchorPane;
+    
     
     /**
      * Holds the instance of the Label for the core red color 
@@ -197,37 +256,37 @@ public class MainController {
      * Holds the instance of the ComboBox for the mask's core attribute to select
      */
     @FXML
-    private ComboBox<Label> maskCoreAttributeComboBox;
+    private ComboBox<Label> maskCoreComboBox;
         
     /**
      * Holds the spinner for the mask's core attribute value
      */
     @FXML
-    private Spinner<Number> maskCoreAttributeValueSpinner;
+    private Spinner<Number> maskCoreSpinner;
     
     /**
      * Holds the instance of the ComboBox for the mask's first attrbute to select
      */
     @FXML
-    private ComboBox<Label> maskFirstAttributeComboBox;
+    private ComboBox<Label> maskFirstComboBox;
         
     /**
      * Holds the spinner for the mask's first attribute value
      */
     @FXML
-    private Spinner<Number> maskFirstAttributeValueSpinner;
+    private Spinner<Number> maskFirstSpinner;
     
     /**
      * Holds the instance of the ComboBox for the mask's second attribute to select
      */
     @FXML
-    private ComboBox<Label> maskSecondAttributeComboBox;
+    private ComboBox<Label> maskSecondComboBox;
         
     /**
      * Holds the spinner for the mask's second attribute value
      */
     @FXML
-    private Spinner<Number> maskSecondAttributeValueSpinner;
+    private Spinner<Number> maskSecondSpinner;
     
     
     /**
@@ -246,37 +305,37 @@ public class MainController {
      * Holds the instance of the ComboBox for the backpack attribute to select
      */
     @FXML
-    private ComboBox<Label> backpackCoreAttributeComboBox;
+    private ComboBox<Label> backpackCoreComboBox;
         
     /**
      * Holds the spinner for the backpack core attribute value
      */
     @FXML
-    private Spinner<Number> backpackCoreAttributeValueSpinner;
+    private Spinner<Number> backpackCoreSpinner;
     
     /**
      * Holds the instance of the ComboBox for the backpack first attrbute to select
      */
     @FXML
-    private ComboBox<Label> backpackFirstAttributeComboBox;
+    private ComboBox<Label> backpackFirstComboBox;
         
     /**
      * Holds the spinner for the backpack first attribute value
      */
     @FXML
-    private Spinner<Number> backpackFirstAttributeValueSpinner;
+    private Spinner<Number> backpackFirstSpinner;
     
     /**
      * Holds the instance of the ComboBox for the backpack's second attribute to select
      */
     @FXML
-    private ComboBox<Label> backpackSecondAttributeComboBox;
+    private ComboBox<Label> backpackSecondComboBox;
         
     /**
      * Holds the spinner for the backpack's second attribute value
      */
     @FXML
-    private Spinner<Number> backpackSecondAttributeValueSpinner;
+    private Spinner<Number> backpackSecondSpinner;
         
     /**
      * Holds the instance of the ComboBox for the backpack's mod attribute to select
@@ -300,37 +359,37 @@ public class MainController {
      * Holds the instance of the ComboBox for the armor attribute to select
      */
     @FXML
-    private ComboBox<Label> armorCoreAttributeComboBox;
+    private ComboBox<Label> armorCoreComboBox;
         
     /**
      * Holds the spinner for the armor core attribute value
      */
     @FXML
-    private Spinner<Number> armorCoreAttributeValueSpinner;
+    private Spinner<Number> armorCoreSpinner;
     
     /**
      * Holds the instance of the ComboBox for the armor first attrbute to select
      */
     @FXML
-    private ComboBox<Label> armorFirstAttributeComboBox;
+    private ComboBox<Label> armorFirstComboBox;
         
     /**
      * Holds the spinner for the armor first attribute value
      */
     @FXML
-    private Spinner<Number> armorFirstAttributeValueSpinner;
+    private Spinner<Number> armorFirstSpinner;
     
     /**
      * Holds the instance of the ComboBox for the armor second attribute to select
      */
     @FXML
-    private ComboBox<Label> armorSecondAttributeComboBox;
+    private ComboBox<Label> armorSecondComboBox;
         
     /**
      * Holds the spinner for the armor's second attribute value
      */
     @FXML
-    private Spinner<Number> armorSecondAttributeValueSpinner;
+    private Spinner<Number> armorSecondSpinner;
         
     /**
      * Holds the instance of the ComboBox for the armor mod attribute to select
@@ -351,8 +410,213 @@ public class MainController {
     private ComboBox<Label> armorTalentComboBox;
     
     /**
+     * Holds the instance of the ComboBox for the glove attribute to select
+     */
+    @FXML
+    private ComboBox<Label> gloveCoreComboBox;
+        
+    /**
+     * Holds the spinner for the glove core attribute value
+     */
+    @FXML
+    private Spinner<Number> gloveCoreSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the glove first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> gloveFirstComboBox;
+        
+    /**
+     * Holds the spinner for the glove first attribute value
+     */
+    @FXML
+    private Spinner<Number> gloveFirstSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the glove second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> gloveSecondComboBox;
+        
+    /**
+     * Holds the spinner for the gloves second attribute value
+     */
+    @FXML
+    private Spinner<Number> gloveSecondSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the glove mod attribute to select
+     */
+    @FXML
+    private ComboBox<Label> gloveModComboBox;
+        
+    /**
+     * Holds the spinner for the glove's mod attribute value
+     */
+    @FXML
+    private Spinner<Number> gloveModSpinner; 
+    
+    /**
+     * Holds the instance for the glove's mod label
+     */
+    @FXML
+    private Label gloveModLabel;
+    
+    /**
+     * Holds the instance of the ComboBox for the holster attribute to select
+     */
+    @FXML
+    private ComboBox<Label> holsterCoreComboBox;
+        
+    /**
+     * Holds the spinner for the holster core attribute value
+     */
+    @FXML
+    private Spinner<Number> holsterCoreSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the holster first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> holsterFirstComboBox;
+        
+    /**
+     * Holds the spinner for the holster first attribute value
+     */
+    @FXML
+    private Spinner<Number> holsterFirstSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the holster second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> holsterSecondComboBox;
+        
+    /**
+     * Holds the spinner for the holster second attribute value
+     */
+    @FXML
+    private Spinner<Number> holsterSecondSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the holster mod attribute to select
+     */
+    @FXML
+    private ComboBox<Label> holsterModComboBox;
+        
+    /**
+     * Holds the spinner for the holster mod attribute value
+     */
+    @FXML
+    private Spinner<Number> holsterModSpinner; 
+    
+    /**
+     * Holds the instance for the holster's mod label
+     */
+    @FXML
+    private Label holsterModLabel;
+    
+    /**
+     * Holds the instance of the ComboBox for the holster attribute to select
+     */
+    @FXML
+    private ComboBox<Label> kneepadCoreComboBox;
+        
+    /**
+     * Holds the spinner for the kneepad core attribute value
+     */
+    @FXML
+    private Spinner<Number> kneepadCoreSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the kneepad first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> kneepadFirstComboBox;
+        
+    /**
+     * Holds the spinner for the kneepad first attribute value
+     */
+    @FXML
+    private Spinner<Number> kneepadFirstSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the kneepad second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> kneepadSecondComboBox;
+        
+    /**
+     * Holds the spinner for the kneepad second attribute value
+     */
+    @FXML
+    private Spinner<Number> kneepadSecondSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the kneepad mod attribute to select
+     */
+    @FXML
+    private ComboBox<Label> kneepadModComboBox;
+        
+    /**
+     * Holds the spinner for the kneepad mod attribute value
+     */
+    @FXML
+    private Spinner<Number> kneepadModSpinner; 
+    
+    /**
+     * Holds the instance for the kneepads mod label
+     */
+    @FXML
+    private Label kneepadModLabel;
+   
+    /**
+     * Holds instance of the primaryLabel
+     */
+    @FXML
+    private Label primaryLabel;
+    
+    /**
+     * Holds instance of the secondaryLabel
+     */
+    @FXML
+    private Label secondaryLabel;
+    
+    /**
+     * Holds instance of the pistolLabel
+     */
+    @FXML
+    private Label pistolLabel;
+    
+    /**
+     * Holds instance of the primaryDamageLabel
+     */
+    @FXML
+    private Label primaryDamageLabel;
+    
+    /**
+     * Holds instance of the secondaryDamageLabel
+     */
+    @FXML
+    private Label secondaryDamageLabel;
+    
+    /**
+     * Holds instance of the pistolDamageLabel
+     */
+    @FXML
+    private Label pistolDamageLabel;
+    
+    /**
+     * Holds instance of the headshot chance spinner
+     */
+    @FXML
+    private Spinner<Integer> headshotChanceSpinner;
+    
+    /**
      * Initializing of the controller
      */
+	@SuppressWarnings("unchecked")
 	public void initialize() {
 		
 		// Putting the world bootstrap 
@@ -361,6 +625,40 @@ public class MainController {
 		Inventory inventory = new Inventory();
 		inventory = inventory.createMockupInventory();
 		world.getPlayer().getLoadout("Default").setInventory(inventory);
+		
+		// Adding recognizing
+		AnchorPane[] anchorPaneList = {
+			maskAnchorPane, backpackAnchorPane, armorAnchorPane,
+			gloveAnchorPane, holsterAnchorPane, kneepadAnchorPane  
+		};
+		
+		for (AnchorPane pane : anchorPaneList) {			
+			for (Node node : pane.getChildren()) {
+			
+				if (node instanceof Spinner) {
+					Spinner<Number> spinner = (Spinner<Number>)node;
+					
+					if (node instanceof Spinner) {
+						
+						spinner.valueProperty().addListener((observable, oldValue, newValue) -> {							
+							if (oldValue != null && oldValue != newValue) {								
+								
+								Inventory inv = world.getPlayer().getLoadout("Default").getInventory();
+								if (inv.update(spinner, spinner.getUserData().toString(), observable, oldValue, newValue)) {
+									// Updating the statistics
+									statisticsTreeTableView.getRoot().getChildren().clear();
+									statisticsTreeTableView.getColumns().clear();		
+									statisticsTreeTableView.setRoot(null);
+									initializeStatisticsView(inv);
+									initializeDamageStats(headshotChanceSpinner.getValue().toString(), inv);
+									initializeAttributesColorCount(inv);
+								}
+							}
+						});
+					}
+				} 
+			}
+		}		
 		
 		initializeStatisticsView(inventory);
 		initializeAttributesColorCount(inventory);		
@@ -574,8 +872,7 @@ public class MainController {
 	
 	/**
 	 * Initialize the inventory view (on the left side)
-	 * @param inventory Inventory to operate on
-	 * TODO Remove later weaponPanes or leave it if it's not longer used
+	 * @param inventory Inventory to operate on	 * 
 	 */
 	private void initializeInventoryView(Inventory inventory) {
 		
@@ -590,7 +887,16 @@ public class MainController {
 		TitledPane[] panes = new TitledPane[equipmentPanes.length + weaponPanes.length];
 		System.arraycopy(equipmentPanes, 0, panes, 0, equipmentPanes.length);		
 		System.arraycopy(weaponPanes,    0, panes, equipmentPanes.length, weaponPanes.length);
-		//System.arraycopy(sidePanes, 0, panes, equipmentPanes.length + weaponPanes.length, sidePanes.length);
+				
+		// Damage calculation for the weapons
+		SpinnerValueFactory<Integer> intSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 50);		
+		headshotChanceSpinner.setValueFactory(intSpinner);
+			
+		
+		headshotChanceSpinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {			
+			initializeDamageStats(newValue, inventory);
+		});
+		
 		
 		// Assignment of InventorySlot to corresponding ImageView
 		Map<InventorySlot, ImageView> images = Map.of(
@@ -607,23 +913,38 @@ public class MainController {
 			pane.setCollapsible(false);
 		}
 
-		// Register combobox / spinner pair für the Attribute : Value combinations
-		initializeComboBox(maskCoreAttributeComboBox, maskCoreAttributeValueSpinner);
-		initializeComboBox(maskFirstAttributeComboBox, maskFirstAttributeValueSpinner);
-		initializeComboBox(maskSecondAttributeComboBox, maskSecondAttributeValueSpinner);
+		// Register combobox / spinner pair for the Attribute : Value combinations
+		initializeComboBox(maskCoreComboBox, maskCoreSpinner);
+		initializeComboBox(maskFirstComboBox, maskFirstSpinner);
+		initializeComboBox(maskSecondComboBox, maskSecondSpinner);
 		initializeComboBox(maskModComboBox, maskModSpinner);
 		
-		initializeComboBox(backpackCoreAttributeComboBox, backpackCoreAttributeValueSpinner);
-		initializeComboBox(backpackFirstAttributeComboBox, backpackFirstAttributeValueSpinner);
-		initializeComboBox(backpackSecondAttributeComboBox, backpackSecondAttributeValueSpinner);
+		initializeComboBox(backpackCoreComboBox, backpackCoreSpinner);
+		initializeComboBox(backpackFirstComboBox, backpackFirstSpinner);
+		initializeComboBox(backpackSecondComboBox, backpackSecondSpinner);
 		initializeComboBox(backpackModComboBox, backpackModSpinner);
 		initializeComboBox(backpackTalentComboBox);
 		
-		initializeComboBox(armorCoreAttributeComboBox, armorCoreAttributeValueSpinner);
-		initializeComboBox(armorFirstAttributeComboBox, armorFirstAttributeValueSpinner);
-		initializeComboBox(armorSecondAttributeComboBox, armorSecondAttributeValueSpinner);
+		initializeComboBox(armorCoreComboBox, armorCoreSpinner);
+		initializeComboBox(armorFirstComboBox, armorFirstSpinner);
+		initializeComboBox(armorSecondComboBox, armorSecondSpinner);
 		initializeComboBox(armorModComboBox, armorModSpinner);
 		initializeComboBox(armorTalentComboBox);
+		
+		initializeComboBox(gloveCoreComboBox, gloveCoreSpinner);
+		initializeComboBox(gloveFirstComboBox, gloveFirstSpinner);
+		initializeComboBox(gloveSecondComboBox, gloveSecondSpinner);
+		initializeComboBox(gloveModComboBox, gloveModSpinner);
+		
+		initializeComboBox(holsterCoreComboBox, holsterCoreSpinner);
+		initializeComboBox(holsterFirstComboBox, holsterFirstSpinner);
+		initializeComboBox(holsterSecondComboBox, holsterSecondSpinner);
+		initializeComboBox(holsterModComboBox, holsterModSpinner);
+		
+		initializeComboBox(kneepadCoreComboBox, kneepadCoreSpinner);
+		initializeComboBox(kneepadFirstComboBox, kneepadFirstSpinner);
+		initializeComboBox(kneepadSecondComboBox, kneepadSecondSpinner);
+		initializeComboBox(kneepadModComboBox, kneepadModSpinner);
 		
 		
 		for (TitledPane pane : equipmentPanes) {
@@ -655,19 +976,20 @@ public class MainController {
 				case SKILLTIER -> pane.getStyleClass().add("coreAttributeYellow");
 			}			
 			
+			// Initialize the combobox with values from the settet inventory / equipment
 			switch(slot) {
 				case MASK:
-					comboBoxSpinnerPreselection(maskCoreAttributeComboBox, maskCoreAttributeValueSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
-					comboBoxSpinnerPreselection(maskFirstAttributeComboBox, maskFirstAttributeValueSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
-					comboBoxSpinnerPreselection(maskSecondAttributeComboBox, maskSecondAttributeValueSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					comboBoxSpinnerPreselection(maskCoreComboBox, maskCoreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(maskFirstComboBox, maskFirstSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+					comboBoxSpinnerPreselection(maskSecondComboBox, maskSecondSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
 					comboBoxSpinnerPreselection(maskModComboBox, maskModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());	
 				
 				break;
 				
 				case BACKPACK:
-					comboBoxSpinnerPreselection(backpackCoreAttributeComboBox, backpackCoreAttributeValueSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
-					comboBoxSpinnerPreselection(backpackFirstAttributeComboBox, backpackFirstAttributeValueSpinner, equipment.getFirstAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
-					comboBoxSpinnerPreselection(backpackSecondAttributeComboBox, backpackSecondAttributeValueSpinner, equipment.getSecondAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					comboBoxSpinnerPreselection(backpackCoreComboBox, backpackCoreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(backpackFirstComboBox, backpackFirstSpinner, equipment.getFirstAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+					comboBoxSpinnerPreselection(backpackSecondComboBox, backpackSecondSpinner, equipment.getSecondAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
 					comboBoxSpinnerPreselection(backpackModComboBox, backpackModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
 					comboBoxPreselection(backpackTalentComboBox, equipment.getTalent().toString(), equipment.isNamedItem());
 										
@@ -678,9 +1000,9 @@ public class MainController {
 				break;
 				
 				case ARMOR:
-					comboBoxSpinnerPreselection(armorCoreAttributeComboBox, armorCoreAttributeValueSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
-					comboBoxSpinnerPreselection(armorFirstAttributeComboBox, armorFirstAttributeValueSpinner, equipment.getFirstAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());
-					comboBoxSpinnerPreselection(armorSecondAttributeComboBox, armorSecondAttributeValueSpinner, equipment.getSecondAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					comboBoxSpinnerPreselection(armorCoreComboBox, armorCoreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(armorFirstComboBox, armorFirstSpinner, equipment.getFirstAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());
+					comboBoxSpinnerPreselection(armorSecondComboBox, armorSecondSpinner, equipment.getSecondAttribute().toString(), .0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
 					comboBoxSpinnerPreselection(armorModComboBox, armorModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
 					
 					comboBoxPreselection(armorTalentComboBox, equipment.getTalent().toString(),	equipment.isNamedItem());
@@ -691,7 +1013,74 @@ public class MainController {
 				
 				break;
 				
+				case GLOVE:
+					comboBoxSpinnerPreselection(gloveCoreComboBox, gloveCoreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(gloveFirstComboBox, gloveFirstSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+					comboBoxSpinnerPreselection(gloveSecondComboBox, gloveSecondSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					
+					if (equipment.isImprovisedItem() == true && equipment.getMod() != null) {					
+						comboBoxSpinnerPreselection(gloveModComboBox, gloveModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
+					} else {
+						gloveModComboBox.setVisible(false);
+						gloveModSpinner.setVisible(false);
+						gloveModLabel.setVisible(false);
+					}
+					
+				break;
+				
+				case HOLSTER:
+					comboBoxSpinnerPreselection(holsterCoreComboBox, holsterCoreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(holsterFirstComboBox, holsterFirstSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+					comboBoxSpinnerPreselection(holsterSecondComboBox, holsterSecondSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+					
+					if (equipment.isImprovisedItem() == true && equipment.getMod() != null) {					
+						comboBoxSpinnerPreselection(holsterModComboBox, holsterModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
+					} else {
+						holsterModComboBox.setVisible(false);
+						holsterModSpinner.setVisible(false);
+						holsterModLabel.setVisible(false);
+					}
+					
+				break;
+				
+				case KNEEPAD:
+					comboBoxSpinnerPreselection(kneepadCoreComboBox, kneepadCoreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+					comboBoxSpinnerPreselection(kneepadFirstComboBox, kneepadFirstSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+					comboBoxSpinnerPreselection(kneepadSecondComboBox, kneepadSecondSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes().get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+				
+					if (equipment.isImprovisedItem() == true && equipment.getMod() != null) {					
+						comboBoxSpinnerPreselection(kneepadModComboBox, kneepadModSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());					
+					} else {
+						kneepadModComboBox.setVisible(false);
+						kneepadModSpinner.setVisible(false);
+						kneepadModLabel.setVisible(false);
+					}
+				break;
+				
 				default:
+			}
+		}
+		
+		// Initialize weapon panes
+		initializeDamageStats(headshotChanceSpinner.getValue().toString(), inventory);
+		
+		for (TitledPane pane : weaponPanes) {
+						
+			String slotName = pane.getText().toUpperCase();			
+			InventorySlot slot = InventorySlot.valueOf(slotName);
+			Weapon weapon = (Weapon) inventory.getEquipment(slot);			
+					
+			switch(slot) {
+				case PRIMARY -> {
+					primaryLabel.setText(weapon.getName());					
+				}
+				case SECONDARY -> {
+					secondaryLabel.setText(weapon.getName());					
+				}
+				case PISTOL -> {
+					pistolLabel.setText(weapon.getName());					
+				}
+				default -> {}
 			}
 		}
 	}
@@ -722,7 +1111,9 @@ public class MainController {
 		options.forEach(select -> {
 			String attribute = select.getText().substring(0, select.getText().indexOf(" "));
 			if (attribute.contains(toSelect)) {
-				comboBox.setValue(select);				
+				comboBox.setValue(select);		
+				spinner.setUserData(attribute);
+				
 				spinnerInitialize(
 					spinner,
 					min,
@@ -820,24 +1211,37 @@ public class MainController {
 		ObservableList<Label> options = FXCollections.observableArrayList();
 		Map<Attribute, Number> attributes;		
 		
+		// With what Attributes should the combobox be filled
 		switch(comboBox.getId()) {
 			default:
-			case "maskCoreAttributeComboBox":
-			case "backpackCoreAttributeComboBox":
-			case "armorCoreAttributeComboBox":
+			case "maskCoreComboBox":
+			case "backpackCoreComboBox":
+			case "armorCoreComboBox":
+			case "gloveCoreComboBox":
+			case "holsterCoreComboBox":
+			case "kneepadCoreComboBox":
 				attributes = Attribute.getCoreAttributes();
 				break;
-			case "maskFirstAttributeComboBox":
-			case "maskSecondAttributeComboBox":
-			case "backpackFirstAttributeComboBox":
-			case "backpackSecondAttributeComboBox":
-			case "armorFirstAttributeComboBox":
-			case "armorSecondAttributeComboBox":
+			case "maskFirstComboBox":
+			case "maskSecondComboBox":
+			case "backpackFirstComboBox":
+			case "backpackSecondComboBox":
+			case "armorFirstComboBox":
+			case "armorSecondComboBox":
+			case "gloveFirstComboBox":
+			case "gloveSecondComboBox":
+			case "holsterFirstComboBox":
+			case "holsterSecondComboBox":
+			case "kneepadFirstComboBox":
+			case "kneepadSecondComboBox":
 				attributes = Attribute.getMinorAttributes();
 				break;
 			case "maskModComboBox":
 			case "backpackModComboBox":
 			case "armorModComboBox":
+			case "gloveModComboBox":
+			case "holstereModComboBox":
+			case "kneepadModComboBox":
 				attributes = Attribute.getModAttributes();
 				break;
 		}
@@ -960,8 +1364,12 @@ public class MainController {
 		statisticsTreeTableView.getColumns().clear();		
 		statisticsTreeTableView.setRoot(null);
 		
-		initializeStatisticsView(world.getPlayer().getLoadout("Default").getInventory());
+		Inventory inventory = world.getPlayer().getLoadout("Default").getInventory();
+		initializeStatisticsView(inventory);
+		initializeDamageStats(headshotChanceSpinner.getValue().toString(), inventory);
 	}
+		
+	
 	
 	/**
 	 * ComboBox actionhandler target for the inventory
@@ -979,11 +1387,17 @@ public class MainController {
 		Object selectedItem = comboBox.getSelectionModel().getSelectedItem();
 		Label select = (Label)selectedItem;
 		String attribute = select.getText().substring(0, select.getText().indexOf(" "));
+
+		// Ditching selected Attribute from combobox to spinner, to access later in changeListener
+		spinnerbox.setUserData(attribute);
 		
 		switch(fxId) {	
-			case "maskCoreAttributeComboBox":
-			case "backpackCoreAttributeComboBox":
-			case "armorCoreAttributeComboBox":
+			case "maskCoreComboBox":
+			case "backpackCoreComboBox":
+			case "armorCoreComboBox":
+			case "gloveCoreComboBox":
+			case "holsterCoreComboBox":
+			case "kneepadCoreComboBox":
 				switch(attribute) {				
 					case "WEAPONDAMAGE":
 						spinnerInitialize(
@@ -1023,12 +1437,18 @@ public class MainController {
 				}
 			break;
 			
-			case "maskFirstAttributeComboBox":
-			case "maskSecondAttributeComboBox":
-			case "backpackFirstAttributeComboBox":
-			case "backpackSecondAttribtueComboBox":
-			case "armorFirstAttributeComboBox":
-			case "armorSecondAttributeComboBox":
+			case "maskFirstComboBox":
+			case "maskSecondComboBox":
+			case "backpackFirstComboBox":
+			case "backpackSecondComboBox":
+			case "armorFirstComboBox":
+			case "armorSecondComboBox":
+			case "gloveFirstComboBox":
+			case "gloveSecondComboBox":
+			case "holsterFirstComboBox":
+			case "holsterSecondComboBox":
+			case "kneepadFirstComboBox":
+			case "kneepadSecondComboBox":
 				
 				switch(attribute) {
 					case "CRITICALHITCHANCE":
@@ -1073,6 +1493,9 @@ public class MainController {
 			case "maskModComboBox":
 			case "backpackModComboBox":
 			case "armorModComboBox":
+			case "gloveModComboBox":
+			case "holsterModComboBox":
+			case "kneepadModComboBox":
 				
 				switch(attribute) {
 					case "CRITICALHITCHANCE":
@@ -1137,5 +1560,26 @@ public class MainController {
 		imageView.setFitWidth(16.0);
 
 		return imageView;
+	}
+	
+	/**
+	 * Initialize the weapon damage statistics
+	 * @param headshotChance As String (Depends on spinner because it's a String)
+	 * @param inventory The inventory to make the calculations on
+	 */   
+	
+	public void initializeDamageStats(String headshotChanceString, Inventory inventory) {
+		
+		Double headshotChance = Double.parseDouble(headshotChanceString);		
+		headshotChance = headshotChance / 100;
+		Map<String, Double> damage;
+		
+		damage = world.getPlayer().getLoadout("Default").getStatistic()
+														.calculateWeaponDamage(inventory, headshotChance);
+		DecimalFormat decimalFormat = new DecimalFormat("#,###", new DecimalFormatSymbols(Locale.GERMAN));
+		
+		primaryDamageLabel.setText(decimalFormat.format(damage.get("PRIMARY")) + " SPS");
+		secondaryDamageLabel.setText(decimalFormat.format(damage.get("SECONDARY")) + " SPS");
+		pistolDamageLabel.setText(decimalFormat.format(damage.get("PISTOL")) + " SPS");
 	}
 }
