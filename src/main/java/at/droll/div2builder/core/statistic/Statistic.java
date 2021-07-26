@@ -1,7 +1,6 @@
 package at.droll.div2builder.core.statistic;
 
 import at.droll.div2builder.core.Manufacturer;
-import at.droll.div2builder.core.Talent;
 import at.droll.div2builder.core.World;
 import at.droll.div2builder.core.attribute.Attribute;
 import at.droll.div2builder.core.inventory.Inventory;
@@ -13,15 +12,9 @@ import at.droll.div2builder.core.item.weapon.WeaponType;
 import at.droll.div2builder.core.mod.Mod;
 import at.droll.div2builder.core.mod.Modslot;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 /**
  * Statistic class

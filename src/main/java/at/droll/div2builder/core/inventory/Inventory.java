@@ -10,10 +10,7 @@ import at.droll.div2builder.core.item.equipment.Equipment;
 import at.droll.div2builder.core.item.weapon.Weapon;
 import at.droll.div2builder.core.mod.Mod;
 import at.droll.div2builder.core.mod.ModException;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 
 /**
