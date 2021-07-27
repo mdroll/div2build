@@ -49,7 +49,7 @@ class WorldTests {
 		Map<String, Double> values = world.getPlayer().getLoadout("Default").getStatistic()
 											   						.calculateWeaponDamage(inventory, 1d);
 		
-		System.out.println(values);
+		//System.out.println(values);
 	}
 	
 	/**
@@ -208,7 +208,7 @@ class WorldTests {
 	@Test
 	void testInitializeModRegistry() {		
 		Mod mod1 = (Mod) World.Registry.get("mod", "32");
-		Mod mod2 = (Mod) World.Registry.get("mod", "49");		
+		Mod mod2 = (Mod) World.Registry.get("mod", "PROTECTIONFROMELITES");		
 		
 		assertTrue(
 			mod1.getName().equals("Tactical 5.56 Mag")
@@ -258,6 +258,8 @@ class WorldTests {
 	@Test
 	void testDefaultLoadoutCreation() {
 		Inventory inventory = createMockupInventory();
+		
+//		System.out.println((Equipment) inventory.getEquipment(InventorySlot.MASK));
 		
 		// Check if all items are there where they should
 		assertTrue(

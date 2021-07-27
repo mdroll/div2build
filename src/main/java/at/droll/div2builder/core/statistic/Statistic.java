@@ -336,7 +336,7 @@ public class Statistic {
 				);
 		
 				/* 
-				 * TODO Check with an improsised item
+				 * TODO Check with an improvised item
 				 * Calculate the bonus if a mod is attached
 				 */
 				mod = (Mod)item.getMod();

@@ -30,7 +30,7 @@ public class Mod extends AttributeAbstract implements Buildable {
 	/**
 	 * Holds the id of the mod
 	 */
-	private int id;
+	private String id;
 	
 	
 	/**
@@ -47,7 +47,7 @@ public class Mod extends AttributeAbstract implements Buildable {
 	 * @param exotic Is a exotic item i.e. exotic weapon mod
 	 */
 	public Mod (
-			int id,
+			String id,
 			Modslot slot,
 			String name,
 			Attribute firstAttribute,
@@ -78,7 +78,7 @@ public class Mod extends AttributeAbstract implements Buildable {
 	 * @param attribute The attribute of the mod
 	 * @param value The value of the attribute
 	 */
-	public Mod(int id, String name, Attribute attribute, double value) {
+	public Mod(String id, String name, Attribute attribute, double value) {
 		try {
 			switch(attribute) {
 				default:
@@ -96,15 +96,15 @@ public class Mod extends AttributeAbstract implements Buildable {
 				case RESISTANCEBLIND:
 				case RESISTANCEDESORIENT:
 				case RESISTANCEDISRUPT:
-				case RESISTANCEESNARE:
+				case RESISTANCEENSNARE:
 				case RESISTANCESHOCK:
 				case PROTECTIONFROMELITES:
 				case ARMORONKILL:
 					this.setCore(Attribute.ARMOR, 0);
 					break;
 			}
-			this.setName(name);
 			this.setId(id);
+			this.setName(name);
 			this.setFirst(attribute, value);
 			this.setSlot(Modslot.EQUIPMENT);
 			
@@ -165,7 +165,7 @@ public class Mod extends AttributeAbstract implements Buildable {
 	 * Setter for the id
 	 * @param id Id of the mod
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
@@ -173,7 +173,7 @@ public class Mod extends AttributeAbstract implements Buildable {
 	 * Getter for the id
 	 * @return Returns the id
 	 */
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 	
@@ -190,7 +190,9 @@ public class Mod extends AttributeAbstract implements Buildable {
 	@Override
 	public String toString() {
 		return "Mod [requiredSpecialization=" + requiredSpecialization + ", isExotic=" + isExotic + ", slot=" + slot
-				+ ", id=" + id + "]";
+				+ ", id=" + id + ", getCoreAttribute()=" + getCoreAttribute() + ", getFirstAttribute()="
+				+ getFirstAttribute() + ", getCoreAttributeValue()=" + getCoreAttributeValue()
+				+ ", getFirstAttributeValue()=" + getFirstAttributeValue() + "]";
 	}
 	
 }

@@ -212,7 +212,7 @@ public class Inventory implements Equipmentable {
 												                .setCore(Attribute.WEAPONDAMAGE, 15.0)
 												                .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
 												                .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
-												                .addMod((Mod)World.Registry.get("mod", "44"))
+												                .addMod((Mod)World.Registry.get("mod", "CRITICALHITDAMAGE"))
 												                .build()
 		    ;			
 			
@@ -220,7 +220,7 @@ public class Inventory implements Equipmentable {
 														.setCore(Attribute.WEAPONDAMAGE, 15.0)
 														.setFirst(Attribute.CRITICALHITCHANCE, 6.0)											
 														.setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
-														.addMod((Mod)World.Registry.get("mod", "44"))
+														.addMod((Mod)World.Registry.get("mod", "CRITICALHITDAMAGE"))
 			;
 
 			Equipment backpack = (Equipment) new Equipment.Builder().setManufacturer(Manufacturer.PROVIDENCE)
@@ -229,7 +229,7 @@ public class Inventory implements Equipmentable {
 														   .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
 														   .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
 														   .setTalent(Talent.VIGILIANCE)
-														   .addMod((Mod)World.Registry.get("mod", "44"))
+														   .addMod((Mod)World.Registry.get("mod", "CRITICALHITDAMAGE"))
 			;
 			
 //			Equipment backpack = (Equipment) World.Registry.get("equipment", Equipment.THEGIFT)
@@ -249,7 +249,7 @@ public class Inventory implements Equipmentable {
 										               .setCore(Attribute.WEAPONDAMAGE, 15.0)
 										               .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
 										               .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
-										               .addMod((Mod)World.Registry.get("mod", "44"))										               
+										               .addMod((Mod)World.Registry.get("mod", "CRITICALHITDAMAGE"))										               
 										               .build();		
 						
 			Equipment holster = (Equipment) new Equipment.Builder().setManufacturer(Manufacturer.GRUPO)
@@ -309,26 +309,25 @@ public class Inventory implements Equipmentable {
 	 * 
 	 * @param spinner Spinner object
 	 * @param attribute Attribute to update
-	 * 
 	 * @param newValue New Value
 	 * @return If success it returns true otherwise false
 	 */
 	public boolean update(Spinner<Number> spinner, String attribute, Number newValue) {
 		
-		ItemAbstract item;
+		Equipment item;
 		
 		if (spinner.getId().contains("mask")) {
-			item = mask;
+			item = (Equipment) mask;
 		} else if(spinner.getId().contains("backpack")) {
-			item = backpack;
+			item = (Equipment) backpack;
 		} else if (spinner.getId().contains("armor")) {
-			item = armor;
+			item = (Equipment) armor;
 		} else if (spinner.getId().contains("glove")) {
-			item = glove;
+			item = (Equipment) glove;
 		} else if (spinner.getId().contains("holster")) {
-			item = holster;
+			item = (Equipment) holster;
 		} else  {
-			item = kneepad;
+			item = (Equipment)kneepad;
 		}
 		
 		try {
@@ -341,10 +340,9 @@ public class Inventory implements Equipmentable {
 			} else if(spinner.getId().contains("Third")) {
 				item.setThird(Attribute.valueOf(attribute), newValue.doubleValue());
 			} else {
-				// TODO mod implementation
+				item.getMod().setFirstAttributeValue(newValue.doubleValue());
 			}
-			
-//			System.out.println("Updating " + item.getSlot().toString() + " with attribute " + attribute + " with field " + field + " with new value " + newValue);
+
 			return true;
 			
 		} catch(AttributeException e) {
@@ -381,6 +379,47 @@ public class Inventory implements Equipmentable {
 			e.printStackTrace();
 		}
 		
+		return false;
+	}
+	
+
+	/**
+	 * Updating inventory / Proxy to talent
+	 * 
+	 * @param comboBoxId fx:id Of the combobox to determine the equipment
+	 * @param newValue Label with the selected attribute from the combobox
+	 * @return If success it returns true otherwise false
+	 */	
+	public boolean update(String comboBoxId, String attribute, Label newValue) {
+		
+		Equipment item;
+		
+		if (comboBoxId.contains("mask")) {
+			item = (Equipment) mask;
+		} else if(comboBoxId.contains("backpack")) {
+			item = (Equipment) backpack;
+		} else if (comboBoxId.contains("armor")) {
+			item = (Equipment) armor;
+		} else if (comboBoxId.contains("glove")) {
+			item = (Equipment) glove;
+		} else if (comboBoxId.contains("holster")) {
+			item = (Equipment) holster;
+		} else  {
+			item = (Equipment)kneepad;
+		}
+		
+		Mod mod = (Mod) World.Registry.get("mod", attribute);		
+		Double max = Attribute.getModAttributes().get(Attribute.valueOf(attribute)).doubleValue();
+		
+		try {
+			mod.setFirstAttributeValue(max);
+			item.addMod(mod);
+			return true;
+		} catch (NumberFormatException | AttributeException | ModException e) {
+			e.getMessage();
+			e.printStackTrace();	
+		}
+				
 		return false;
 	}
 }

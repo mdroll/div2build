@@ -205,15 +205,15 @@ public class World implements Populateable {
         		
         		if (result.getString("modtype").equals("EQUIPMENT")) {
         			mod = new Mod(
-        					result.getInt("id"),
-        					result.getString("name"),
-        					Attribute.valueOf(result.getString("firstAttribute")),
-        					result.getDouble("firstAttributeValue")
+        				result.getString("firstAttribute"),
+    					result.getString("name"),
+    					Attribute.valueOf(result.getString("firstAttribute")),
+    					result.getDouble("firstAttributeValue")
         			);
         			
         		} else {
         			mod = new Mod(
-        				result.getInt("id"),
+        				result.getString("id"),
         				Modslot.valueOf(result.getString("modtype")),
         				result.getString("name"),
         				Attribute.valueOf(result.getString("firstAttribute")),
@@ -225,7 +225,7 @@ public class World implements Populateable {
         			);
         		}
         		// TODO Instead of mod.getId() use result.getString("name"). addMod(44) instead of addMod("CRITICAL HIT CHANCE")?
-        		World.Registry.set("mod", String.valueOf(mod.getId()), mod);
+        		World.Registry.set("mod", String.valueOf(mod.getId()), mod);        		
         	}        	
 	    	
 		} catch(SQLException e) {

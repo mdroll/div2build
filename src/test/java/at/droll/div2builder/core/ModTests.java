@@ -67,7 +67,7 @@ class ModTests {
 	@Test
 	void testCreateWeaponMod() {
 		Mod mod = new Mod(
-			1,
+			"1",
 			Modslot.MAG,
 			"Sturdy Extended 5.56 Mag",
 			Attribute.ROUNDS,
@@ -86,7 +86,10 @@ class ModTests {
 	
 	@Test
 	void testCreateSimpleEquipmentMod() {
-		Mod mod = new Mod(44, "Critical Hit Damage", Attribute.CRITICALHITDAMAGE, 12);
-		assertTrue(mod.getId() == 44);
+		Mod mod = new Mod("CRITICALHITDAMAGE", "Critical Hit Damage", Attribute.CRITICALHITDAMAGE, 12);
+		
+		System.out.println(mod);
+		
+		assertTrue(mod.getId() == "CRITICALHITDAMAGE");
 	}
 }

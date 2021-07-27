@@ -680,6 +680,22 @@ public class MainController {
 								}
 							}
 						});
+					} else if (comboBox.getId().contains("Mod")) {
+						
+						comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+							
+							if (oldValue != null && oldValue != newValue) {
+								Inventory inv = world.getPlayer().getLoadout("Default").getInventory();
+								Label lbl = observable.getValue();
+								String attribute = lbl.getText().substring(0, lbl.getText().indexOf(" "));
+								
+								if (inv.update(comboBox.getId(), attribute, newValue)) {
+									initializeStatisticsView(inv);
+									initializeDamageStats(headshotChanceSpinner.getValue().toString(), inv);
+									initializeAttributesColorCount(inv);
+								}
+							}
+						});
 					}
 				}				
 			}
@@ -1359,7 +1375,7 @@ public class MainController {
 				case RESISTANCEBLIND:
 				case RESISTANCEBURN:
 				case RESISTANCEDISRUPT:
-				case RESISTANCEESNARE:
+				case RESISTANCEENSNARE:
 				case RESISTANCEDESORIENT:
 				case RESISTANCESHOCK:
 					imageView = createAttributeImage("defensive");
@@ -1568,7 +1584,7 @@ public class MainController {
 					case "RESISTANCEBLIND":
 					case "RESISTANCEBURN":
 					case "RESISTANCEDISRUPT":
-					case "RESISTANCEESNARE":
+					case "RESISTANCEENSNARE":
 					case "RESISTANCEDESORIENT":
 					case "RESISTANCESHOCK":				
 					case "REPAIRSKILLS":

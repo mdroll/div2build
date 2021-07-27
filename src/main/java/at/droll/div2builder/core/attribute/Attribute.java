@@ -202,9 +202,9 @@ public enum Attribute {
 	RESISTANCEDISRUPT,
 	
 	/**
-	 * Resistance esnare
+	 * Resistance ensnare
 	 */
-	RESISTANCEESNARE,
+	RESISTANCEENSNARE,
 	
 	/**
 	 * Resistance shock
@@ -386,7 +386,7 @@ public enum Attribute {
 		value.put(Attribute.RESISTANCEBLIND, 10.0);
 		value.put(Attribute.RESISTANCEBURN, 10.0);
 		value.put(Attribute.RESISTANCEDISRUPT, 10.0);
-		value.put(Attribute.RESISTANCEESNARE, 10.0);
+		value.put(Attribute.RESISTANCEENSNARE, 10.0);
 		value.put(Attribute.RESISTANCEDESORIENT, 10.0);	
 		value.put(Attribute.RESISTANCESHOCK, 10.0);
 		value.put(Attribute.REPAIRSKILLS, 20.0);
