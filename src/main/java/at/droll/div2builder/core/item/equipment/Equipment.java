@@ -487,8 +487,7 @@ public class Equipment extends ItemAbstract implements Equipmentable, Modable {
 			}
 			super.setName(name);		
 		} 
-		catch(AttributeException e) { System.err.println(e.getMessage()); }
-		catch(InventoryException e) {  System.err.println(e.getMessage());}
+		catch(AttributeException | InventoryException e) { System.err.println(e.getMessage()); }
 		
 		return (Buildable) this;
 	}
@@ -679,6 +678,9 @@ public class Equipment extends ItemAbstract implements Equipmentable, Modable {
 		}
 	}
 	
+	/**
+	 * For debug output overwritten toString method
+	 */
 	@Override
 	public String toString() {
 		return "Equipment [improvisedItem=" + improvisedItem + ", manufacturer=" + manufacturer + ", talent=" + talent

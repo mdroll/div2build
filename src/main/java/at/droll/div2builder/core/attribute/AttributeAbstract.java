@@ -96,7 +96,15 @@ abstract public class AttributeAbstract implements Attributable {
 	public Buildable setFixedAttribute(int nr) {
 		this.fixedAttribute.push(nr);
 		return (Buildable) this;
-	}	
+	}
+	
+	/**
+	 * Returns all the previous setted numbers of attributes i.e. 1 for First, 2 for second, 3 for third which are fixed
+	 * @return Stack with fixed attributes
+	 */
+	public Stack<Integer> getAllFixedAttributes() {
+		return fixedAttribute;
+	}
 
 	/**
 	 * Removes all fixed attribute of an item

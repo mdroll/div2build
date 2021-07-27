@@ -262,26 +262,12 @@ class WorldTests {
 		// Check if all items are there where they should
 		assertTrue(
 			((Equipment)inventory.getEquipment(InventorySlot.MASK)).getManufacturer().getShortname().equals(Manufacturer.CESKA)
-			&& inventory.getEquipment(InventorySlot.ARMOR).getName().equals(Equipment.THESACRIFICE)
-			&& inventory.getEquipment(InventorySlot.BACKPACK).getName().equals(Equipment.THEGIFT)
+			&& inventory.getEquipment(InventorySlot.ARMOR).getName().equals(Equipment.THESACRIFICE)			
 			&& inventory.getEquipment(InventorySlot.KNEEPAD).getName().equals(Equipment.FOXSPRAYER)
 			&& ((Equipment)inventory.getEquipment(InventorySlot.GLOVE)).isImprovisedItem() == true				
 			&& String.valueOf(inventory.getEquipment(InventorySlot.PRIMARY).getName()).equals("Classic M1A")
 			&& String.valueOf(inventory.getEquipment(InventorySlot.SECONDARY).getName()).equals("Police M4")
 			&& String.valueOf(inventory.getEquipment(InventorySlot.PISTOL).getName()).equals("Orbit")	
 		);
-	}
-	
-	/**
-	 * Test Bonus by Brandset by mockup inventory
-	 */
-	@Test
-	void testDefaultGetBrandsetBonusbyBrandset() {
-		
-		Inventory inventory = createMockupInventory();
-		
-		Map<String, Map<Attribute, Double>> values = world.getPlayer().getLoadout("Default")
-																	  .getStatistic()
-																	  .getBonusByBrandset(inventory);
 	}
 }

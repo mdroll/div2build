@@ -2,18 +2,10 @@
 	-fx-background-image:url("background2.png");
 }
 
-/*
-.titled-pane .title {
-	-fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #fdb110, #31333f);
-}
-**/
-
-.titled-pane > .title {
-    -fx-pref-height: 40.0;
-}
-
 .titled-pane > *.title {	
+    -fx-pref-height: 40.0;
 	-fx-alignment:baseline-left;
+	-fx-font-weight:bold;
 }
  
 .coreAttributeRed > *.title {
@@ -34,4 +26,8 @@
 
 .coreAttributeExotic > *.title {
 	-fx-background-color:#e69c21;
+}
+
+.tree-table-view .column-header {
+	-fx-size:40;
 }

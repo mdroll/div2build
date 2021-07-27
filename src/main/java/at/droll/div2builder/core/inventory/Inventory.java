@@ -1,6 +1,7 @@
 package at.droll.div2builder.core.inventory;
 
 import at.droll.div2builder.core.Manufacturer;
+import at.droll.div2builder.core.Talent;
 import at.droll.div2builder.core.TalentWeapon;
 import at.droll.div2builder.core.World;
 import at.droll.div2builder.core.attribute.Attribute;
@@ -10,8 +11,8 @@ import at.droll.div2builder.core.item.equipment.Equipment;
 import at.droll.div2builder.core.item.weapon.Weapon;
 import at.droll.div2builder.core.mod.Mod;
 import at.droll.div2builder.core.mod.ModException;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.Label;
 
 /**
  * Represents the inventory
@@ -222,12 +223,21 @@ public class Inventory implements Equipmentable {
 														.addMod((Mod)World.Registry.get("mod", "44"))
 			;
 
-			Equipment backpack = (Equipment) World.Registry.get("equipment", Equipment.THEGIFT)
+			Equipment backpack = (Equipment) new Equipment.Builder().setManufacturer(Manufacturer.PROVIDENCE)
+														   .setSlot(InventorySlot.BACKPACK)
 														   .setCore(Attribute.WEAPONDAMAGE, 15.0)
 														   .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
 														   .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
-														   .addMod((Mod)World.Registry.get("mod", "44"));
+														   .setTalent(Talent.VIGILIANCE)
+														   .addMod((Mod)World.Registry.get("mod", "44"))
 			;
+			
+//			Equipment backpack = (Equipment) World.Registry.get("equipment", Equipment.THEGIFT)
+//					   .setCore(Attribute.WEAPONDAMAGE, 15.0)
+//					   .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
+//					   .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
+//					   .addMod((Mod)World.Registry.get("mod", "44"));
+//			;
 			
 			Equipment kneepad = (Equipment) World.Registry.get("equipment", Equipment.FOXSPRAYER)
 														  .setCore(Attribute.WEAPONDAMAGE, 15.0)
@@ -295,19 +305,17 @@ public class Inventory implements Equipmentable {
 	}
 	
 	/**
-	 * Update inventory
+	 * Update inventory / proxy to setYIELD Method
 	 * 
 	 * @param spinner Spinner object
 	 * @param attribute Attribute to update
-	 * @param value Observable Bean value 
-	 * @param oldValue Old value
+	 * 
 	 * @param newValue New Value
 	 * @return If success it returns true otherwise false
 	 */
-	public boolean update(Spinner<Number> spinner, String attribute, ObservableValue<?> value, Number oldValue, Number newValue) {
+	public boolean update(Spinner<Number> spinner, String attribute, Number newValue) {
 		
 		ItemAbstract item;
-		String field = "";
 		
 		if (spinner.getId().contains("mask")) {
 			item = mask;
@@ -324,17 +332,13 @@ public class Inventory implements Equipmentable {
 		}
 		
 		try {
-			if (spinner.getId().contains("Core")) {
-				field = "core";
+			if (spinner.getId().contains("Core")) {				
 				item.setCore(Attribute.valueOf(attribute), newValue.doubleValue());
 			} else if(spinner.getId().contains("First")) {
-				field = "first";
 				item.setFirst(Attribute.valueOf(attribute), newValue.doubleValue());
 			} else if(spinner.getId().contains("Second")) {
-				field = "second";
 				item.setSecond(Attribute.valueOf(attribute), newValue.doubleValue());
 			} else if(spinner.getId().contains("Third")) {
-				field = "third";
 				item.setThird(Attribute.valueOf(attribute), newValue.doubleValue());
 			} else {
 				// TODO mod implementation
@@ -344,6 +348,35 @@ public class Inventory implements Equipmentable {
 			return true;
 			
 		} catch(AttributeException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Updating inventory / Proxy to talent
+	 * 
+	 * @param comboBoxId fx:id Of the combobox to determine the equipment
+	 * @param newValue Label with the selected attribute from the combobox
+	 * @return If success it returns true otherwise false
+	 */	
+	public boolean update(String comboBoxId, Label newValue) {
+		
+		Equipment item;
+		
+		if (comboBoxId.contains("backpack")) {
+			item = (Equipment) backpack;
+		} else {
+			item = (Equipment) armor;
+		}
+		Talent talent = Talent.valueOf(newValue.getText());
+		
+		try {
+			item.setTalent(talent);
+			return true;
+		} catch (InventoryException e) {
 			e.getMessage();
 			e.printStackTrace();
 		}

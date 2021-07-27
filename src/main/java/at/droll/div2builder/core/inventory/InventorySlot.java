@@ -48,5 +48,14 @@ public enum InventorySlot {
 	/**
 	 * Pistol sidearm
 	 */
-	PISTOL
+	PISTOL;
+	
+	/**
+	 * Get all equipment slots as array
+	 * @return
+	 */
+	public static InventorySlot[] getAllEquipmentSlots() {
+		InventorySlot[] slot = {ARMOR, BACKPACK, HOLSTER, KNEEPAD, GLOVE, MASK};
+		return slot;
+	}
 }

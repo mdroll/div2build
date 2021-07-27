@@ -2,6 +2,9 @@ package at.droll.div2builder.core.attribute;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Stack;
+
+import at.droll.div2builder.core.item.equipment.Equipment;
 
 /**
  * Attribute
@@ -325,6 +328,35 @@ public enum Attribute {
 		value.put(Attribute.STATUSEFFECTS, 10.0);
 		return value;
 	}
+	
+	/**
+	 * Return the minor attributes with their max values 
+	 * @return Returns a linked hashmap of attributes and their max values
+	 */
+	public static Map<Attribute, Number> getMinorAttributes(Equipment equipment) {
+		
+		Map<Attribute, Number> value = Attribute.getMinorAttributes();
+		
+		if (equipment.isNamedItem()) {
+			Stack<Integer> fixed = equipment.getAllFixedAttributes();
+			fixed.forEach(nr -> {
+				switch(nr) {
+					case 1 -> {
+						value.put(equipment.getFirstAttribute(), equipment.getFirstAttributeValue());
+					}
+					case 2 -> {
+						value.put(equipment.getSecondAttribute(), equipment.getSecondAttributeValue());
+					}
+					case 3 -> {
+						value.put(equipment.getThirdAttribute(), equipment.getThirdAttributeValue());
+					}
+				}
+			});
+		}
+		
+		return value;
+	}
+	
 	
 	/**
 	 * Return the miniopr attributes and hide the passed hideAttribute
