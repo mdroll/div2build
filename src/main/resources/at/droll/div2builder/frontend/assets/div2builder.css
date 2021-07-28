@@ -7,13 +7,17 @@
 	-fx-alignment:baseline-left;
 	-fx-font-weight:bold;
 }
- 
-.coreAttributeRed > *.title {
-	-fx-background-color:#dd5a57;	
-}
 
 .namedItem {
 	-fx-text-fill:yellow;
+}
+
+.weapon > *.title {
+	-fx-background-color:#9c9292;
+}
+
+.coreAttributeRed > *.title {
+	-fx-background-color:#dd5a57;	
 }
 
 .coreAttributeBlue > *.title {
@@ -27,6 +31,7 @@
 .coreAttributeExotic > *.title {
 	-fx-background-color:#e69c21;
 }
+
 
 .tree-table-view .column-header {
 	-fx-size:40;

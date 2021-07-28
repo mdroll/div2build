@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import at.droll.div2builder.core.item.equipment.Equipment;
+import at.droll.div2builder.core.item.weapon.WeaponType;
 
 /**
  * Attribute
@@ -331,6 +332,7 @@ public enum Attribute {
 	
 	/**
 	 * Return the minor attributes with their max values 
+	 * @param equipment Equipment
 	 * @return Returns a linked hashmap of attributes and their max values
 	 */
 	public static Map<Attribute, Number> getMinorAttributes(Equipment equipment) {
@@ -341,15 +343,10 @@ public enum Attribute {
 			Stack<Integer> fixed = equipment.getAllFixedAttributes();
 			fixed.forEach(nr -> {
 				switch(nr) {
-					case 1 -> {
-						value.put(equipment.getFirstAttribute(), equipment.getFirstAttributeValue());
-					}
-					case 2 -> {
-						value.put(equipment.getSecondAttribute(), equipment.getSecondAttributeValue());
-					}
-					case 3 -> {
-						value.put(equipment.getThirdAttribute(), equipment.getThirdAttributeValue());
-					}
+					case 1 -> value.put(equipment.getFirstAttribute(), equipment.getFirstAttributeValue());
+					case 2 -> value.put(equipment.getSecondAttribute(), equipment.getSecondAttributeValue());
+					case 3 -> value.put(equipment.getThirdAttribute(), equipment.getThirdAttributeValue());				
+					default -> {}
 				}
 			});
 		}
@@ -359,15 +356,13 @@ public enum Attribute {
 	
 	
 	/**
-	 * Return the miniopr attributes and hide the passed hideAttribute
+	 * Return the minior attributes and hide the passed hideAttribute
 	 * @param hideAttribute Attribute to hide
 	 * @return Returns a linked hashmap of attribtues and their max values
-	 * TODO Need to implement here
 	 */
 	public static Map<Attribute, Number> getMinorAttribute(Attribute hideAttribute) {
 				
-		Map<Attribute, Number> attributes = Attribute.getMinorAttribute(hideAttribute);
-		return attributes;
+		return Attribute.getMinorAttribute(hideAttribute);
 	}
 	
 	/**
@@ -393,5 +388,105 @@ public enum Attribute {
 		value.put(Attribute.SKILLHASTE, 10.0);
 		value.put(Attribute.SKILLDURATION, 10.0);
 		return value;		
+	}
+	
+	/**
+	 * Return the weapon core attributes dependly on weapon type 
+	 * @param type WeaponType
+	 * @return Returns a linked hashmap of attributes and their max values
+	 */
+	public static Map<Attribute, Number> getWeaponCoreAttributes(WeaponType type) {
+		Map<Attribute, Number> value = new LinkedHashMap<>();
+		
+		switch(type) {
+			case ASSAULTRIFLE:
+				value.put(Attribute.ASSAULTRIFLEDAMAGE, 15.0);											
+				break;
+			case LIGHTMACHINEGUN:
+				value.put(Attribute.LMGDAMAGE, 15.0);								
+				break;
+			case MARKSMANRIFLE:
+				value.put(Attribute.MARKSMANRIFLEDAMAGE, 15.0);								
+				break;
+			case PISTOL:
+				value.put(Attribute.PISTOLDAMAGE, 15.0);
+				break;
+			case RIFLE:
+				value.put(Attribute.RIFLEDAMAGE, 15.0);								
+				break;
+			case SHOTGUN:
+				value.put(Attribute.SHOTGUNDAMAGE, 15.0);				
+				break;
+			case SUBMACHINEGUN:
+				value.put(Attribute.SMGDAMAGE, 15.0);				
+				break;
+		}		
+		return value;
+	}
+	
+	/**
+	 * Return the weapon second attributes dependly on weapon type
+	 * @param type WeaponType
+	 * @return Returns a linked hashmap of attributes and their max values
+	 */
+	public static Map<Attribute, Number> getWeaponSecondAttributes(WeaponType type) {
+		Map<Attribute, Number> value = new LinkedHashMap<>();
+		
+		switch(type) {
+			case ASSAULTRIFLE:				
+				value.put(Attribute.DAMAGETOHEALTH, 21.0);							
+				break;
+			case LIGHTMACHINEGUN:				
+				value.put(Attribute.DAMAGETOTARGETOUTOFCOVER, 12);				
+				break;
+			case MARKSMANRIFLE:				
+				value.put(Attribute.DAMAGETOTARGETOUTOFCOVER, 111.0);				
+				break;			
+			case RIFLE:				
+				value.put(Attribute.CRITICALHITDAMAGE, 17.0);				
+				break;
+			case SHOTGUN:				
+				value.put(Attribute.DAMAGETOARMOR, 12.0);
+				break;
+			case SUBMACHINEGUN:				
+				value.put(Attribute.CRITICALHITCHANCE, 21.0);
+				break;
+			default:
+		}		
+		return value;
+	}
+	
+	/**
+	 * Return the weapon minor attributes dependly on weapon type
+	 * @param type WeaponType
+	 * @return Returns a linked hashmap of attributes and their max values
+	 */
+	public static Map<Attribute, Number> getWeaponMinorAttributes(WeaponType type) {
+		Map<Attribute, Number> value = new LinkedHashMap<>();
+		
+		if (type != WeaponType.SHOTGUN) {
+			value.put(Attribute.DAMAGETOARMOR, 6.0);
+		}
+		if (type != WeaponType.SUBMACHINEGUN) {
+			value.put(Attribute.CRITICALHITCHANCE, 9.5);
+		}
+		if (type != WeaponType.RIFLE) {
+			value.put(Attribute.CRITICALHITDAMAGE, 10.0);
+		}
+		if (type != WeaponType.MARKSMANRIFLE) {		
+			value.put(Attribute.HEADSHOTDAMAGE, 10);
+		}
+		
+		value.put(Attribute.DAMAGETOTARGETOUTOFCOVER, 10);
+		value.put(Attribute.DAMAGETOARMOR, 6.0);		
+		value.put(Attribute.MAGSIZE, 12.5);
+		value.put(Attribute.SWAPSPEED, 15.0);
+		value.put(Attribute.RELOADSPEED, 12);
+		value.put(Attribute.STABILITY, 12.0);
+		value.put(Attribute.ACCURACY, 12.0);
+		value.put(Attribute.OPTIMALRANGE, 24.0);
+		value.put(Attribute.RATEOFFIRE, 5.0);
+		
+		return value;
 	}
 }

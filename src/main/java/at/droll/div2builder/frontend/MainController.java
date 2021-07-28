@@ -30,12 +30,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import at.droll.div2builder.core.Talent;
+import at.droll.div2builder.core.TalentWeapon;
 import at.droll.div2builder.core.World;
 import at.droll.div2builder.core.attribute.Attribute;
 import at.droll.div2builder.core.inventory.Inventory;
 import at.droll.div2builder.core.inventory.InventorySlot;
 import at.droll.div2builder.core.item.equipment.Equipment;
 import at.droll.div2builder.core.item.weapon.Weapon;
+import at.droll.div2builder.core.item.weapon.WeaponType;
 import at.droll.div2builder.core.statistic.Statistic;
 import at.droll.div2builder.core.statistic.StatsItem;
 import at.droll.div2builder.core.statistic.StatsItemComparator;
@@ -62,7 +64,7 @@ public class MainController {
 	 * Holds the instance of the ThreeTableView on the right side
 	 */
     @FXML
-    private TreeTableView<StatsItem> statisticsTreeTableView = new TreeTableView<StatsItem>();
+    private TreeTableView<StatsItem> statisticsTreeTableView = new TreeTableView<>();
         
     /**
      * Holds the instance of the TitledPane mask on the left side
@@ -119,40 +121,59 @@ public class MainController {
     private TitledPane pistolTitledPane;
         
     /**
-     * Hols the instance of the mask AnchorPane
+     * Holds the instance of the mask AnchorPane
      */
     @FXML
     private AnchorPane maskAnchorPane;
         
     /**
-     * Hols the instance of the backpack AnchorPane
+     * Holds the instance of the backpack AnchorPane
      */
     @FXML
     private AnchorPane backpackAnchorPane;
         
     /**
-     * Hols the instance of the armor AnchorPane
+     * Holds the instance of the armor AnchorPane
      */
     @FXML
     private AnchorPane armorAnchorPane;
     
     /**
-     * Hols the instance of the glove AnchorPane
+     * Holds the instance of the glove AnchorPane
      */
     @FXML
     private AnchorPane gloveAnchorPane;
     
     /**
-     * Hols the instance of the holster AnchorPane
+     * Holds the instance of the holster AnchorPane
      */
     @FXML
     private AnchorPane holsterAnchorPane;
         
     /**
-     * Hols the instance of the kneepad AnchorPane
+     * Holds the instance of the kneepad AnchorPane
      */
     @FXML
     private AnchorPane kneepadAnchorPane;
+    
+    /**
+     * Holds the instance of the primary AnchorPane
+     */
+    @FXML
+    private AnchorPane primaryAnchorPane;
+    
+    /**
+     * Holds the instance of the secondary AnchorPane
+     */
+    @FXML
+    private AnchorPane secondaryAnchorPane;
+        
+    /**
+     * Holds the instance of the pistol AnchorPane
+     */
+    @FXML
+    private AnchorPane pistolAnchorPane;
+    
         
     /**
      * Holds the instance of the Label for the core red color 
@@ -549,24 +570,7 @@ public class MainController {
      */
     @FXML
     private Label kneepadModLabel;
-   
-    /**
-     * Holds instance of the primaryLabel
-     */
-    @FXML
-    private Label primaryLabel;
-    
-    /**
-     * Holds instance of the secondaryLabel
-     */
-    @FXML
-    private Label secondaryLabel;
-    
-    /**
-     * Holds instance of the pistolLabel
-     */
-    @FXML
-    private Label pistolLabel;
+ 
     
     /**
      * Holds instance of the primaryDamageLabel
@@ -591,7 +595,193 @@ public class MainController {
      */
     @FXML
     private Spinner<Integer> headshotChanceSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the primary weapon's core attribute to select
+     */
+    @FXML
+    private ComboBox<Label> primaryCoreComboBox;
+        
+    /**
+     * Holds the spinner for the primary weapon's core attribute value
+     */
+    @FXML
+    private Spinner<Number> primaryCoreSpinner;
     
+    /**
+     * Holds the instance of the ComboBox for the primary weapon's first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> primaryFirstComboBox;
+        
+    /**
+     * Holds the spinner for the primary weapon's first attribute value
+     */
+    @FXML
+    private Spinner<Number> primaryFirstSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the primary weapon's second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> primarySecondComboBox;
+        
+    /**
+     * Holds the spinner for the primary weapon's second attribute value
+     */
+    @FXML
+    private Spinner<Number> primarySecondSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the primary weapon's talent attribute to select
+     */
+    @FXML
+    private ComboBox<Label> primaryTalentComboBox;
+        
+    /**
+     * Holds the spinner for the primary weapon's talent attribute value
+     */
+    @FXML
+    private Spinner<Number> primaryTalentSpinner;   
+        
+    /**
+     * Holds the instance of the ComboBox for the secondary weapon's core attribute to select
+     */
+    @FXML
+    private ComboBox<Label> secondaryCoreComboBox;
+        
+    /**
+     * Holds the spinner for the secondary weapon's core attribute value
+     */
+    @FXML
+    private Spinner<Number> secondaryCoreSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the secondary weapon's first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> secondaryFirstComboBox;
+        
+    /**
+     * Holds the spinner for the secondary weapon's first attribute value
+     */
+    @FXML
+    private Spinner<Number> secondaryFirstSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the secondary weapon's second attribute to select
+     */
+    @FXML
+    private ComboBox<Label> secondarySecondComboBox;
+        
+    /**
+     * Holds the spinner for the secondary weapon's second attribute value
+     */
+    @FXML
+    private Spinner<Number> secondarySecondSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the secondary weapon's talent attribute to select
+     */
+    @FXML
+    private ComboBox<Label> secondaryTalentComboBox;
+        
+    /**
+     * Holds the spinner for the secondary weapon's talent attribute value
+     */
+    @FXML
+    private Spinner<Number> secondaryTalentSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the secondary weapon's core attribute to select
+     */
+    @FXML
+    private ComboBox<Label> pistolCoreComboBox;
+        
+    /**
+     * Holds the spinner for the pistol weapon's core attribute value
+     */
+    @FXML
+    private Spinner<Number> pistolCoreSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the pistol weapon's first attrbute to select
+     */
+    @FXML
+    private ComboBox<Label> pistolFirstComboBox;
+        
+    /**
+     * Holds the spinner for the secondary weapon's first attribute value
+     */
+    @FXML
+    private Spinner<Number> pistolFirstSpinner;
+    
+    /**
+     * Holds the instance of the ComboBox for the pistol attribute to select
+     */
+    @FXML
+    private ComboBox<Label> pistolSecondComboBox;
+        
+    /**
+     * Holds the spinner for the secondary weapon's pistol attribute value
+     */
+    @FXML
+    private Spinner<Number> pistolSecondSpinner;
+        
+    /**
+     * Holds the instance of the ComboBox for the pistol weapon's talent attribute to select
+     */
+    @FXML
+    private ComboBox<Label> pistolTalentComboBox;
+        
+    /**
+     * Holds the spinner for the pistol weapon's talent attribute value
+     */
+    @FXML
+    private Spinner<Number> pistolTalentSpinner;
+    
+    /**
+     * Holds the instance of the pistol first label
+     */
+    @FXML
+    private Label pistolFirstlabel;
+    
+    
+    /**
+     * The name of the css class for TitledPane in red
+     */
+    public static final String COREATTRIBUTEBLUECSSCLASSNAME = "coreAttributeBlue";
+    
+    /**
+     * The name of the css class for TitledPane in yellow
+     */
+    public static final String COREATTRIBUTEYELLOWCSSCLASSNAME = "coreAttributeYellow";
+    
+    /**
+     * The name of the css class for TitledPane in blue
+     */
+    public static final String COREATTRIBUTEREDCSSCLASSNAME = "coreAttributeRed";
+    
+    /**
+     * The default loadout name
+     */
+    public static final String DEFAULTLOADOUTNAME = "Default";
+    
+    /**
+     * The Devider for offensive stats or images
+     */
+    public static final String DEVIDEROFFENSIVE = "offensive";
+    
+    /**
+     * The Devider for defensive stats or images
+     */
+    public static final String DEVIDERDEFENSIVE = "defensive";
+    
+    /**
+     * The Devider for skill stats or images
+     */
+    public static final String DEVIDERSKILL = "skill";
+        
     /**
      * Initializing of the controller
      */
@@ -603,12 +793,12 @@ public class MainController {
 		
 		Inventory inventory = new Inventory();
 		inventory = inventory.createMockupInventory();
-		world.getPlayer().getLoadout("Default").setInventory(inventory);
+		world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).setInventory(inventory);
 		
 		// Adding all main panes to loop over
 		AnchorPane[] anchorPaneList = {
 			maskAnchorPane, backpackAnchorPane, armorAnchorPane,
-			gloveAnchorPane, holsterAnchorPane, kneepadAnchorPane  
+			gloveAnchorPane, holsterAnchorPane, kneepadAnchorPane , primaryAnchorPane, secondaryAnchorPane, pistolAnchorPane
 		};
 		
 		// Handler for all combobox / spinner 
@@ -619,10 +809,11 @@ public class MainController {
 					Spinner<Number> spinner = (Spinner<Number>)node;
 					
 					spinner.valueProperty().addListener((observable, oldValue, newValue) -> {							
-						if (oldValue != null && oldValue != newValue) {								
+						if (oldValue != null && oldValue != newValue) {									
 							
-							Inventory inv = world.getPlayer().getLoadout("Default").getInventory();
-							if (inv.update(spinner, spinner.getUserData().toString(), newValue)) {								
+							Inventory inv = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).getInventory();
+							
+							if (inv.update(spinner, spinner.getUserData().toString(), newValue)) {
 								initializeStatisticsView(inv);
 								initializeDamageStats(headshotChanceSpinner.getValue().toString(), inv);
 								initializeAttributesColorCount(inv);
@@ -632,7 +823,7 @@ public class MainController {
 				} else if (node instanceof ComboBox) {
 					ComboBox<Label> comboBox = (ComboBox<Label>)node;
 			
-					// Only change for the core combobox the headerstyle 
+					// Core ComboBox Listener 
 					if (comboBox.getId().contains("Core")) {
 						comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {							
 							if (oldValue != null && oldValue != newValue) {
@@ -640,12 +831,12 @@ public class MainController {
 								TitledPane target;
 								String classToAdd;
 								
-								if (lbl.getText().contains("ARMOR")) {
-									classToAdd = "coreAttributeBlue";
+								if (lbl.getText().contains(Attribute.ARMOR.toString())) {
+									classToAdd = COREATTRIBUTEBLUECSSCLASSNAME;
 								} else if (lbl.getText().contains("WEAPONDAMAGE")) {
-									classToAdd = "coreAttributeRed";
+									classToAdd = COREATTRIBUTEREDCSSCLASSNAME;
 								} else {
-									classToAdd = "coreAttributeYellow";
+									classToAdd = COREATTRIBUTEYELLOWCSSCLASSNAME;
 								}
 																
 								if (comboBox.getId().contains("mask")) {
@@ -662,15 +853,17 @@ public class MainController {
 									target = kneepadTitledPane;
 								}	
 								
-								target.getStyleClass().removeAll("coreAttributeRed", "coreAttributeBlue", "coreAttributeYellow");
+								target.getStyleClass().removeAll(COREATTRIBUTEREDCSSCLASSNAME, COREATTRIBUTEBLUECSSCLASSNAME, COREATTRIBUTEYELLOWCSSCLASSNAME);
 								target.getStyleClass().add(classToAdd);
 							}
 						});
+						
+					// Talent ComboBox listener
 					} else if (comboBox.getId().contains("Talent")) {
 						comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
 						
 							if (oldValue != null && oldValue != newValue) {
-								Inventory inv = world.getPlayer().getLoadout("Default").getInventory();
+								Inventory inv = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).getInventory();
 							
 								if (inv.update(comboBox.getId(), newValue)) {
 									
@@ -680,12 +873,13 @@ public class MainController {
 								}
 							}
 						});
+					// Mod comboBox listener
 					} else if (comboBox.getId().contains("Mod")) {
 						
 						comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
 							
 							if (oldValue != null && oldValue != newValue) {
-								Inventory inv = world.getPlayer().getLoadout("Default").getInventory();
+								Inventory inv = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).getInventory();
 								Label lbl = observable.getValue();
 								String attribute = lbl.getText().substring(0, lbl.getText().indexOf(" "));
 								
@@ -701,18 +895,21 @@ public class MainController {
 			}
 		}		
 
+		// Checkbox KeenerWatch Action
 		keenerwatchCheckBox.setOnAction(event -> {
-			if (((CheckBox) event.getSource()).isSelected() == false) {
-				world.getPlayer().getLoadout("Default").setStatistic(new Statistic(false));
+			
+			System.err.println( ((CheckBox) event.getSource()).isSelected() );
+			
+			if (((CheckBox) event.getSource()).isSelected()) {				
+				world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).setStatistic(new Statistic(true));
 			} else {
-				world.getPlayer().getLoadout("Default").setStatistic(new Statistic(true));
+				world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).setStatistic(new Statistic(false));
 			}
 			
-			Inventory inv = world.getPlayer().getLoadout("Default").getInventory();
+			Inventory inv = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).getInventory();
 			initializeStatisticsView(inv);
 			initializeDamageStats(headshotChanceSpinner.getValue().toString(), inv);			
 		});
-
 		
 		// All other initializations
 		initializeStatisticsView(inventory);
@@ -726,7 +923,7 @@ public class MainController {
 	 */
 	private void initializeAttributesColorCount(Inventory inventory) {
 		
-		Map<String, Map<String, Integer>> values = world.getPlayer().getLoadout("Default")
+		Map<String, Map<String, Integer>> values = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME)
 							 										.getStatistic()
 							 										.determineRedYellowBlueColors(inventory);
 		
@@ -758,16 +955,16 @@ public class MainController {
 		}
 		
 		// Retrieve the statistic data from the world
-		Map<String, Map<Attribute, Double>> values = world.getPlayer().getLoadout("Default")
+		Map<String, Map<Attribute, Double>> values = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME)
 																	  .getStatistic()
 																	  .calculate(inventory);
 		
 		
-		Map<String, Map<Attribute, Double>> brandsetValues = world.getPlayer().getLoadout("Default")
+		Map<String, Map<Attribute, Double>> brandsetValues = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME)
 																 .getStatistic()
 																 .getBonusByBrandset(inventory);
 		
-		Map<Attribute, Double> basestatValue = world.getPlayer().getLoadout("Default")
+		Map<Attribute, Double> basestatValue = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME)
 				 								 .getStatistic()
 				 								 .getData();
 				
@@ -793,9 +990,7 @@ public class MainController {
 		TreeItem<StatsItem> primaryNode = new TreeItem<>(new StatsItem("Primary Weapon", ""));
 							primaryNode.setExpanded(true);
 		TreeItem<StatsItem> secondaryNode = new TreeItem<>(new StatsItem("Secondary Weapon", ""));
-//							secondaryNode.setExpanded(true);
 		TreeItem<StatsItem> pistolNode = new TreeItem<>(new StatsItem("Pistol", ""));
-//							pistolNode.setExpanded(true);
 							
 		TreeItem<StatsItem> detailNode = new TreeItem<>(new StatsItem("Other", ""));
 		detailNode.setExpanded(true);
@@ -808,9 +1003,7 @@ public class MainController {
 		TreeItem<StatsItem> primaryOffensiveNode = new TreeItem<>(offensiveStatsItem);		
 							primaryOffensiveNode.setExpanded(true);		
 		TreeItem<StatsItem> primaryDefensiveNode = new TreeItem<>(defensiveStatsItem);
-//							primaryDefensiveNode.setExpanded(true);
 		TreeItem<StatsItem> primarySkillNode = new TreeItem<>(skillStatsItem);
-//							primarySkillNode.setExpanded(true);
 			
 		// Nodes for the secondary weapon
 		TreeItem<StatsItem> secondaryOffensiveNode = new TreeItem<>(offensiveStatsItem);		
@@ -838,7 +1031,6 @@ public class MainController {
 			
 		// Nodes for the brandsetstat
 		TreeItem<StatsItem> brandsetNode = new TreeItem<>(new StatsItem("Brandset", ""));		
-//							brandsetNode.setExpanded(true);
 							
 		TreeItem<StatsItem> basestatNode = new TreeItem<>(new StatsItem("Base", ""));		
 							basestatNode.setExpanded(true);
@@ -854,6 +1046,7 @@ public class MainController {
 						case "PRIMARY" -> primaryItems.add(item);
 						case "SECONDARY" -> secondaryItems.add(item);
 						case "PISTOL" -> pistolItems.add(item);
+						default -> throw new IllegalStateException("Unrecognised weapon slot " + weaponslot);
 					}
 				}
 			});						
@@ -867,7 +1060,7 @@ public class MainController {
 			attributes.forEach((attribute, value) -> {
 				StatsItem item;
 				
-				if (attribute.toString().equals(Attribute.WEAPONDAMAGE.toString()) != true) {
+				if (!attribute.toString().equals(Attribute.WEAPONDAMAGE.toString())) {
 					item = new StatsItem(attribute, value);
 					TreeItem<StatsItem> tempItem = new TreeItem<>(item);
 					manuNode.getChildren().add(tempItem);
@@ -901,10 +1094,7 @@ public class MainController {
 				
         statisticsTreeTableView.setRoot(rootNode);
         statisticsTreeTableView.getColumns().add(columnAttribute);
-        statisticsTreeTableView.getColumns().add(columnValue);                
-        
-        // Updating the raw for critical hit chance 
-        //statisticReferences.get("CRITICALHITCHANCE").setValue(new StatsItem("CRITICALHITCHANCE", "150.0"));
+        statisticsTreeTableView.getColumns().add(columnValue);
 	}
 	
 	/**
@@ -925,9 +1115,9 @@ public class MainController {
 		items.forEach(item -> {
 			TreeItem<StatsItem> tempItem = new TreeItem<>(item); 
 			switch(item.getCategory()) {
-				case "offensive" -> offensiveNode.getChildren().add(tempItem);
-				case "defensive" -> defensiveNode.getChildren().add(tempItem);					
-				case "skill" 	 -> skillNode.getChildren().add(tempItem);
+				case DEVIDEROFFENSIVE -> offensiveNode.getChildren().add(tempItem);
+				case DEVIDERDEFENSIVE -> defensiveNode.getChildren().add(tempItem);					
+				default	-> skillNode.getChildren().add(tempItem);
 			}
 		});
 	}
@@ -945,10 +1135,6 @@ public class MainController {
 		TitledPane[] weaponPanes = {
 			primaryTitledPane, secondaryTitledPane, pistolTitledPane
 		};
-		
-		TitledPane[] panes = new TitledPane[equipmentPanes.length + weaponPanes.length];
-		System.arraycopy(equipmentPanes, 0, panes, 0, equipmentPanes.length);		
-		System.arraycopy(weaponPanes,    0, panes, equipmentPanes.length, weaponPanes.length);
 				
 		// Damage calculation for the weapons
 		SpinnerValueFactory<Integer> intSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 50);		
@@ -957,8 +1143,7 @@ public class MainController {
 		
 		headshotChanceSpinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {			
 			initializeDamageStats(newValue, inventory);
-		});
-		
+		});		
 		
 		// Assignment of InventorySlot to corresponding ImageView
 		Map<InventorySlot, ImageView> images = Map.of(
@@ -969,17 +1154,13 @@ public class MainController {
 			InventorySlot.HOLSTER, holsterImageView,
 			InventorySlot.KNEEPAD, kneepadImageView
 		);
-		
-
-		for (TitledPane pane : panes) {			
-			pane.setCollapsible(false);
-		}	
-	
+				
 		
 		for (TitledPane pane : equipmentPanes) {
 			String slotName = pane.getText().toUpperCase();			
 			InventorySlot slot = InventorySlot.valueOf(slotName);
 			Equipment equipment = (Equipment) inventory.getEquipment(slot);
+			pane.setCollapsible(false);
 						
 			if (equipment.isImprovisedItem()) {
 				pane.setText("Improvised " + pane.getText());
@@ -990,7 +1171,7 @@ public class MainController {
 				pane.setText("Normal " + equipment.getManufacturer().getShortname() + " " + pane.getText());
 			}
 			
-			if (equipment.isImprovisedItem() == false) {
+			if (!equipment.isImprovisedItem()) {
 				images.get(slot).setImage(new Image(
 					App.class.getResource("assets/brands/"+ equipment.getManufacturer().getShortname() + ".png").toExternalForm(),
 					true
@@ -999,10 +1180,10 @@ public class MainController {
 			
 			// Dependly on the core Attribute colorize the background of the pane
 			switch(equipment.getCoreAttribute()) {
-				default -> { }
-				case WEAPONDAMAGE -> pane.getStyleClass().add("coreAttributeRed");
-				case ARMOR -> pane.getStyleClass().add("coreAttributeBlue");
-				case SKILLTIER -> pane.getStyleClass().add("coreAttributeYellow");
+				case WEAPONDAMAGE -> pane.getStyleClass().add(COREATTRIBUTEREDCSSCLASSNAME);
+				case ARMOR -> pane.getStyleClass().add(COREATTRIBUTEBLUECSSCLASSNAME);
+				case SKILLTIER -> pane.getStyleClass().add(COREATTRIBUTEYELLOWCSSCLASSNAME);
+				default -> throw new IllegalStateException("Unrecognised core attribute " + equipment.getCoreAttribute());
 			}			
 			
 			// Initialize ComboBox und spinner pairs with preselection and selection values
@@ -1012,30 +1193,33 @@ public class MainController {
 		// Initialize weapon panes
 		initializeDamageStats(headshotChanceSpinner.getValue().toString(), inventory);
 		
-		for (TitledPane pane : weaponPanes) {
-						
+		for (TitledPane pane : weaponPanes) {				
+			
 			String slotName = pane.getText().toUpperCase();			
 			InventorySlot slot = InventorySlot.valueOf(slotName);
 			Weapon weapon = (Weapon) inventory.getEquipment(slot);			
-					
+			pane.setCollapsible(false);			
+			pane.getStyleClass().add("weapon");
+			
 			switch(slot) {
-				case PRIMARY -> {
-					primaryLabel.setText(weapon.getName());					
-				}
-				case SECONDARY -> {
-					secondaryLabel.setText(weapon.getName());					
-				}
-				case PISTOL -> {
-					pistolLabel.setText(weapon.getName());					
-				}
+				case PRIMARY -> pane.setText("Primary Weapon: " + weapon.getName());
+				case SECONDARY -> pane.setText("Secondary Weapon: " + weapon.getName());
+				case PISTOL -> pane.setText("Pistol: " + weapon.getName());
 				default -> {}
 			}
+			
+			if (weapon.isNamedItem()) {			
+				pane.getStyleClass().add("namedItem");
+			}
+			
+			//Initialize ComboBox und spinner pairs with preselection and selection values
+			initializeComboBox(slot, weapon);
 		}
 	}
 	
 	
 	/**
-	 * Preselection of Item inside combobox, prefill of spinner with factory and values
+	 * Preselection of item inside combobox, prefill of spinner with factory and values
 	 * 
 	 * @param comboBox The ComboBox to preselect
 	 * @param spinner The spinner to set the value
@@ -1045,7 +1229,7 @@ public class MainController {
 	 * @param step Step for the spinner
 	 * @param value The desired value to set
 	*/	
-	private void comboBoxSpinnerPreselection(
+	private void preselectionComboBoxSpinner(
 		ComboBox<Label> comboBox,
 		Spinner<?> spinner,
 		String toSelect,
@@ -1055,22 +1239,25 @@ public class MainController {
 		Number value
 	) {
 		
-		ObservableList<Label> options = comboBox.getItems();
-		options.forEach(select -> {
-			String attribute = select.getText().substring(0, select.getText().indexOf(" "));
-			if (attribute.contains(toSelect)) {
-				comboBox.setValue(select);		
-				spinner.setUserData(attribute);
-				
-				initializeSpinner(
-					spinner,
-					min,
-					max,
-					value,
-					step
-				);
-			}			
-		});
+		if (max != null) {
+		
+			ObservableList<Label> options = comboBox.getItems();
+			options.forEach(select -> {
+				String attribute = select.getText().substring(0, select.getText().indexOf(" "));
+				if (attribute.contains(toSelect)) {
+					comboBox.setValue(select);		
+					spinner.setUserData(attribute);
+					
+					initializeSpinner(
+						spinner,
+						min,
+						max,
+						value,
+						step
+					);
+				}			
+			});
+		}
 	}
 	
 	/**
@@ -1079,7 +1266,7 @@ public class MainController {
 	 * @param toSelect Selectable String to preselect
 	 * @param isPerfectTalent Is perfect talent
 	 */
-	private void comboBoxPreselection(
+	private void preselectionComboBox(
 			ComboBox<Label> comboBox,
 			String toSelect,
 			boolean isPerfectTalent
@@ -1090,7 +1277,7 @@ public class MainController {
 			
 			if (attribute.contains(toSelect)) {
 				
-				if (isPerfectTalent == true) {				
+				if (isPerfectTalent) {				
 					select.setText("PERFECT " + select.getText());
 				}
 				comboBox.setValue(select);
@@ -1121,7 +1308,7 @@ public class MainController {
 				step.doubleValue()
 			);
 			
-			doubleSpinner.setValueFactory((SpinnerValueFactory<Double>) doubleFactory);
+			doubleSpinner.setValueFactory(doubleFactory);
 			
 		} else if (initial instanceof Integer) {
 			
@@ -1145,7 +1332,7 @@ public class MainController {
 				);
 			}
 			
-			intSpinner.setValueFactory((SpinnerValueFactory<Integer>) intFactory);
+			intSpinner.setValueFactory(intFactory);
 			
 		} else {
 			throw new IllegalArgumentException("The spinner can't be initialize!");
@@ -1153,15 +1340,22 @@ public class MainController {
 	}
 	
 	/**
-	 * Initialize the combobox
+	 * Initialize the equipment's ComboBoxes
 	 * 
 	 * @param slot Inventory Slot
 	 * @param equipment Equipment
 	 */
 	private void initializeComboBox(InventorySlot slot, Equipment equipment) {
 		
-		ComboBox<Label> coreComboBox, firstComboBox, secondComboBox, modComboBox, talentComboBox;
-		Spinner<Number> coreSpinner, firstSpinner, secondSpinner, modSpinner;
+		ComboBox<Label> coreComboBox;
+		ComboBox<Label> firstComboBox;
+		ComboBox<Label> secondComboBox;
+		ComboBox<Label> modComboBox;
+		ComboBox<Label> talentComboBox;
+		Spinner<Number> coreSpinner;
+		Spinner<Number> firstSpinner;
+		Spinner<Number> secondSpinner;
+		Spinner<Number> modSpinner;
 		Label modLabel;
 		
 		switch(slot) {
@@ -1250,33 +1444,36 @@ public class MainController {
 		// Talent preselection
 		if (talentComboBox != null && (equipment.getSlot() == InventorySlot.ARMOR || equipment.getSlot() == InventorySlot.BACKPACK)) {
 			initializeComboBoxValues(talentComboBox);
-			comboBoxPreselection(talentComboBox, equipment.getTalent().toString(), equipment.isNamedItem());
+			preselectionComboBox(talentComboBox, equipment.getTalent().toString(), equipment.isNamedItem());
 		}
 				
 		// All other preseletions
-		comboBoxSpinnerPreselection(coreComboBox, coreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
-		comboBoxSpinnerPreselection(firstComboBox, firstSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes(equipment).get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
-		comboBoxSpinnerPreselection(secondComboBox, secondSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes(equipment).get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
+		preselectionComboBoxSpinner(coreComboBox, coreSpinner, equipment.getCoreAttribute().toString(), .0, Attribute.getCoreAttributes().get(equipment.getCoreAttribute()), 0.1, equipment.getCoreAttributeValue());				
+		preselectionComboBoxSpinner(firstComboBox, firstSpinner, equipment.getFirstAttribute().toString(), 0, Attribute.getMinorAttributes(equipment).get(equipment.getFirstAttribute()), 0.1, equipment.getFirstAttributeValue());				
+		preselectionComboBoxSpinner(secondComboBox, secondSpinner, equipment.getSecondAttribute().toString(), 0, Attribute.getMinorAttributes(equipment).get(equipment.getSecondAttribute()), 0.1, equipment.getSecondAttributeValue());
 				
 		// Preselections for mods
-		if (modComboBox != null && equipment.isImprovisedItem() || 
+		if (equipment.isImprovisedItem() || 
 			(
 				equipment.getSlot() == InventorySlot.MASK || 
 				equipment.getSlot() == InventorySlot.BACKPACK ||
 				equipment.getSlot() == InventorySlot.ARMOR
 			) 	
 		) {		
-			comboBoxSpinnerPreselection(modComboBox, modSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
+			preselectionComboBoxSpinner(modComboBox, modSpinner, equipment.getMod().getFirstAttribute().toString(), .0, Attribute.getModAttributes().get(equipment.getMod().getFirstAttribute()), 0.1, equipment.getMod().getFirstAttributeValue());
 		}
 		
-		if (equipment.isImprovisedItem() == false && (
+		if (!equipment.isImprovisedItem() && (
 			equipment.getSlot() != InventorySlot.BACKPACK &&
 			equipment.getSlot() != InventorySlot.ARMOR &&
 			equipment.getSlot() != InventorySlot.MASK
 		)) {			
 			modComboBox.setVisible(false);
 			modSpinner.setVisible(false);
-			modLabel.setVisible(false);
+			
+			if (modLabel != null) {
+				modLabel.setVisible(false);
+			}
 		}
 		
 		// Fixing combobox by named items with fixed attributes
@@ -1287,19 +1484,101 @@ public class MainController {
 					firstComboBox.setDisable(true);
 				} else if (nr == 2) {
 					secondComboBox.setDisable(true);
-				} else {
-					// TODO thirdComboBox for i.e. Wyvern's Wears Holster 
-					//kneepadThirdCombo.setDisable(true);
-				}
+				} 
 			});
+			
+			if (talentComboBox != null) {
+				talentComboBox.setDisable(true);
+			}
 		}
 	}
 	
 	/**
-	 * Initialize the combobox, creating items for it and set the action handler
+	 * Initialize the weapon's ComboBoxes
+	 * 
+	 * @param slot Inventory Slot
+	 * @param weapon Weapon
+	 */
+	private void initializeComboBox(InventorySlot slot, Weapon weapon) {
+		
+		ComboBox<Label> coreComboBox;
+		ComboBox<Label> firstComboBox;
+		ComboBox<Label> secondComboBox;		
+		ComboBox<Label> talentComboBox;
+		Spinner<Number> coreSpinner;
+		Spinner<Number> firstSpinner;
+		Spinner<Number> secondSpinner;
+		
+		switch(slot) {
+			default:
+			case PRIMARY:
+				coreComboBox 	= primaryCoreComboBox;
+				firstComboBox 	= primaryFirstComboBox;
+				secondComboBox 	= primarySecondComboBox;				
+				coreSpinner 	= primaryCoreSpinner;
+				firstSpinner 	= primaryFirstSpinner;
+				secondSpinner 	= primarySecondSpinner;				
+				talentComboBox	= primaryTalentComboBox;
+				break;
+			case SECONDARY:
+				coreComboBox 	= secondaryCoreComboBox;
+				firstComboBox 	= secondaryFirstComboBox;
+				secondComboBox 	= secondarySecondComboBox;				
+				coreSpinner 	= secondaryCoreSpinner;
+				firstSpinner 	= secondaryFirstSpinner;
+				secondSpinner 	= secondarySecondSpinner;				
+				talentComboBox	= secondaryTalentComboBox;
+				break;
+			case PISTOL:
+				coreComboBox 	= pistolCoreComboBox;
+				firstComboBox 	= pistolFirstComboBox;
+				secondComboBox 	= pistolSecondComboBox;				
+				coreSpinner 	= pistolCoreSpinner;
+				firstSpinner 	= pistolFirstSpinner;
+				secondSpinner 	= pistolSecondSpinner;				
+				talentComboBox	= pistolTalentComboBox;
+				break;
+			
+		}
+		
+		// Initial values of combobox
+		initializeComboBoxValues(coreComboBox, coreSpinner, weapon);
+		initializeComboBoxValues(firstComboBox, firstSpinner, weapon);
+		initializeComboBoxValues(secondComboBox, secondSpinner, weapon);	
+		
+		
+		// Talent preselection
+		initializeComboBoxValues(talentComboBox, weapon);
+		
+		// Preselections
+		preselectionComboBox(talentComboBox, weapon.getTalent().toString(), weapon.isNamedItem());
+		preselectionComboBoxSpinner(coreComboBox, coreSpinner, weapon.getCoreAttribute().toString(), .0, Attribute.getWeaponCoreAttributes(weapon.getType()).get(weapon.getCoreAttribute()), 0.1, weapon.getCoreAttributeValue());
+		preselectionComboBoxSpinner(firstComboBox, firstSpinner, weapon.getFirstAttribute().toString(), .0, Attribute.getWeaponSecondAttributes(weapon.getType()).get(weapon.getFirstAttribute()), 0.1, weapon.getFirstAttributeValue());
+		
+		preselectionComboBoxSpinner(secondComboBox, secondSpinner, weapon.getSecondAttribute().toString(), .0, Attribute.getWeaponMinorAttributes(weapon.getType()).get(weapon.getSecondAttribute()), 0.1, weapon.getSecondAttributeValue());
+		
+		// If weapon is a named version, don't allow the change the talent
+		if (weapon.isNamedItem()) {
+			talentComboBox.setDisable(true);
+		}
+		
+		// Disabling the ability to change the attribute for the core and second
+		if (weapon.getType() == WeaponType.PISTOL) {
+			pistolFirstlabel.setVisible(false);
+			firstComboBox.setVisible(false);
+			firstSpinner.setVisible(false);
+		}
+		
+		coreComboBox.setDisable(true);
+		firstComboBox.setDisable(true);
+	}
+	
+	/**
+	 * Initialize the equipment's ComboBox values creating items for it and set the action handler
 	 *
 	 * @param comboBox ComboBox to initialize
 	 * @param spinnerbox Assoociated spinnerbox for the ComboBox
+	 * @param equipment Equipment
 	 */
 	private void initializeComboBoxValues(ComboBox<Label> comboBox, Spinner<?> spinnerbox, Equipment equipment) {
 		ObservableList<Label> options = FXCollections.observableArrayList();
@@ -1360,7 +1639,7 @@ public class MainController {
 				case HEADSHOTDAMAGE:
 				case WEAPONHANDLING:
 				case DAMAGETOTARGETOUTOFCOVER:
-					imageView = createAttributeImage("offensive");
+					imageView = createAttributeImage(DEVIDEROFFENSIVE);
 					break;
 					
 				case ARMOR:
@@ -1378,7 +1657,7 @@ public class MainController {
 				case RESISTANCEENSNARE:
 				case RESISTANCEDESORIENT:
 				case RESISTANCESHOCK:
-					imageView = createAttributeImage("defensive");
+					imageView = createAttributeImage(DEVIDERDEFENSIVE);
 					break;				
 				
 				default:
@@ -1388,7 +1667,7 @@ public class MainController {
 				case SKILLHASTE:
 				case SKILLDURATION:
 				case STATUSEFFECTS:
-					imageView = createAttributeImage("utility");
+					imageView = createAttributeImage(DEVIDERSKILL);
 					break;
 			}
 			
@@ -1408,7 +1687,89 @@ public class MainController {
 		};
 		
 		comboBox.setButtonCell(buttonCell);
-		comboBox.setOnAction(e -> inventoryComboBoxActionHandler(e, spinnerbox));
+		comboBox.setOnAction(e -> doInventoryComboBoxActionHandler(e, spinnerbox));
+	}
+	
+	/**
+	 * Initialize the weapon's ComboBox values creating items for it and set the action handler
+	 *
+	 * @param comboBox ComboBox to initialize
+	 * @param spinnerbox Assoociated spinnerbox for the ComboBox
+	 * @param weapon Weapon
+	 */
+	private void initializeComboBoxValues(ComboBox<Label> comboBox, Spinner<?> spinnerbox, Weapon weapon) {
+		ObservableList<Label> options = FXCollections.observableArrayList();
+		Map<Attribute, Number> attributes;		
+		
+		// With what Attributes should the combobox be filled
+		switch(comboBox.getId()) {
+			default:
+			case "primaryCoreComboBox":
+			case "secondaryCoreComboBox":
+			case "pistolCoreComboBox":			
+				attributes = Attribute.getWeaponCoreAttributes(weapon.getType());
+				break;
+			case "primaryFirstComboBox":
+			case "secondaryFirstComboBox":
+				attributes = Attribute.getWeaponSecondAttributes(weapon.getType());
+				break;
+			case "primarySecondComboBox":
+			case "secondarySecondComboBox":
+			case "pistolSecondComboBox":
+				attributes = Attribute.getWeaponMinorAttributes(weapon.getType());
+				break;
+		}
+				
+		attributes.forEach((attribute, value) -> {
+			
+			ImageView imageView;
+			
+			switch(attribute) {
+				case RIFLEDAMAGE:
+				case ASSAULTRIFLEDAMAGE:
+				case SHOTGUNDAMAGE:
+				case MARKSMANRIFLEDAMAGE:
+				case SMGDAMAGE:
+				case LMGDAMAGE:
+				case PISTOLDAMAGE:
+				case DAMAGETOARMOR:
+				case CRITICALHITCHANCE: 
+				case CRITICALHITDAMAGE:
+				case HEADSHOTDAMAGE:				
+				case DAMAGETOTARGETOUTOFCOVER:
+				case SWAPSPEED:
+				case MAGSIZE:
+				case DAMAGETOHEALTH:
+					imageView = createAttributeImage(DEVIDEROFFENSIVE);
+					break;
+				
+				default:
+				case RELOADSPEED:
+				case STABILITY:
+				case ACCURACY:
+				case OPTIMALRANGE:
+				case RATEOFFIRE:
+					imageView = createAttributeImage(DEVIDERSKILL);
+					break;
+			}
+			
+			Label lbl = new Label(attribute.toString() + " Max: " + value.toString());
+			lbl.setGraphic(imageView);
+			lbl.setUserData(value);
+			options.add(lbl);
+			comboBox.setItems(options);
+		});				
+		
+		ListCell<Label> buttonCell = new ListCell<Label>() {
+			@Override
+			protected void updateItem(Label item, boolean isEmpty) {
+				super.updateItem(item, isEmpty);
+				setText(item == null ? "" : item.getText());        
+			}
+		};
+		
+		comboBox.setButtonCell(buttonCell);
+		comboBox.setOnAction(e -> doInventoryComboBoxActionHandler(e, spinnerbox, weapon));
 	}
 	
 	/**
@@ -1432,7 +1793,6 @@ public class MainController {
 				
 		talents.forEach(talent -> {
 			Label lbl = new Label(talent.toString());
-//			lbl.setUserData(value);
 			options.add(lbl);
 			comboBox.setItems(options);
 		});				
@@ -1447,15 +1807,42 @@ public class MainController {
 		
 		comboBox.setButtonCell(buttonCell);
 	}
+	
+	/**
+	 * Initialize the combobox, creating items for it and set the action handler
+	 *
+	 * @param comboBox ComboBox to initialize
+	 * @param weapon Weapon
+	 */
+	private void initializeComboBoxValues(ComboBox<Label> comboBox, Weapon weapon) {
+		ObservableList<Label> options = FXCollections.observableArrayList();
+		List<TalentWeapon> talents;		
+		talents = TalentWeapon.getWeaponTalents(weapon.getType());
+				
+		talents.forEach(talent -> {
+			Label lbl = new Label(talent.toString());
+			options.add(lbl);
+			comboBox.setItems(options);
+		});
+		
+		ListCell<Label> buttonCell = new ListCell<Label>() {
+			@Override
+			protected void updateItem(Label item, boolean isEmpty) {
+				super.updateItem(item, isEmpty);
+				setText(item == null ? "" : item.getText());        
+			}
+		};
+		comboBox.setButtonCell(buttonCell);
+	}
 		
 	/**
-	 * ComboBox actionhandler target for the inventory
+	 * Equipment ComboBox ActionHandler target
 	 * 
 	 * @param event The caused event
 	 * @param spinnerbox The associated spinnerbox to the event
 	 */
 	@SuppressWarnings("unchecked")
-	private void inventoryComboBoxActionHandler(Event event, Spinner<?> spinnerbox) {
+	private void doInventoryComboBoxActionHandler(Event event, Spinner<?> spinnerbox) {
 		
 		ComboBox<Label> comboBox = (ComboBox<Label>)event.getSource();
 		String fxId = comboBox.getId();
@@ -1474,7 +1861,8 @@ public class MainController {
 			case "gloveCoreComboBox":
 			case "holsterCoreComboBox":
 			case "kneepadCoreComboBox":
-				switch(attribute) {				
+								
+				switch(attribute) {					
 					case "WEAPONDAMAGE":
 						initializeSpinner(
 							spinnerbox, 
@@ -1500,16 +1888,10 @@ public class MainController {
 					break;
 						
 					case "SKILLTIER":
-						initializeSpinner(
-							spinnerbox,
-							1,
-							1,
-							0,
-							0
-						);
-						 
+						initializeSpinner(spinnerbox, 1, 1, 0, 0);
 						spinnerbox.setDisable(true);	
 					break;
+					default:
 				}
 			break;
 			
@@ -1563,6 +1945,7 @@ public class MainController {
 						);						
 						spinnerbox.setDisable(false);
 					break;
+					default:
 				}
 			
 				break;
@@ -1611,11 +1994,71 @@ public class MainController {
 						);						
 						spinnerbox.setDisable(false);
 					break;
+					default:
 				}
 					
 			break;
+			default:
 						
 		} // closing fxId
+	}
+	
+	/**
+	 * Weapon ComboBox ActionHandler target
+	 * 
+	 * @param event The caused event
+	 * @param spinnerbox The associated spinnerbox to the event
+	 * @param weapon Weapon
+	 */
+	@SuppressWarnings("unchecked")
+	private void doInventoryComboBoxActionHandler(Event event, Spinner<?> spinnerbox, Weapon weapon) {
+		
+		ComboBox<Label> comboBox = (ComboBox<Label>)event.getSource();
+		Object selectedItem = comboBox.getSelectionModel().getSelectedItem();
+		Label select = (Label)selectedItem;
+		String attribute = select.getText().substring(0, select.getText().indexOf(" "));
+		String fxId = comboBox.getId();
+		
+		// Ditching selected Attribute from combobox to spinner, to access later in changeListener
+		spinnerbox.setUserData(attribute);
+
+		switch(fxId) {
+			case "primaryCoreComboBox":
+			case "secondaryCoreComboBox":
+			case "pistolCoreComboBox":
+				initializeSpinner(
+					spinnerbox, 
+					.0,
+					Attribute.getWeaponCoreAttributes(weapon.getType()).get(Attribute.valueOf(attribute)).doubleValue(),
+					Attribute.getWeaponCoreAttributes(weapon.getType()).get(Attribute.valueOf(attribute)).doubleValue(),
+					0.1
+				);
+			break;
+			
+			case "primaryFirstComboBox":
+			case "secondaryFirstComboBox":
+				initializeSpinner(
+					spinnerbox, 
+					.0,
+					Attribute.getWeaponSecondAttributes(weapon.getType()).get(Attribute.valueOf(attribute)).doubleValue(),
+					Attribute.getWeaponSecondAttributes(weapon.getType()).get(Attribute.valueOf(attribute)).doubleValue(),
+					0.1
+				);
+			break;
+			
+			case "primarySecondComboBox":
+			case "secondarySecondComboBox":
+			case "pistolSecondComboBox":
+				initializeSpinner(
+					spinnerbox, 
+					.0,
+					Attribute.getWeaponMinorAttributes(weapon.getType()).get(Attribute.valueOf(attribute)).doubleValue(),
+					Attribute.getWeaponMinorAttributes(weapon.getType()).get(Attribute.valueOf(attribute)).doubleValue(),
+					0.1
+				);
+			default:
+			break;
+		}
 	}
 	
 	/**
@@ -1625,13 +2068,12 @@ public class MainController {
 	 */
 	private ImageView createAttributeImage(String type) {
 		ImageView imageView = new ImageView();
-		Image image;
 		
-		switch(type) {
-			case "offensive" -> image = new Image(App.class.getResource("assets/offence.png").toExternalForm());
-			case "defensive" -> image = new Image(App.class.getResource("assets/defence.png").toExternalForm());
-			default -> image = new Image(App.class.getResource("assets/utility.png").toExternalForm());
-		}
+		var image = switch(type) {
+			case DEVIDEROFFENSIVE ->  new Image(App.class.getResource("assets/offence.png").toExternalForm());
+			case DEVIDERDEFENSIVE -> new Image(App.class.getResource("assets/defence.png").toExternalForm());
+			default -> new Image(App.class.getResource("assets/utility.png").toExternalForm());
+		};
 		
 		imageView.setImage(image);
 		imageView.setFitHeight(16.0);
@@ -1646,13 +2088,13 @@ public class MainController {
 	 * @param inventory The inventory to make the calculations on
 	 */   
 	
-	public void initializeDamageStats(String headshotChanceString, Inventory inventory) {
+	private void initializeDamageStats(String headshotChanceString, Inventory inventory) {
 		
 		Double headshotChance = Double.parseDouble(headshotChanceString);		
 		headshotChance = headshotChance / 100;
 		Map<String, Double> damage;
 		
-		damage = world.getPlayer().getLoadout("Default").getStatistic()
+		damage = world.getPlayer().getLoadout(DEFAULTLOADOUTNAME).getStatistic()
 														.calculateWeaponDamage(inventory, headshotChance);
 		DecimalFormat decimalFormat = new DecimalFormat("#,###", new DecimalFormatSymbols(Locale.GERMAN));
 		

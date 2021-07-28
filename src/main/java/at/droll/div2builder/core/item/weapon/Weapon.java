@@ -18,6 +18,7 @@ import at.droll.div2builder.core.mod.Modslot;
  * @author Marco Droll
  */
 public class Weapon extends ItemAbstract implements Weaponable {
+
 	
 	/**
 	 * Kind of weapon
@@ -118,6 +119,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param type the type to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setType(WeaponType type) {
 		this.type = type;
 		
@@ -179,6 +181,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @throws ModException If the mod can't be attached
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable addMod(Modslot slot, Mod mod) throws ModException {
 	
 		// If mod in t he wrong slot		
@@ -190,28 +193,28 @@ public class Weapon extends ItemAbstract implements Weaponable {
 
 		switch(slot) {
 			case GRIP:				
-				if (this.allowedModGripList.contains(modIdAsString) == true ) {
+				if (this.allowedModGripList.contains(modIdAsString)) {
 					this.modGrip = mod;					
 				} else {
 					throw new ModException("Current mod is not in the allowed grip mod list!");
 				}
 				break;
 			case MAG:
-				if (this.allowedModMagList.contains(modIdAsString) == true) {										
+				if (this.allowedModMagList.contains(modIdAsString)) {										
 					this.modMag = mod;
 				} else {										
 					throw new ModException("Current mod is not in the allowed mag mod list!");
 				}
 				break;
 			case MUZZLE:
-				if (this.allowedModMuzzleList.contains(modIdAsString) == true) {
+				if (this.allowedModMuzzleList.contains(modIdAsString)) {
 					this.modMuzzle = mod;
 				} else {
 					throw new ModException("Current mod is not in the allowed muzzle mod list!");
 				}
 				break;
 			case OPTICS:
-				if (this.allowedModOpticsList.contains(modIdAsString) == true) {					
+				if (this.allowedModOpticsList.contains(modIdAsString)) {					
 					this.modOptics = mod;					
 				} else {
 					throw new ModException("Current mod is not in the allowed optics mod list!");
@@ -245,6 +248,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param magSize the magSize to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setMagSize(int magSize) {
 		this.magSize = magSize;
 		return (Buildable)this;
@@ -263,6 +267,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param baseDamage the baseDamage to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setBaseDamage(int baseDamage) {
 		this.baseDamage = baseDamage;
 		return (Buildable)this;
@@ -281,6 +286,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param reloadSpeed the reloadSpeed to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setReloadSpeed(double reloadSpeed) {
 		this.reloadSpeed = reloadSpeed;
 		return (Buildable)this;
@@ -299,6 +305,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param talent the talent to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setTalent(TalentWeapon talent) {
 		this.talent = talent;
 		return (Buildable)this;
@@ -317,6 +324,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param talent2 the talent2 to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setTalent2(TalentWeapon talent2) {
 		this.talent2 = talent2;
 		return (Buildable)this;
@@ -335,6 +343,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param list The allowedModOpticsList to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setAllowedModOpticsList(String list) {
 		if (list != null) {
 			this.allowedModOpticsList = Arrays.asList(list.split(","));
@@ -355,6 +364,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param list The allowedModMuzzleList to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setAllowedModMuzzleList(String list) {
 		if (list != null) {
 			this.allowedModMuzzleList = Arrays.asList(list.split(","));
@@ -375,6 +385,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param list The allowedModGripList to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setAllowedModGripList(String list) {
 		if (list != null) {
 			this.allowedModGripList = Arrays.asList(list.split(","));
@@ -395,6 +406,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param list The allowedModMagList to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setAllowedModMagList(String list) {
 		if (list != null) {
 			this.allowedModMagList = Arrays.asList(list.split(","));
@@ -436,6 +448,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param modGrip the modGrip to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setModGrip(Mod modGrip) {
 		this.modGrip = modGrip;
 		return (Buildable)this;
@@ -454,6 +467,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param modMag the modMag to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setModMag(Mod modMag) {		
 		this.modMag = modMag;
 		return (Buildable)this;
@@ -472,6 +486,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param modMuzzle the modMuzzle to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setModMuzzle(Mod modMuzzle) {
 		this.modMuzzle = modMuzzle;
 		return (Buildable)this;
@@ -490,6 +505,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 	 * @param modOptics the modOptics to set
 	 * @return Buildable instance
 	 */
+	@Override
 	public Buildable setModOptics(Mod modOptics) {
 		this.modOptics = modOptics;
 		return (Buildable)this;
@@ -512,6 +528,7 @@ public class Weapon extends ItemAbstract implements Weaponable {
 					.setFixedAttribute(3)
 				;
 				break;
+			default:
 		}
 		super.setName(name);
 		

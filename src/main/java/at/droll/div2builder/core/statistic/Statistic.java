@@ -205,7 +205,6 @@ public class Statistic {
 	
 	/**
 	 * Holds the color count
-	 * TODO Use later for the colours
 	 */
 	private Map<String, Map<String, Integer>> colors = new HashMap<>(); 
 	
@@ -238,7 +237,7 @@ public class Statistic {
         }		
 		
 		// After reaching level 40, the keener watch can be maxed out. Afterthis, these values are default values
-		if (isMaxKeenerWatch == true) {			
+		if (isMaxKeenerWatch) {			
 			
 			this.playerStats.computeIfPresent(
 				Attribute.ACCURACY, (attribute, attributeValue) ->
@@ -311,7 +310,6 @@ public class Statistic {
 	 * Calculate on the given inventory all the statistic values
 	 * @param inventory The inventory on what the calculation should be cone
 	 * @return Returns the statistic dictionary with attribute value pairs
-	 * TODO calculateEquipmentBonus
 	 */
 	public Map<Attribute, Double> calculateEquipmentBonus(Inventory inventory) {		
 		Mod mod;
@@ -335,11 +333,9 @@ public class Statistic {
 					(attribute, attributeValue) -> attributesAndValuesOuter.merge(attribute, attributeValue, Double::sum)
 				);
 		
-				/* 
-				 * TODO Check with an improvised item
-				 * Calculate the bonus if a mod is attached
-				 */
-				mod = (Mod)item.getMod();
+				
+//				Calculate the bonus if a mod is attached				
+				mod = item.getMod();
 				if (mod != null) {					
 					attributesAndValues = mod.getAttributesAndValues();
 					attributesAndValues.forEach(
@@ -445,7 +441,7 @@ public class Statistic {
 				Equipment item = (Equipment) tempItem;
 				
 				// Increase the type of manufacturer to calcuate the bonus for the parts 
-				if (item.isImprovisedItem() != true) {					
+				if (!item.isImprovisedItem()) {					
 					manuBonus.computeIfPresent(
 						item.getManufacturer().getShortname(),
 						(attribute, attributeValue) -> attributeValue + 1
@@ -541,7 +537,8 @@ public class Statistic {
 		
 		Map<String, Integer> minorAttributes = new HashMap<>(coreAttributes);
 		
-		Attribute coreAttribute, minorAttribute;
+		Attribute coreAttribute;
+		Attribute minorAttribute;
 		
 		for (String slot : Inventory.slotList) {
 			ItemAbstract tempItem = inventory.getEquipment(InventorySlot.valueOf(slot));
@@ -648,7 +645,9 @@ public class Statistic {
 		
 		Double factors[] = {1d, 1d, 1d, 1d, 1d, 1d, 1d, 1d};
 		
-		Double term1, term2;
+		Double term1;
+		
+		Double term2;
 		
 		Double enemyArmorPercentage = 0.72;
 		
@@ -656,7 +655,9 @@ public class Statistic {
 		
 		Weapon weapon;
         
-        Equipment armor, backpack;
+        Equipment armor;
+        
+        Equipment backpack;
         
         // Guessed and firstly not considered directly
         // TODO Guess or calculate the correct factor
@@ -670,6 +671,9 @@ public class Statistic {
 			Arrays.fill(factors, 1d);
 			
 			weapon = (Weapon) inventory.getEquipment(InventorySlot.valueOf(slot));
+			
+			//System.out.println(weapon.getName() + " " + weapon.getCoreAttributeValue());
+			
 			baseDamage = Double.valueOf(weapon.getBaseDamage());
 			
 			// Factor1 calculation
@@ -681,25 +685,21 @@ public class Statistic {
 					(inventory.getEquipment(InventorySlot.GLOVE).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.GLOVE).getCoreAttributeValue() : 0) +
 					(inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttributeValue() : 0) +
 					(inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttribute() == Attribute.WEAPONDAMAGE ? inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttributeValue() : 0) + 
-					getData().get(Attribute.WEAPONDAMAGE)				
-					
-//					inventory.getEquipment(InventorySlot.BACKPACK).getCoreAttributeValue() +
-//					inventory.getEquipment(InventorySlot.MASK).getCoreAttributeValue() +
-//					inventory.getEquipment(InventorySlot.HOLSTER).getCoreAttributeValue() +
-//					inventory.getEquipment(InventorySlot.GLOVE).getCoreAttributeValue() +
-//					inventory.getEquipment(InventorySlot.KNEEPAD).getCoreAttributeValue() +
+					getData().get(Attribute.WEAPONDAMAGE)
 			) / 100;
 			
 			// Get the Weapon Damage of the specialization (After level 30) usually 15%
-			switch(weapon.getType()) {
-				case ASSAULTRIFLE -> factors[0] += getData().get(Attribute.ASSAULTRIFLEDAMAGE) / 100;
-				case LIGHTMACHINEGUN -> factors[0] += getData().get(Attribute.LMGDAMAGE) / 100;
-				case MARKSMANRIFLE -> factors[0] += getData().get(Attribute.MARKSMANRIFLEDAMAGE) / 100;
-				case PISTOL -> factors[0] += getData().get(Attribute.PISTOLDAMAGE) / 100;
-				case RIFLE -> factors[0] += getData().get(Attribute.RIFLEDAMAGE) / 100;					
-				case SUBMACHINEGUN -> factors[0] += getData().get(Attribute.SMGDAMAGE) / 100;
-				case SHOTGUN -> factors[0] += getData().get(Attribute.SHOTGUNDAMAGE) / 100;
-			}		
+			factors[0] += switch(weapon.getType()) {
+				case ASSAULTRIFLE -> getData().get(Attribute.ASSAULTRIFLEDAMAGE) / 100;
+				case LIGHTMACHINEGUN -> getData().get(Attribute.LMGDAMAGE) / 100;
+				case MARKSMANRIFLE -> getData().get(Attribute.MARKSMANRIFLEDAMAGE) / 100;
+				case PISTOL -> getData().get(Attribute.PISTOLDAMAGE) / 100;
+				case RIFLE -> getData().get(Attribute.RIFLEDAMAGE) / 100;					
+				case SUBMACHINEGUN -> getData().get(Attribute.SMGDAMAGE) / 100;
+				case SHOTGUN -> getData().get(Attribute.SHOTGUNDAMAGE) / 100;
+			};
+			
+			factors[0] += weapon.getCoreAttributeValue() / 100;
 			
 			// Accumulate brandset bonus i.e. Fenris, Walker to weaponTypeDamage
 			for(Attribute attribute : brandsetStats.keySet()) {
@@ -757,13 +757,13 @@ public class Statistic {
 			armor = (Equipment) inventory.getEquipment(InventorySlot.ARMOR);
 			
 			switch(armor.getTalent()) {
-				case FOCUS -> factors[2] += armor.isNamedItem() == true ? 0.6 : 0.5;				
-				case GLASSCANNON -> factors[2] += armor.isNamedItem() == true ? 0.3 : 0.25;				
+				case FOCUS -> factors[2] += armor.isNamedItem() ? 0.6 : 0.5;				
+				case GLASSCANNON -> factors[2] += armor.isNamedItem() ? 0.3 : 0.25;				
 				case GUNSLINGER -> factors[2] += 0.2;
 				case OBLITERATE -> factors[2] += 0.25;
 				case SPARK -> factors[2] += 0.20;
 				case SPOTTER -> factors[2] += 0.15;				
-				case INITMIDATE -> factors[2] += 0.35;				
+				case INITMIDATE -> factors[2] += 0.35;
 				default -> {}
 			}
 			

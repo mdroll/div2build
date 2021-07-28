@@ -52,7 +52,7 @@ public enum InventorySlot {
 	
 	/**
 	 * Get all equipment slots as array
-	 * @return
+	 * @return Returns the Inventory slots as array
 	 */
 	public static InventorySlot[] getAllEquipmentSlots() {
 		InventorySlot[] slot = {ARMOR, BACKPACK, HOLSTER, KNEEPAD, GLOVE, MASK};

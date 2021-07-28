@@ -231,14 +231,7 @@ public class Inventory implements Equipmentable {
 														   .setTalent(Talent.VIGILIANCE)
 														   .addMod((Mod)World.Registry.get("mod", "CRITICALHITDAMAGE"))
 			;
-			
-//			Equipment backpack = (Equipment) World.Registry.get("equipment", Equipment.THEGIFT)
-//					   .setCore(Attribute.WEAPONDAMAGE, 15.0)
-//					   .setFirst(Attribute.CRITICALHITCHANCE, 6.0)
-//					   .setSecond(Attribute.CRITICALHITDAMAGE, 12.0)
-//					   .addMod((Mod)World.Registry.get("mod", "44"));
-//			;
-			
+					
 			Equipment kneepad = (Equipment) World.Registry.get("equipment", Equipment.FOXSPRAYER)
 														  .setCore(Attribute.WEAPONDAMAGE, 15.0)
 														  .setSecond(Attribute.CRITICALHITDAMAGE, 12.0);
@@ -282,7 +275,8 @@ public class Inventory implements Equipmentable {
 			
 			Weapon pistol = (Weapon) World.Registry.get("weapon", "Orbit")
 												   .setCore(Attribute.PISTOLDAMAGE, 15.0)
-												   .setFirst(Attribute.DAMAGETOARMOR, 6.0)
+												   .setFirst(Attribute.NULL, 0.0)
+												   .setSecond(Attribute.DAMAGETOARMOR, 6.0)
 												   .setTalent(TalentWeapon.FINISHER)
 												   .setModOptics((Mod) World.Registry.get("mod", "1"))
 												   .setModMag((Mod) World.Registry.get("mod", "38"))
@@ -314,35 +308,57 @@ public class Inventory implements Equipmentable {
 	 */
 	public boolean update(Spinner<Number> spinner, String attribute, Number newValue) {
 		
-		Equipment item;
+		Equipment equipment = null;
+		Weapon weapon = null;
 		
 		if (spinner.getId().contains("mask")) {
-			item = (Equipment) mask;
+			equipment = (Equipment) mask;
 		} else if(spinner.getId().contains("backpack")) {
-			item = (Equipment) backpack;
+			equipment = (Equipment) backpack;
 		} else if (spinner.getId().contains("armor")) {
-			item = (Equipment) armor;
+			equipment = (Equipment) armor;
 		} else if (spinner.getId().contains("glove")) {
-			item = (Equipment) glove;
+			equipment = (Equipment) glove;
 		} else if (spinner.getId().contains("holster")) {
-			item = (Equipment) holster;
-		} else  {
-			item = (Equipment)kneepad;
+			equipment = (Equipment) holster;
+		} else if (spinner.getId().contains("primary")) {
+			weapon = (Weapon) primary;
+		} else if (spinner.getId().contains("secondary")) {
+			weapon = (Weapon) secondary; 
+		} else if (spinner.getId().contains("primary")) {
+			weapon = (Weapon) pistol;
+		} else {
+			equipment = (Equipment)kneepad;
 		}
 		
 		try {
-			if (spinner.getId().contains("Core")) {				
-				item.setCore(Attribute.valueOf(attribute), newValue.doubleValue());
-			} else if(spinner.getId().contains("First")) {
-				item.setFirst(Attribute.valueOf(attribute), newValue.doubleValue());
-			} else if(spinner.getId().contains("Second")) {
-				item.setSecond(Attribute.valueOf(attribute), newValue.doubleValue());
-			} else if(spinner.getId().contains("Third")) {
-				item.setThird(Attribute.valueOf(attribute), newValue.doubleValue());
-			} else {
-				item.getMod().setFirstAttributeValue(newValue.doubleValue());
-			}
+			
+			if (equipment != null) {
+			
+				if (spinner.getId().contains("Core")) {				
+					equipment.setCore(Attribute.valueOf(attribute), newValue.doubleValue());
+				} else if(spinner.getId().contains("First")) {
+					equipment.setFirst(Attribute.valueOf(attribute), newValue.doubleValue());
+				} else if(spinner.getId().contains("Second")) {
+					equipment.setSecond(Attribute.valueOf(attribute), newValue.doubleValue());
+				} else if(spinner.getId().contains("Third")) {
+					equipment.setThird(Attribute.valueOf(attribute), newValue.doubleValue());
+				} else {
+					equipment.getMod().setFirstAttributeValue(newValue.doubleValue());
+				}
 
+			} else if (weapon != null) {
+				
+				if (spinner.getId().contains("Core")) {				
+					weapon.setCore(Attribute.valueOf(attribute), newValue.doubleValue());					
+				} else if(spinner.getId().contains("First")) {
+					weapon.setFirst(Attribute.valueOf(attribute), newValue.doubleValue());
+				} else if(spinner.getId().contains("Second")) {
+					weapon.setSecond(Attribute.valueOf(attribute), newValue.doubleValue());
+				} else {
+				}
+			}
+				
 			return true;
 			
 		} catch(AttributeException e) {
@@ -362,17 +378,29 @@ public class Inventory implements Equipmentable {
 	 */	
 	public boolean update(String comboBoxId, Label newValue) {
 		
-		Equipment item;
+		Equipment equipment = null;
+		Weapon weapon = null;
 		
 		if (comboBoxId.contains("backpack")) {
-			item = (Equipment) backpack;
-		} else {
-			item = (Equipment) armor;
-		}
-		Talent talent = Talent.valueOf(newValue.getText());
+			equipment = (Equipment) backpack;
+		} else if (comboBoxId.contains("armor")) {
+			equipment = (Equipment) armor;
+		} else if (comboBoxId.contains("primary")) {
+			weapon = (Weapon) primary;
+		} else if (comboBoxId.contains("secondary")) {
+			weapon = (Weapon) secondary;
+		} else if (comboBoxId.contains("pistol")) {
+			weapon = (Weapon) pistol;
+		} 
 		
 		try {
-			item.setTalent(talent);
+			if (equipment != null) {
+				Talent talent = Talent.valueOf(newValue.getText());
+				equipment.setTalent(talent);
+			} else if (weapon != null) {
+				TalentWeapon talent = TalentWeapon.valueOf(newValue.getText());
+				weapon.setTalent(talent);
+			}			
 			return true;
 		} catch (InventoryException e) {
 			e.getMessage();
@@ -387,6 +415,7 @@ public class Inventory implements Equipmentable {
 	 * Updating inventory / Proxy to talent
 	 * 
 	 * @param comboBoxId fx:id Of the combobox to determine the equipment
+	 * @param attribute Attribute as String
 	 * @param newValue Label with the selected attribute from the combobox
 	 * @return If success it returns true otherwise false
 	 */	

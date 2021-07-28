@@ -21,4 +21,5 @@ module at.droll.div2builder {
     exports at.droll.div2builder.core.statistic;
     exports at.droll.div2builder.core;
     exports at.droll.div2builder.core.mod;
+    exports at.droll.div2builder.core.item.weapon;
 }
